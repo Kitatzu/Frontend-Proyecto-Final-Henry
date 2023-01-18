@@ -3,7 +3,6 @@ import { Icon } from "@iconify/react";
 import { useSelector } from "react-redux";
 import spin from "../assets/spin.png";
 import imageLanding from "../assets/graficaLanding.png";
-import Cards from '../Cards/Cards'
 import "./Home.css";
 
 const Home = () => {
