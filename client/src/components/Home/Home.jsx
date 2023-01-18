@@ -1,6 +1,3 @@
-
-
-
 import { Box, Button, Typography } from "@mui/material";
 import { Icon } from "@iconify/react";
 import { useSelector } from "react-redux";
@@ -12,7 +9,6 @@ const Home = () => {
   const mode = useSelector((store) => store.theme.mode);
   const Theme = useSelector((store) => store.theme);
   return (
-
     <Box
       className="container"
       sx={{
@@ -69,7 +65,6 @@ const Home = () => {
       >
         <img className="spin" src={spin} alt="spin" />
       </Box>
-
     </Box>
   );
 };
