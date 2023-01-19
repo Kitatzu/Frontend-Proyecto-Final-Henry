@@ -7,20 +7,41 @@ export default function SideBar() {
     <Box
       display={"flex"}
       flexDirection="column"
+      justifyContent={"space-between"}
       padding={"20px"}
       sx={{
         height: "calc(100vh - 64px)",
         width: "max-content",
         position: "relative",
         left: "0",
-        background: "#0000",
+        background: "white",
       }}
+      gap="20px"
     >
       <Box>
-        <IconButton>
-          <Icon icon="material-symbols:home-outline-rounded" />
-        </IconButton>
-        <Typography>Inicio</Typography>
+        <Box>
+          <IconButton>
+            <Icon icon="material-symbols:home-outline-rounded" />
+          </IconButton>
+        </Box>
+        <Box>
+          <IconButton>
+            <Icon icon="material-symbols:monitor-outline-rounded" />
+          </IconButton>
+        </Box>
+      </Box>
+
+      <Box>
+        <Box>
+          <IconButton>
+            <Icon icon="material-symbols:shopping-cart-outline-rounded" />
+          </IconButton>
+        </Box>
+        <Box>
+          <IconButton>
+            <Icon icon="vscode-icons:file-type-light-config" />
+          </IconButton>
+        </Box>
       </Box>
     </Box>
   );
