@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import spin from "../assets/spin.png";
 import imageLanding from "../assets/graficaLanding.png";
 import "./Home.css";
+import Nav from "./nav/Nav";
 
 const Home = () => {
   const mode = useSelector((store) => store.theme.mode);
@@ -17,6 +18,7 @@ const Home = () => {
         background: Theme[mode].primary,
       }}
     >
+      <Nav />
       <Box
         sx={{ width: "100%" }}
         display="flex"
