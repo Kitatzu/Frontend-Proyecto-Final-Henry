@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import { Icon } from "@iconify/react";
 import { useSelector } from "react-redux";
-const NameInput = ({ handleChange, handleBlur, form, error }) => {
+const NameInput = () => {
   const mode = useSelector((store) => store.theme.mode);
   const Theme = useSelector((store) => store.theme);
   return (
@@ -26,13 +26,13 @@ const NameInput = ({ handleChange, handleBlur, form, error }) => {
         id="outlined-adornment-name"
         name="name"
         type={"text"}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        value={form.name}
+        // onChange={handleChange}
+        // onBlur={handleBlur}
+        // value={form.name}
         className="Login-input"
         style={{ color: Theme[mode].textPrimary }}
         required
-        error={error}
+        // error={error}
         endAdornment={
           <InputAdornment position="end">
             <IconButton edge="end">

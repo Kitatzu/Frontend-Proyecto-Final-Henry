@@ -26,13 +26,13 @@ const LastNameInput = ({ handleChange, handleBlur, form, error }) => {
         id="outlined-adornment-lastname"
         name="lastname"
         type={"text"}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        value={form.lastname}
+        // onChange={handleChange}
+        // onBlur={handleBlur}
+        // value={form.lastname}
         className="Login-input"
         style={{ color: Theme[mode].textPrimary }}
         required
-        error={error}
+        // error={error}
         endAdornment={
           <InputAdornment position="end">
             <IconButton edge="end">
