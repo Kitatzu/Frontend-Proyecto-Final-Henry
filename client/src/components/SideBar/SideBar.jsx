@@ -5,7 +5,7 @@ import { Box } from "@mui/system";
 export default function SideBar() {
   return (
     <Box
-      display={"flex"}
+      display={{ xs: "none", sm: "flex" }}
       flexDirection="column"
       justifyContent={"space-between"}
       padding={"20px"}
