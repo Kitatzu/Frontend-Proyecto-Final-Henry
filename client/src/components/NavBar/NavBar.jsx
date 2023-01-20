@@ -12,6 +12,7 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import SearchBar from "../SearchBar/SearchBar";
 import Notifications from "./Notifications/Notifications";
 import { Avatar } from "@mui/material";
+import MuiSwitch from "../MuiSwitch/MuiSwitch";
 
 export default function NavBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -80,6 +81,9 @@ export default function NavBar() {
         <Notifications />
         <p>Notifications</p>
       </MenuItem>
+      <MenuItem>
+        <MuiSwitch />
+      </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           size="large"
@@ -109,7 +113,10 @@ export default function NavBar() {
           </Typography>
           <SearchBar />
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+          <Box
+            sx={{ display: { xs: "none", md: "flex" }, alignItems: "center" }}
+          >
+            <MuiSwitch />
             <Notifications />
             <IconButton
               size="large"

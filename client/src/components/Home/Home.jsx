@@ -18,7 +18,7 @@ export default function Home() {
   const mode = useSelector((store) => store.theme.mode);
   const theme = useSelector((store) => store.theme);
   const { products, isLoading } = useSelector((state) => state.products);
-  const { categories = false } = useSelector((store) => store.categories);
+  const categories = useSelector((store) => store.categories.categories);
   const [filter, setFilter] = useState("Todo");
   console.log(categories);
   const handleChange = (e) => {
@@ -118,46 +118,108 @@ export default function Home() {
             </Box>
           </Box>
           <Box marginTop="150px">
-            <Box width="100%" display={"flex"} gap="20px">
-              <Typography component="h2" fontSize="20px">
-                {filter}:
+            <Box width="100%" display={"flex"} gap="20px" flexWrap={"wrap"}>
+              <Typography
+                component="h2"
+                fontSize="20px"
+                sx={{ color: theme[mode].textPrimary }}
+              >
+                {filter.toUpperCase()}:
               </Typography>
-              <select onChange={handleChange}>
+              <select
+                onChange={handleChange}
+                style={{
+                  background: "transparent",
+                  border: "none",
+                  color: theme[mode].textPrimary,
+                }}
+              >
                 <option value="Todo" id="Todo" key="Todo">
                   Todo
                 </option>
                 {categories
                   ? categories.map((cat) => (
-                      <option value={cat.name} id={cat.id} key={cat.id}>
+                      <option
+                        value={cat.name}
+                        id={cat.id}
+                        key={cat.id}
+                        style={{
+                          background: "transparent",
+                          border: "none",
+                          color: theme[mode].textPrimary,
+                        }}
+                      >
                         {cat.name}
                       </option>
                     ))
                   : null}
               </select>
+              <Box display={"flex"} gap="20px" flexWrap={"wrap"}>
+                <Box>
+                  <Typography
+                    component={"label"}
+                    sx={{ color: theme[mode].textPrimary }}
+                  >
+                    Precio minimo:
+                  </Typography>
+                  <input
+                    type="number"
+                    defaultValue={0}
+                    min="0"
+                    style={{
+                      padding: "10px",
+                      border: "none",
+                      background: "#ececec",
+                      borderRadius: "10px",
+                    }}
+                  />
+                </Box>
+                <Box>
+                  <Typography
+                    component={"label"}
+                    sx={{ color: theme[mode].textPrimary }}
+                  >
+                    Precio maximo:
+                  </Typography>
+                  <input
+                    type="number"
+                    defaultValue={0}
+                    min="0"
+                    style={{
+                      padding: "10px",
+                      border: "none",
+                      background: "#ececec",
+                      borderRadius: "10px",
+                    }}
+                  />
+                </Box>
+              </Box>
             </Box>
             <Box
               sx={{
                 display: "flex",
                 gap: "30px",
                 padding: "20px",
+                flexWrap: "wrap",
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
-              {isLoading ? (
-                <div></div>
-              ) : (
-                products?.[0].map((el, id) => {
-                  return (
-                    <Cards
-                      id={id}
-                      img={el.img}
-                      name={el.name}
-                      description={el.description}
-                      rating={el.rating}
-                      price={el.price}
-                    />
-                  );
-                })
-              )}
+              {isLoading && <div></div>}
+              {products
+                ? products.map((el, id) => {
+                    return (
+                      <Cards
+                        id={id}
+                        img={el.img}
+                        name={el.name}
+                        description={el.description}
+                        rating={el.rating}
+                        price={el.price}
+                      />
+                    );
+                  })
+                : null}
             </Box>
           </Box>
         </Box>

@@ -7,7 +7,8 @@ import {
 } from "@mui/material";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
-
+import { useSelector } from "react-redux";
+import imgDefault from "../assets/imgDefault.png";
 // import { useSelector } from "react-redux";
 // import { useEffect } from "react";
 // import { useDispatch } from "react-redux";
@@ -15,18 +16,30 @@ import Stack from "@mui/material/Stack";
 //import { setProducts } from "../../Redux/Slices";
 
 const Cards = ({ id, description, img, name, price, rating }) => {
+  const mode = useSelector((store) => store.theme.mode);
+  const theme = useSelector((store) => store.theme);
+  img = img ? img : imgDefault;
   return (
     <div key={id}>
-      <Card sx={{ width: 210, padding: "10px" }}>
+      <Card sx={{ width: 210, padding: "10px", background: theme[mode].card }}>
         <CardActionArea>
           <CardMedia component="img" height="110" image={img} alt="image" />
           <CardContent
             sx={{ gap: "10px", display: "flex", flexDirection: "column" }}
           >
-            <Typography gutterBottom variant="h7" component="div">
-              {name}
+            <Typography
+              gutterBottom
+              variant="h7"
+              component="div"
+              sx={{ color: theme[mode].textPrimary, fontWeight: "bold" }}
+            >
+              {name.toUpperCase()}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{ color: theme[mode].textPrimary }}
+            >
               {description}
             </Typography>
             <Stack spacing={1}>
@@ -37,7 +50,11 @@ const Cards = ({ id, description, img, name, price, rating }) => {
                 readOnly
               />
             </Stack>
-            <Typography variant="body2" color="text.secondary">
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{ color: theme[mode].textPrimary }}
+            >
               ${price}
             </Typography>
           </CardContent>

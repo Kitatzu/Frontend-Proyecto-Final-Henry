@@ -11,6 +11,7 @@ export const getProducts = () => {
       .get(`${Global.URL}/products`)
       .then((response) => {
         //TODO: PROMESA RESUELTA EN SUCCESS
+        console.log(response.data);
         dispatch(setProducts(response.data));
         dispatch(setLoadingProducts(false));
       })
