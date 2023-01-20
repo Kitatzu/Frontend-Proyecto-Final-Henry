@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box, Button } from "@mui/material";
 import { Icon } from "@iconify/react";
-import Switch from "@mui/material/Switch";
+
 import MuiSwitch from "../../MuiSwitch/MuiSwitch";
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
@@ -35,7 +35,9 @@ const Nav = () => {
             variant="contained"
             sx={{ borderRadius: "20px", fontSize: "10px" }}
             color="secondary"
-            onClick={() => setRedir("register")}
+            onClick={() => {
+              setRedir("register");
+            }}
           >
             Register
           </Button>
