@@ -35,11 +35,11 @@ const PasswordRegisterInput = ({ handleChange, handleBlur, form, error }) => {
         name="registerpassword"
         type={showPassword ? "text" : "password"}
         className="Login-input"
-        onChange={handleChange}
-        onBlur={handleBlur}
-        value={form.registerpassword}
+        // onChange={handleChange}
+        // onBlur={handleBlur}
+        // value={form.registerpassword}
         style={{ color: Theme[mode].textPrimary }}
-        error={error}
+        // error={error}
         endAdornment={
           <InputAdornment position="end">
             <IconButton

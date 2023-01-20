@@ -9,7 +9,7 @@ export default function CountrySelect({ handleChange, handleBlur, form }) {
   return (
     <Autocomplete
       id="country-select-demo"
-      sx={{ width: 300 }}
+      sx={{ m: 1, width: "25ch" }}
       options={countries}
       onChange={(e) => {
         handleChange(e, "country");
