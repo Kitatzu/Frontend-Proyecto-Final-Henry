@@ -1,15 +1,43 @@
 import { Button, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import NavBar from "../../../NavBar/NavBar";
 import SideBar from "../../../SideBar/SideBar";
 import Categories from "./inputs/Categories";
 import Providers from "./inputs/Providers";
-
+import imgDefault from "../../../assets/imgDefault.png";
 export default function CreateProduct() {
   const [newProduct, setNewProduct] = useState({});
-  const handleChange = (e) => {
-    setNewProduct({ ...newProduct, [e.target.name]: e.target.value });
+  const [categories, setCategories] = useState([]);
+  const mode = useSelector((store) => store.theme.mode);
+  const theme = useSelector((store) => store.theme);
+  const handleSave = (e) => {
+    const formData = new FormData();
+    formData.append("name", newProduct.name);
+    // formData.append("userEmail", userEmail);
+    // formData.append("image", image);
+    // formData.append("name", input.name);
+    // formData.append("description", input.description);
+    // formData.append("price", input.price);
+    // formData.append("country", input.country);
+  };
+  const handleChange = (e, type) => {
+    if (type === "categories" && type !== undefined) {
+      console.log(type);
+      setCategories([...categories, e.target.attributes.value.value]);
+      setNewProduct({
+        ...newProduct,
+        categorie: e.target.attributes.value.value,
+      });
+    } else if (type === "providers" && type !== undefined) {
+      setNewProduct({
+        ...newProduct,
+        provider: e.target.attributes.value.value,
+      });
+    } else {
+      setNewProduct({ ...newProduct, [e.target.name]: e.target.value });
+    }
   };
   //   const addServices = (formData) => {
   //     return async function (dispatch) {
@@ -31,25 +59,32 @@ export default function CreateProduct() {
     <Box sx={{ width: "100%", height: "100vh", overflow: "hidden" }}>
       <NavBar />
       <Box display={"flex"}>
-        <SideBar />
         <Box
           sx={{
-            width: "calc(100% - 80px)",
+            width: "100%",
             height: "calc(100vh - 64px)",
             overflow: "scroll",
+            background: theme[mode].primary,
           }}
         >
-          <Box padding={"20px"} display="flex">
+          <Box
+            padding={{ xd: "0px", md: "20px" }}
+            display="flex"
+            flexDirection={{ xs: "column", md: "row" }}
+            justifyContent="center"
+            alignItems={"center"}
+          >
             <Box
               component={"form"}
               display={"flex"}
-              flexDirection="row"
-              justifyContent={"space-between"}
+              flexDirection={{ xs: "column", sm: "row" }}
+              justifyContent={{ xs: "center", sm: "space-between" }}
               alignContent="center"
-              width={"420px"}
+              alignItems={"center"}
+              width={{ xs: "100%", sm: "420px" }}
             >
               <Box
-                width={"45%"}
+                width={{ xs: "100%", sm: "45%" }}
                 gap="10px"
                 display={"flex"}
                 flexDirection="column"
@@ -103,43 +138,82 @@ export default function CreateProduct() {
                 <Box>
                   <TextField
                     label="Precio"
-                    name="precio"
+                    name="price"
                     sx={{ width: "100%" }}
                     onChange={handleChange}
                   />
                 </Box>
               </Box>
               <Box
-                width={"45%"}
+                width={{ xs: "100%", sm: "45%" }}
                 gap="10px"
                 display={"flex"}
                 flexDirection="column"
+                margin={"20px 0"}
               >
-                <Categories />
-                <Providers />
-                <Button variant="contained" color="primary">
+                <Categories handleChange={handleChange} />
+                <Providers handleChange={handleChange} />
+                <TextField type={"file"} />
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleSave}
+                >
                   Guardar
                 </Button>
               </Box>
             </Box>
             <Box
-              sx={{ width: "calc(100% - 420px )" }}
+              sx={{ width: { xs: "100%", md: "calc(100% - 420px )" } }}
               display="flex"
               justifyContent={"center"}
             >
-              <Box>
+              <Box
+                sx={{
+                  background: "white",
+                  padding: "10px",
+                  width: { xs: "100%", md: "max-content" },
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignContent: "center",
+                  alignItems: "center",
+                  border: "2px solid rgba(0,0,0,.2)",
+                  borderRadius: "20px",
+                  margin: "20px 0",
+                }}
+              >
                 <Box sx={{ width: "200px" }}>
-                  <img src="" alt="product" width="100%" />
+                  <img src={imgDefault} alt="product" width="100%" />
                 </Box>
 
-                <Box sx={{ width: "300px", padding: "10px" }}>
-                  <Typography fontWeight={"bold"}>{newProduct.name}</Typography>
-                </Box>
+                <Typography fontWeight={"bold"}>{newProduct.name}</Typography>
+
                 <Box sx={{ width: "300px", padding: "20px" }}>
                   <Typography>{newProduct.description}</Typography>
                 </Box>
                 <Box>
-                  <Typography>{newProduct.serie}</Typography>
+                  <Typography>{"SERIE: " + newProduct.serie}</Typography>
+                </Box>
+
+                <Box>
+                  <Typography>{"Tipo: " + newProduct.type}</Typography>
+                </Box>
+
+                <Box>
+                  <Typography>{"MARCA: " + newProduct.marca}</Typography>
+                </Box>
+
+                <Box>
+                  <Typography>
+                    {"CATEGORIA: " + newProduct.categorie}
+                  </Typography>
+                </Box>
+                <Box>
+                  <Typography>{"PROVEEDOR: " + newProduct.provider}</Typography>
+                </Box>
+                <Box>
+                  <Typography>{"Precio: " + newProduct.price + "$"}</Typography>
                 </Box>
               </Box>
             </Box>

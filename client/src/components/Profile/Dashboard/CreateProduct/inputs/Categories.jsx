@@ -9,11 +9,14 @@ const categories = [
   { id: "04", name: "gpu" },
   { id: "05", name: "gpu" },
 ];
-export default function Categories() {
+export default function Categories({ handleChange }) {
   return (
     <Autocomplete
       disablePortal
       id="combo-box-demo"
+      onChange={(e) => {
+        handleChange(e, "categories");
+      }}
       options={categories}
       getOptionLabel={(option) => option.name}
       renderOption={(props, option) => (

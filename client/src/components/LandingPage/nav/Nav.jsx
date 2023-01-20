@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Button } from "@mui/material";
 import { Icon } from "@iconify/react";
 import Switch from "@mui/material/Switch";
 import MuiSwitch from "../../MuiSwitch/MuiSwitch";
 import { useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
 // import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 
 const Nav = () => {
   const theme = useSelector((store) => store.theme);
   const mode = useSelector((store) => store.theme.mode);
+  const [redir, setRedir] = useState(false);
   return (
     <Box padding={"10px"} position="fixed" width={"100%"}>
+      {redir ? <Redirect to={`/${redir}`} /> : null}
       <Box display={"flex"} justifyContent="space-between">
         <Box display={{ xs: "none", sm: "inline-block" }}>
           <Button
@@ -32,6 +35,7 @@ const Nav = () => {
             variant="contained"
             sx={{ borderRadius: "20px", fontSize: "10px" }}
             color="secondary"
+            onClick={() => setRedir("register")}
           >
             Register
           </Button>
