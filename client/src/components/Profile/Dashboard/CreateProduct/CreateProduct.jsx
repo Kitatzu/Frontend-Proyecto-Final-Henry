@@ -1,4 +1,13 @@
-import { Button, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,18 +16,23 @@ import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
 import Categories from "./inputs/Categories";
 import Providers from "./inputs/Providers";
 import imgDefault from "../../../assets/imgDefault.png";
-import { createProduct } from "../../../../Redux/Thunks/Producst";
+import { addProduct, createProduct } from "../../../../Redux/Thunks/Producst";
 import { getCategories } from "../../../../Redux/Thunks/categories";
 import { getProviders } from "../../../../Redux/Thunks/providers";
 import { Icon } from "@iconify/react";
+import Swal from "sweetalert2";
+import Toast from "../../../Toast/Toast";
+import { getBrands } from "../../../../Redux/Thunks/brand";
+import Brands from "./inputs/Brands";
 export default function CreateProduct() {
   const dispatch = useDispatch();
+  const [addSeries, setAddseries] = useState(false);
   const [newProduct, setNewProduct] = useState({});
   const LoadingProduct = useSelector((store) => store.products.isLoading);
   const mode = useSelector((store) => store.theme.mode);
   const theme = useSelector((store) => store.theme);
   const handleSave = (e) => {
-    const formData = new FormData();
+    // const formData = new FormData();
 
     // formData.append("userEmail", userEmail);
     // formData.append("image", image);
@@ -28,12 +42,36 @@ export default function CreateProduct() {
     // formData.append("country", input.country);
     dispatch(createProduct(newProduct));
   };
+  const [serie, setSerie] = useState("");
+
+  const productId = useSelector((store) => store.products.productCreate.id);
+  const series = useSelector((store) => store.products.productCreate.series);
+  console.log(productId);
+  const handleSerie = (e) => {
+    console.log(e);
+    if (productId) {
+      setSerie(e.target.value);
+    } else {
+      Toast.fire({ icon: "error", title: "No existe producto!" });
+    }
+  };
+  const addSerie = (e) => {
+    if (serie !== "") {
+      dispatch(addProduct(serie, productId));
+      setSerie("");
+    } else {
+      Toast.fire({ icon: "error", title: "Campo vacio!" });
+    }
+  };
   useEffect(() => {
     dispatch(getCategories());
     dispatch(getProviders());
+    dispatch(getBrands());
   }, [dispatch]);
+
   const { categories } = useSelector((store) => store.categories);
   const { providers } = useSelector((store) => store.providers);
+  const { brands } = useSelector((store) => store.brands);
   const handleChange = (e, type) => {
     if (type === "categories" && type !== undefined) {
       console.log(type);
@@ -46,6 +84,11 @@ export default function CreateProduct() {
       setNewProduct({
         ...newProduct,
         proveedor: e.target.attributes.value.value,
+      });
+    } else if (type === "brand" && type !== undefined) {
+      setNewProduct({
+        ...newProduct,
+        brand: e.target.attributes.value.value,
       });
     } else {
       setNewProduct({ ...newProduct, [e.target.name]: e.target.value });
@@ -129,28 +172,11 @@ export default function CreateProduct() {
                     onChange={handleChange}
                   />
                 </Box>
-                <Box>
-                  <TextField
-                    label="N° Serie"
-                    name="serieProducto"
-                    InputProps={{ style: { color: theme[mode].textPrimary } }}
-                    sx={{ width: "100%", color: theme[mode].textPrimary }}
-                    onChange={handleChange}
-                  />
-                </Box>
+
                 <Box>
                   <TextField
                     label="Tipo de producto"
                     name="typeProduct"
-                    InputProps={{ style: { color: theme[mode].textPrimary } }}
-                    sx={{ width: "100%", color: theme[mode].textPrimary }}
-                    onChange={handleChange}
-                  />
-                </Box>
-                <Box>
-                  <TextField
-                    label="Marca"
-                    name="marca"
                     InputProps={{ style: { color: theme[mode].textPrimary } }}
                     sx={{ width: "100%", color: theme[mode].textPrimary }}
                     onChange={handleChange}
@@ -178,6 +204,7 @@ export default function CreateProduct() {
                   categories={categories}
                 />
                 <Providers handleChange={handleChange} providers={providers} />
+                <Brands brands={brands} handleChange={handleChange} />
                 <Box>
                   <TextField
                     label="Imagen URL"
@@ -204,7 +231,9 @@ export default function CreateProduct() {
             <Box
               sx={{ width: { xs: "100%", md: "calc(100% - 420px )" } }}
               display="flex"
+              flexDirection={"column"}
               justifyContent={"center"}
+              alignItems="center"
             >
               <Box
                 sx={{
@@ -221,6 +250,14 @@ export default function CreateProduct() {
                   margin: "20px 0",
                 }}
               >
+                <Box>
+                  <IconButton
+                    color="primary"
+                    onClick={() => setAddseries(true)}
+                  >
+                    <Icon icon="material-symbols:add-circle-outline" />
+                  </IconButton>
+                </Box>
                 <Box sx={{ width: "200px" }}>
                   <img
                     src={newProduct.img ? newProduct.img : imgDefault}
@@ -244,7 +281,7 @@ export default function CreateProduct() {
                 </Box>
                 <Box>
                   <Typography sx={{ color: theme[mode].textPrimary }}>
-                    {"SERIE: " + newProduct.serieProducto}
+                    {"STOCK: " + series.length}
                   </Typography>
                 </Box>
 
@@ -256,7 +293,7 @@ export default function CreateProduct() {
 
                 <Box>
                   <Typography sx={{ color: theme[mode].textPrimary }}>
-                    {"MARCA: " + newProduct.marca}
+                    {"MARCA: " + newProduct.brand}
                   </Typography>
                 </Box>
 
@@ -276,6 +313,55 @@ export default function CreateProduct() {
                   </Typography>
                 </Box>
               </Box>
+              {addSeries ? (
+                <Box>
+                  <List>
+                    {series
+                      ? series.map((serie) => (
+                          <ListItem color="primary">
+                            <ListItemButton color="primary">
+                              <ListItemText
+                                primary={serie}
+                                primaryTypographyProps={{
+                                  color: "primary",
+                                  fontWeight: "medium",
+                                  variant: "body2",
+                                }}
+                                sx={{
+                                  background: "#ffff",
+                                  padding: "5px 20px",
+                                  color: "white !important",
+                                }}
+                              />
+                            </ListItemButton>
+                          </ListItem>
+                        ))
+                      : null}
+                  </List>
+                  <Box>
+                    <TextField
+                      label="N° Serie"
+                      name="serie"
+                      value={serie}
+                      InputProps={{ style: { color: theme[mode].textPrimary } }}
+                      sx={{ width: "100%", color: theme[mode].textPrimary }}
+                      onChange={handleSerie}
+                    />
+                    <LoadingButton
+                      loading={LoadingProduct}
+                      loadingPosition="end"
+                      endIcon={
+                        <Icon icon="material-symbols:save-as-outline-rounded" />
+                      }
+                      variant="contained"
+                      color="secondary"
+                      onClick={addSerie}
+                    >
+                      Agregar
+                    </LoadingButton>
+                  </Box>
+                </Box>
+              ) : null}
             </Box>
           </Box>
         </Box>
