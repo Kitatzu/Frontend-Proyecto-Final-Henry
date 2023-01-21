@@ -17,4 +17,5 @@ export const categoriesSlice = createSlice({
     },
   },
 });
+
 export const { setLoadingCategories, setCategories } = categoriesSlice.actions;

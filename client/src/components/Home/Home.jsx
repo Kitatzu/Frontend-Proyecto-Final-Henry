@@ -23,6 +23,7 @@ export default function Home() {
   console.log(categories);
   const handleChange = (e) => {
     console.log(e.target.value);
+    // dispatch(getProducts())
     setFilter(e.target.value);
   };
   const dispatch = useDispatch();

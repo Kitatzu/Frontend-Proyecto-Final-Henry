@@ -17,6 +17,8 @@ export const productsSlice = createSlice({
       state.products = action.payload;
       state.tempProducts = action.payload;
     },
+    
   },
 });
+
 export const { setLoadingProducts, setProducts } = productsSlice.actions;
