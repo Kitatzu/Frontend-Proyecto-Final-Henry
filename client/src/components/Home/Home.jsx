@@ -21,6 +21,10 @@ export default function Home() {
   const categories = useSelector((store) => store.categories.categories);
   const [filter, setFilter] = useState("Todo");
   console.log(categories);
+  const handleFilterPrice=(e)=>{
+    console.log(e.target.value)
+    setFilter(e.target.value)
+  }
   const handleChange = (e) => {
     console.log(e.target.value);
     // dispatch(getProducts())
@@ -155,7 +159,15 @@ export default function Home() {
                     ))
                   : null}
               </select>
-              <Box display={"flex"} gap="20px" flexWrap={"wrap"}>
+              <div>
+          <label htmlFor="">Ordenar por Precio: </label>
+          <select onChange={(el) => handleFilterPrice(el)}>
+            <option value="">All</option>
+            <option value="mayor">Mayor</option>
+            <option value="menor">Menor</option>
+          </select>
+        </div>
+              {/* <Box display={"flex"} gap="20px" flexWrap={"wrap"}>
                 <Box>
                   <Typography
                     component={"label"}
@@ -194,7 +206,7 @@ export default function Home() {
                     }}
                   />
                 </Box>
-              </Box>
+              </Box> */}
             </Box>
             <Box
               sx={{

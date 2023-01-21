@@ -39,8 +39,3 @@ export const getProductsByName = (name) =>{
      })
   }
 }
-export const orderByPrice=()=>{
-  return async (dispatch)=>{
-    
-  }
-}
