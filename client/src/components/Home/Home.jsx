@@ -13,6 +13,7 @@ import amdImage from "../assets/amd-default-social-image-1200x628.webp";
 import intelImage from "../assets/Intel-nuevo-logo-2-1200x900.png";
 import nvidiaImage from "../assets/02-nvidia-logo-color-blk-500x200-4c25-p@2x.png";
 import { getCategories } from "../../Redux/Thunks/categories";
+import SearchBar from "../SearchBar/SearchBar";
 
 export default function Home() {
   const mode = useSelector((store) => store.theme.mode);
@@ -118,6 +119,9 @@ export default function Home() {
             </Box>
           </Box>
           <Box marginTop="150px">
+            <Box padding="10px" display={{ xs: "block", sm: "none" }}>
+              <SearchBar />
+            </Box>
             <Box width="100%" display={"flex"} gap="20px" flexWrap={"wrap"}>
               <Typography
                 component="h2"
