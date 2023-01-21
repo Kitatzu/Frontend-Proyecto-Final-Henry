@@ -1,15 +1,10 @@
 import * as React from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
+import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
 import { Box } from "@mui/system";
-const categories = [
-  { id: "01", name: "gpu" },
-  { id: "01", name: "gpu" },
-  { id: "01", name: "gpu" },
-  { id: "01", name: "gpu" },
-  { id: "01", name: "gpu" },
-];
-export default function Providers({ handleChange }) {
+
+export default function Providers({ handleChange, providers }) {
   return (
     <Autocomplete
       disablePortal
@@ -17,17 +12,22 @@ export default function Providers({ handleChange }) {
       onChange={(e) => {
         handleChange(e, "providers");
       }}
-      options={categories}
-      getOptionLabel={(option) => option.name}
+      options={providers}
+      getOptionLabel={(option) => option.proveedor}
       renderOption={(props, option) => (
-        <Box component={"li"} {...props} value={option.name} key={option.id}>
-          {option.name}
+        <Box
+          component={"li"}
+          {...props}
+          value={option.proveedor}
+          key={option.id}
+        >
+          {option.proveedor}
         </Box>
       )}
       renderInput={(params) => (
         <TextField
           {...params}
-          label="Providers"
+          label="Proveedores"
           //   style={{ color: Theme[mode].textPrimary }}
           inputProps={{
             ...params.inputProps,

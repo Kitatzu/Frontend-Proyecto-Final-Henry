@@ -1,39 +1,51 @@
 import { Button, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import NavBar from "../../../NavBar/NavBar";
-import SideBar from "../../../SideBar/SideBar";
+import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
 import Categories from "./inputs/Categories";
 import Providers from "./inputs/Providers";
 import imgDefault from "../../../assets/imgDefault.png";
+import { createProduct } from "../../../../Redux/Thunks/Producst";
+import { getCategories } from "../../../../Redux/Thunks/categories";
+import { getProviders } from "../../../../Redux/Thunks/providers";
+import { Icon } from "@iconify/react";
 export default function CreateProduct() {
+  const dispatch = useDispatch();
   const [newProduct, setNewProduct] = useState({});
-  const [categories, setCategories] = useState([]);
+  const LoadingProduct = useSelector((store) => store.products.isLoading);
   const mode = useSelector((store) => store.theme.mode);
   const theme = useSelector((store) => store.theme);
   const handleSave = (e) => {
     const formData = new FormData();
-    formData.append("name", newProduct.name);
+
     // formData.append("userEmail", userEmail);
     // formData.append("image", image);
     // formData.append("name", input.name);
     // formData.append("description", input.description);
     // formData.append("price", input.price);
     // formData.append("country", input.country);
+    dispatch(createProduct(newProduct));
   };
+  useEffect(() => {
+    dispatch(getCategories());
+    dispatch(getProviders());
+  }, [dispatch]);
+  const { categories } = useSelector((store) => store.categories);
+  const { providers } = useSelector((store) => store.providers);
   const handleChange = (e, type) => {
     if (type === "categories" && type !== undefined) {
       console.log(type);
-      setCategories([...categories, e.target.attributes.value.value]);
+
       setNewProduct({
         ...newProduct,
-        categorie: e.target.attributes.value.value,
+        categories: e.target.attributes.value.value,
       });
     } else if (type === "providers" && type !== undefined) {
       setNewProduct({
         ...newProduct,
-        provider: e.target.attributes.value.value,
+        proveedor: e.target.attributes.value.value,
       });
     } else {
       setNewProduct({ ...newProduct, [e.target.name]: e.target.value });
@@ -68,7 +80,7 @@ export default function CreateProduct() {
           }}
         >
           <Box
-            padding={{ xd: "0px", md: "20px" }}
+            padding={{ xs: "10px", md: "20px" }}
             display="flex"
             flexDirection={{ xs: "column", md: "row" }}
             justifyContent="center"
@@ -90,7 +102,11 @@ export default function CreateProduct() {
                 flexDirection="column"
               >
                 <Box padding={"10px 0"}>
-                  <Typography component={"h2"} fontSize="25px">
+                  <Typography
+                    component={"h2"}
+                    fontSize="25px"
+                    sx={{ color: theme[mode].textPrimary }}
+                  >
                     Crear Producto
                   </Typography>
                 </Box>
@@ -98,7 +114,8 @@ export default function CreateProduct() {
                   <TextField
                     label="Nombre del producto"
                     name="name"
-                    sx={{ width: "100%" }}
+                    InputProps={{ style: { color: theme[mode].textPrimary } }}
+                    sx={{ width: "100%", color: theme[mode].textPrimary }}
                     onChange={handleChange}
                   />
                 </Box>
@@ -107,23 +124,26 @@ export default function CreateProduct() {
                     multiline
                     name="description"
                     label="Descripcion"
-                    sx={{ width: "100%" }}
+                    InputProps={{ style: { color: theme[mode].textPrimary } }}
+                    sx={{ width: "100%", color: theme[mode].textPrimary }}
                     onChange={handleChange}
                   />
                 </Box>
                 <Box>
                   <TextField
                     label="N° Serie"
-                    name="serie"
-                    sx={{ width: "100%" }}
+                    name="serieProducto"
+                    InputProps={{ style: { color: theme[mode].textPrimary } }}
+                    sx={{ width: "100%", color: theme[mode].textPrimary }}
                     onChange={handleChange}
                   />
                 </Box>
                 <Box>
                   <TextField
                     label="Tipo de producto"
-                    name="type"
-                    sx={{ width: "100%" }}
+                    name="typeProduct"
+                    InputProps={{ style: { color: theme[mode].textPrimary } }}
+                    sx={{ width: "100%", color: theme[mode].textPrimary }}
                     onChange={handleChange}
                   />
                 </Box>
@@ -131,7 +151,8 @@ export default function CreateProduct() {
                   <TextField
                     label="Marca"
                     name="marca"
-                    sx={{ width: "100%" }}
+                    InputProps={{ style: { color: theme[mode].textPrimary } }}
+                    sx={{ width: "100%", color: theme[mode].textPrimary }}
                     onChange={handleChange}
                   />
                 </Box>
@@ -139,7 +160,8 @@ export default function CreateProduct() {
                   <TextField
                     label="Precio"
                     name="price"
-                    sx={{ width: "100%" }}
+                    InputProps={{ style: { color: theme[mode].textPrimary } }}
+                    sx={{ width: "100%", color: theme[mode].textPrimary }}
                     onChange={handleChange}
                   />
                 </Box>
@@ -151,16 +173,32 @@ export default function CreateProduct() {
                 flexDirection="column"
                 margin={"20px 0"}
               >
-                <Categories handleChange={handleChange} />
-                <Providers handleChange={handleChange} />
-                <TextField type={"file"} />
-                <Button
+                <Categories
+                  handleChange={handleChange}
+                  categories={categories}
+                />
+                <Providers handleChange={handleChange} providers={providers} />
+                <Box>
+                  <TextField
+                    label="Imagen URL"
+                    name="img"
+                    InputProps={{ style: { color: theme[mode].textPrimary } }}
+                    sx={{ width: "100%" }}
+                    onChange={handleChange}
+                  />
+                </Box>
+                <LoadingButton
+                  loading={LoadingProduct}
+                  loadingPosition="end"
+                  endIcon={
+                    <Icon icon="material-symbols:save-as-outline-rounded" />
+                  }
                   variant="contained"
-                  color="primary"
+                  color="secondary"
                   onClick={handleSave}
                 >
                   Guardar
-                </Button>
+                </LoadingButton>
               </Box>
             </Box>
             <Box
@@ -170,7 +208,7 @@ export default function CreateProduct() {
             >
               <Box
                 sx={{
-                  background: "white",
+                  background: theme[mode].cardSecondary,
                   padding: "10px",
                   width: { xs: "100%", md: "max-content" },
                   display: "flex",
@@ -184,36 +222,58 @@ export default function CreateProduct() {
                 }}
               >
                 <Box sx={{ width: "200px" }}>
-                  <img src={imgDefault} alt="product" width="100%" />
+                  <img
+                    src={newProduct.img ? newProduct.img : imgDefault}
+                    alt="product"
+                    width="100%"
+                    style={{ borderRadius: "20px" }}
+                  />
                 </Box>
 
-                <Typography fontWeight={"bold"}>{newProduct.name}</Typography>
+                <Typography
+                  fontWeight={"bold"}
+                  sx={{ color: theme[mode].textPrimary }}
+                >
+                  {newProduct.name}
+                </Typography>
 
                 <Box sx={{ width: "300px", padding: "20px" }}>
-                  <Typography>{newProduct.description}</Typography>
-                </Box>
-                <Box>
-                  <Typography>{"SERIE: " + newProduct.serie}</Typography>
-                </Box>
-
-                <Box>
-                  <Typography>{"Tipo: " + newProduct.type}</Typography>
-                </Box>
-
-                <Box>
-                  <Typography>{"MARCA: " + newProduct.marca}</Typography>
-                </Box>
-
-                <Box>
-                  <Typography>
-                    {"CATEGORIA: " + newProduct.categorie}
+                  <Typography sx={{ color: theme[mode].textPrimary }}>
+                    {newProduct.description}
                   </Typography>
                 </Box>
                 <Box>
-                  <Typography>{"PROVEEDOR: " + newProduct.provider}</Typography>
+                  <Typography sx={{ color: theme[mode].textPrimary }}>
+                    {"SERIE: " + newProduct.serieProducto}
+                  </Typography>
+                </Box>
+
+                <Box>
+                  <Typography sx={{ color: theme[mode].textPrimary }}>
+                    {"Tipo: " + newProduct.typeProduct}
+                  </Typography>
+                </Box>
+
+                <Box>
+                  <Typography sx={{ color: theme[mode].textPrimary }}>
+                    {"MARCA: " + newProduct.marca}
+                  </Typography>
+                </Box>
+
+                <Box>
+                  <Typography sx={{ color: theme[mode].textPrimary }}>
+                    {"CATEGORIA: " + newProduct.categories}
+                  </Typography>
                 </Box>
                 <Box>
-                  <Typography>{"Precio: " + newProduct.price + "$"}</Typography>
+                  <Typography sx={{ color: theme[mode].textPrimary }}>
+                    {"PROVEEDOR: " + newProduct.proveedor}
+                  </Typography>
+                </Box>
+                <Box>
+                  <Typography sx={{ color: theme[mode].textPrimary }}>
+                    {"Precio: " + newProduct.price + "$"}
+                  </Typography>
                 </Box>
               </Box>
             </Box>

@@ -2,14 +2,8 @@ import * as React from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { Box } from "@mui/system";
-const categories = [
-  { id: "01", name: "gpu" },
-  { id: "02", name: "gpu" },
-  { id: "03", name: "gpu" },
-  { id: "04", name: "gpu" },
-  { id: "05", name: "gpu" },
-];
-export default function Categories({ handleChange }) {
+
+export default function Categories({ handleChange, categories }) {
   return (
     <Autocomplete
       disablePortal
