@@ -251,6 +251,7 @@ export default function CreateProduct() {
                 }}
               >
                 <Box>
+                  <Typography>Añadir series</Typography>
                   <IconButton
                     color="primary"
                     onClick={() => setAddseries(true)}

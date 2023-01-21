@@ -23,6 +23,7 @@ export const productsSlice = createSlice({
     },
     setCreateProduct: (state, action) => {
       state.productCreate.id = action.payload;
+      state.productCreate.series = [];
     },
     setSeriesProducts: (state, action) => {
       state.productCreate.series = [
