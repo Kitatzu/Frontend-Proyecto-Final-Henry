@@ -1,33 +1,27 @@
 import * as React from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
 import { Box } from "@mui/system";
 
-export default function Providers({ handleChange, providers }) {
+export default function Brands({ handleChange, brands }) {
   return (
     <Autocomplete
       disablePortal
       id="combo-box-demo"
       onChange={(e) => {
-        handleChange(e, "providers");
+        handleChange(e, "brand");
       }}
-      options={providers}
-      getOptionLabel={(option) => option.proveedor}
+      options={brands}
+      getOptionLabel={(option) => option.brand}
       renderOption={(props, option) => (
-        <Box
-          component={"li"}
-          {...props}
-          value={option.proveedor}
-          key={option.id}
-        >
-          {option.proveedor}
+        <Box component={"li"} {...props} value={option.brand} key={option.id}>
+          {option.brand}
         </Box>
       )}
       renderInput={(params) => (
         <TextField
           {...params}
-          label="Proveedores"
+          label="Marca"
           //   style={{ color: Theme[mode].textPrimary }}
           inputProps={{
             ...params.inputProps,

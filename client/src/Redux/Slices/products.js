@@ -3,8 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   products: null,
   tempProducts: null,
+  productCreate: {
+    id: null,
+    series: [],
+  },
   isLoading: false,
-  
 };
 
 export const productsSlice = createSlice({
@@ -18,7 +21,17 @@ export const productsSlice = createSlice({
       state.products = action.payload;
       state.tempProducts = action.payload;
     },
-    orderByPrice:(state,action)=>{
+    setCreateProduct: (state, action) => {
+      state.productCreate.id = action.payload;
+      state.productCreate.series = [];
+    },
+    setSeriesProducts: (state, action) => {
+      state.productCreate.series = [
+        ...state.productCreate.series,
+        action.payload,
+      ];
+    },
+    orderByPrice: (state, action) => {
       if (action.payload === "menor") {
         return {
           ...state,
@@ -57,8 +70,14 @@ export const productsSlice = createSlice({
           ...state,
           products: state.products,
         };
-  }
+      }
+    },
+  },
+});
 
-}}});
-
-export const { setLoadingProducts, setProducts } = productsSlice.actions;
+export const {
+  setLoadingProducts,
+  setProducts,
+  setCreateProduct,
+  setSeriesProducts,
+} = productsSlice.actions;

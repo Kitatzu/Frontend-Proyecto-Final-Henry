@@ -4,7 +4,7 @@ import { Icon } from "@iconify/react";
 
 import MuiSwitch from "../../MuiSwitch/MuiSwitch";
 import { useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+
 // import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 
 const Nav = () => {
@@ -13,7 +13,7 @@ const Nav = () => {
   const [redir, setRedir] = useState(false);
   return (
     <Box padding={"10px"} position="fixed" width={"100%"}>
-      {redir ? <Redirect to={`/${redir}`} /> : null}
+      {/* {redir ? <Redirect to={`/${redir}`} /> : null} */}
       <Box display={"flex"} justifyContent="space-between">
         <Box display={{ xs: "none", sm: "inline-block" }}>
           <Button
