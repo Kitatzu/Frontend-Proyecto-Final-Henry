@@ -5,11 +5,11 @@ import Global from "../../Global";
 import {
   setCreateProduct,
   setLoadingProducts,
-  setPages,
   setProducts,
+  setProductID,
   setSeriesProducts,
-  setPriceRange,
-} from "../Slices/products";
+  setPages,
+} from "../Slices/Products";
 //closure
 export const getProducts = () => {
   return async (dispatch) => {
@@ -47,6 +47,19 @@ export const getProductsByName = (name) => {
         console.log(response);
       });
   };
+};
+
+export const getProductByID = (id) => {
+  return async (dispatch) => {
+    try{
+      dispatch(setLoadingProducts(true));
+      const response = await axios.get(`${Global.URL}/products/${id}`);
+      dispatch(setProductID(response.data))
+      dispatch(setLoadingProducts(false));
+    } catch(error) {
+      console.log(error)
+    }
+  }
 };
 
 export const createProduct = (form) => {

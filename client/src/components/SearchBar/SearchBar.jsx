@@ -1,7 +1,7 @@
 import { Search, SearchIconWrapper, StyledInputBase } from "./Search/Search";
 import SearchIcon from "@mui/icons-material/Search";
 import { useDispatch } from "react-redux";
-import { getProducts, getProductsByName } from "../../Redux/Thunks/Producst";
+import { getProducts, getProductsByName } from "../../Redux/Thunks/Products";
 export default function SearchBar() {
   const dispatch = useDispatch();
   const handleChange = (e) => {

@@ -6,7 +6,7 @@ import SideBar from "../SideBar/SideBar";
 
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { getPage } from "../../Redux/Thunks/Producst";
+import { getPage } from "../../Redux/Thunks/Products";
 
 import GPUimage from "../assets/rtx3090_1.png";
 import amdImage from "../assets/amd-default-social-image-1200x628.webp";
@@ -20,6 +20,7 @@ export default function Home() {
   const mode = useSelector((store) => store.theme.mode);
   const theme = useSelector((store) => store.theme);
   const { tempProducts, isLoading } = useSelector((state) => state.products);
+  const products = tempProducts?.map(el => el[1])
   const categories = useSelector((store) => store.categories.categories);
   const [filter, setFilter] = useState("Todo");
 
@@ -178,11 +179,12 @@ export default function Home() {
               }}
             >
               {isLoading && <div></div>}
-              {tempProducts
-                ? tempProducts.map((el, id) => {
+              {products
+                ? products.map((el, key) => {
                     return (
                       <Cards
-                        id={id}
+                        key={key}
+                        id={el.id}
                         img={el.img}
                         name={el.name}
                         description={el.description}
