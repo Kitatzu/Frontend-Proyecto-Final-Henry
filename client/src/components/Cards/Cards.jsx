@@ -35,13 +35,13 @@ const Cards = ({ id, description, img, name, price, rating }) => {
             >
               {name.toUpperCase()}
             </Typography>
-            <Typography
+            {/* <Typography
               variant="body2"
               color="text.secondary"
               sx={{ color: theme[mode].textPrimary }}
             >
               {description}
-            </Typography>
+            </Typography> */}
             <Stack spacing={1}>
               <Rating
                 name="half-rating-read"
