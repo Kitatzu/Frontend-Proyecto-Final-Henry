@@ -9,18 +9,20 @@ import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import { useSelector } from "react-redux";
 import imgDefault from "../assets/imgDefault.png";
-// import { useSelector } from "react-redux";
-// import { useEffect } from "react";
-// import { useDispatch } from "react-redux";
-// import { getProducts } from "../../Redux/Thunks/Producst";
-//import { setProducts } from "../../Redux/Slices";
+import { Link } from "react-router-dom";
 
-const Cards = ({ id, description, img, name, price, rating }) => {
+
+const Cards = ({ key, id, description, img, name, price, rating }) => {
   const mode = useSelector((store) => store.theme.mode);
   const theme = useSelector((store) => store.theme);
   img = img ? img : imgDefault;
   return (
-    <div key={id}>
+    <Link 
+       to={{ pathname: `/products/${id}` }} 
+       target="_parent" 
+       rel="noopener noreferer"
+    >
+    <div key={key}>
       <Card sx={{ width: 210, padding: "10px", background: theme[mode].card }}>
         <CardActionArea>
           <CardMedia component="img" height="110" image={img} alt="image" />
@@ -61,7 +63,10 @@ const Cards = ({ id, description, img, name, price, rating }) => {
         </CardActionArea>
       </Card>
     </div>
+    </Link>
   );
 };
+
+    
 
 export default Cards;

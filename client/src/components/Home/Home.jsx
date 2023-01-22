@@ -6,22 +6,22 @@ import SideBar from "../SideBar/SideBar";
 
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { getProducts } from "../../Redux/Thunks/Producst";
+import { getProducts } from "../../Redux/Thunks/Products";
+import { getCategories } from "../../Redux/Thunks/categories";
 
 import GPUimage from "../assets/rtx3090_1.png";
 import amdImage from "../assets/amd-default-social-image-1200x628.webp";
 import intelImage from "../assets/Intel-nuevo-logo-2-1200x900.png";
 import nvidiaImage from "../assets/02-nvidia-logo-color-blk-500x200-4c25-p@2x.png";
-import { getCategories } from "../../Redux/Thunks/categories";
 import SearchBar from "../SearchBar/SearchBar";
 
 export default function Home() {
   const mode = useSelector((store) => store.theme.mode);
   const theme = useSelector((store) => store.theme);
   const { products, isLoading } = useSelector((state) => state.products);
+  console.log(products)
   const categories = useSelector((store) => store.categories.categories);
   const [filter, setFilter] = useState("Todo");
-  console.log(categories);
   const handleChange = (e) => {
     console.log(e.target.value);
     setFilter(e.target.value);
@@ -52,7 +52,7 @@ export default function Home() {
             flexDirection: "column",
 
             padding: { xs: "10px", sm: "20px" },
-            overflow: "scroll",
+            overflow: "hidden",
           }}
         >
           <Box
@@ -69,7 +69,7 @@ export default function Home() {
                 height: "max-content",
                 bottom: " -100px",
                 display: "flex",
-                overflow: "scroll",
+                overflow: "hidden",
                 padding: "10px",
                 justifyContent: { xs: "center", sm: "space-around" },
                 gap: { xs: "20px", sm: "none" },
@@ -211,10 +211,11 @@ export default function Home() {
             >
               {isLoading && <div></div>}
               {products
-                ? products.map((el, id) => {
+                ? products.map((el, key) => {
                     return (
                       <Cards
-                        id={id}
+                        key = {key}
+                        id={el.id}
                         img={el.img}
                         name={el.name}
                         description={el.description}

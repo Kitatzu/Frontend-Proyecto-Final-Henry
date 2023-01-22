@@ -6,8 +6,9 @@ import {
   setCreateProduct,
   setLoadingProducts,
   setProducts,
+  setProductID,
   setSeriesProducts,
-} from "../Slices/products";
+} from "../Slices/Products";
 //closure
 export const getProducts = () => {
   return async (dispatch) => {
@@ -29,6 +30,19 @@ export const getProducts = () => {
       });
   };
 };
+export const getProductByID = (id) => {
+  return async (dispatch) => {
+    try{
+      dispatch(setLoadingProducts(true));
+      const response = await axios.get(`${Global.URL}/products/${id}`);
+      dispatch(setProductID(response.data))
+      dispatch(setLoadingProducts(false));
+    } catch(error) {
+      console.log(error)
+    }
+  }
+};
+
 export const createProduct = (form) => {
   return async (dispatch) => {
     dispatch(setLoadingProducts(true));

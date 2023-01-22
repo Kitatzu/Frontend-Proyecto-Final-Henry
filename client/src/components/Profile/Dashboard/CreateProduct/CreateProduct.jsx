@@ -16,7 +16,7 @@ import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
 import Categories from "./inputs/Categories";
 import Providers from "./inputs/Providers";
 import imgDefault from "../../../assets/imgDefault.png";
-import { addProduct, createProduct } from "../../../../Redux/Thunks/Producst";
+import { addProduct, createProduct } from "../../../../Redux/Thunks/Products";
 import { getCategories } from "../../../../Redux/Thunks/categories";
 import { getProviders } from "../../../../Redux/Thunks/providers";
 import { Icon } from "@iconify/react";
