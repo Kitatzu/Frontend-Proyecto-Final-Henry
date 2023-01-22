@@ -6,7 +6,7 @@ import { getProductByID } from "../../Redux/Thunks/Products";
 import { Box, Typography, Paper, Stack, Rating } from "@mui/material";
 
 const CardsDetails = () => {
-    const { products, isLoading } = useSelector(store => store.products);
+    const { products } = useSelector(store => store.products);
     const dispatch = useDispatch()
     const { id } = useParams();
     console.log(products)
