@@ -36,14 +36,14 @@ export const getProductsByName = (name) => {
   return async (dispatch) => {
     dispatch(setLoadingProducts(true));
     await axios
-      .get(`${Global.URL}/products?name=${name}`)
+      .get(`${Global.URL}/search/${name}`)
       .then((response) => {
         console.log(response);
         dispatch(setProducts(response.data));
         dispatch(setLoadingProducts(false));
       })
       .catch((response) => {
-        alert(response.response.data.msg);
+        // alert(response.response.data.msg);
         console.log(response);
       });
   };
