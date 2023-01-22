@@ -14,24 +14,18 @@ import intelImage from "../assets/Intel-nuevo-logo-2-1200x900.png";
 import nvidiaImage from "../assets/02-nvidia-logo-color-blk-500x200-4c25-p@2x.png";
 import { getCategories } from "../../Redux/Thunks/categories";
 import SearchBar from "../SearchBar/SearchBar";
+import FilterPrice from "../FilterPrice/FilterPrice";
 
 export default function Home() {
   const mode = useSelector((store) => store.theme.mode);
   const theme = useSelector((store) => store.theme);
-  const { products, isLoading } = useSelector((state) => state.products);
+  const { tempProducts, isLoading } = useSelector((state) => state.products);
   const categories = useSelector((store) => store.categories.categories);
   const [filter, setFilter] = useState("Todo");
+  const dispatch = useDispatch()
   console.log(categories);
-  const handleFilterPrice=(e)=>{
-    console.log(e.target.value)
-    setFilter(e.target.value)
-  }
-  const handleChange = (e) => {
-    console.log(e.target.value);
-    // dispatch(getProducts())
-    setFilter(e.target.value);
-  };
-  const dispatch = useDispatch();
+
+
 
   useEffect(() => {
     dispatch(getProducts());
@@ -136,7 +130,7 @@ export default function Home() {
                 {filter.toUpperCase()}:
               </Typography>
               <select
-                onChange={handleChange}
+                // onChange={handleChange}
                 style={{
                   background: "transparent",
                   border: "none",
@@ -148,69 +142,25 @@ export default function Home() {
                 </option>
                 {categories
                   ? categories.map((cat) => (
-                      <option
-                        value={cat.name}
-                        id={cat.id}
-                        key={cat.id}
-                        style={{
-                          background: "transparent",
-                          border: "none",
-                          color: theme[mode].textPrimary,
-                        }}
-                      >
-                        {cat.name}
-                      </option>
-                    ))
+                    <option
+                      value={cat.name}
+                      id={cat.id}
+                      key={cat.id}
+                      style={{
+                        background: "transparent",
+                        border: "none",
+                        color: theme[mode].textPrimary,
+                      }}
+                    >
+                      {cat.name}
+                    </option>
+                  ))
                   : null}
               </select>
-              <div>
-          <label htmlFor="">Ordenar por Precio: </label>
-          <select onChange={(el) => handleFilterPrice(el)}>
-            <option value="">All</option>
-            <option value="mayor">Mayor</option>
-            <option value="menor">Menor</option>
-          </select>
-        </div>
-              {/* <Box display={"flex"} gap="20px" flexWrap={"wrap"}>
-                <Box>
-                  <Typography
-                    component={"label"}
-                    sx={{ color: theme[mode].textPrimary }}
-                  >
-                    Precio minimo:
-                  </Typography>
-                  <input
-                    type="number"
-                    defaultValue={0}
-                    min="0"
-                    style={{
-                      padding: "10px",
-                      border: "none",
-                      background: "#ececec",
-                      borderRadius: "10px",
-                    }}
-                  />
-                </Box>
-                <Box>
-                  <Typography
-                    component={"label"}
-                    sx={{ color: theme[mode].textPrimary }}
-                  >
-                    Precio maximo:
-                  </Typography>
-                  <input
-                    type="number"
-                    defaultValue={0}
-                    min="0"
-                    style={{
-                      padding: "10px",
-                      border: "none",
-                      background: "#ececec",
-                      borderRadius: "10px",
-                    }}
-                  />
-                </Box>
-              </Box> */}
+              <Box>
+                <FilterPrice />
+              </Box>
+              
             </Box>
             <Box
               sx={{
@@ -223,19 +173,19 @@ export default function Home() {
               }}
             >
               {isLoading && <div></div>}
-              {products
-                ? products.map((el, id) => {
-                    return (
-                      <Cards
-                        id={id}
-                        img={el.img}
-                        name={el.name}
-                        description={el.description}
-                        rating={el.rating}
-                        price={el.price}
-                      />
-                    );
-                  })
+              {tempProducts
+                ? tempProducts.map((el, id) => {
+                  return (
+                    <Cards
+                      id={id}
+                      img={el.img}
+                      name={el.name}
+                      description={el.description}
+                      rating={el.rating}
+                      price={el.price}
+                    />
+                  );
+                })
                 : null}
             </Box>
           </Box>

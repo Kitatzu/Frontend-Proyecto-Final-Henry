@@ -8,6 +8,12 @@ const initialState = {
     series: [],
   },
   isLoading: false,
+  filters: {
+    prices: {
+      min: 0,
+      max: 0,
+    },
+  },
 };
 
 export const productsSlice = createSlice({
@@ -31,46 +37,36 @@ export const productsSlice = createSlice({
         action.payload,
       ];
     },
-    orderByPrice: (state, action) => {
-      if (action.payload === "menor") {
-        return {
-          ...state,
-          products: [...state.products].sort(function (a, b) {
-            if (a.price > b.price) {
-              return 1;
-            }
-            if (b.price > a.price) {
-              return -1;
-            }
-            return 0;
-          }),
-        };
-      }
-      if (action.payload === "mayor") {
-        return {
-          ...state,
-          products: [...state.products].sort(function (a, b) {
-            if (a.price > b.price) {
-              return -1;
-            }
-            if (b.price > a.price) {
-              return 1;
-            }
-            return 0;
-          }),
-        };
-      }
-      if (action.payload === "All") {
-        return {
-          ...state,
-          products: state.products,
-        };
-      } else {
-        return {
-          ...state,
-          products: state.products,
-        };
-      }
+    filterPrice: (state, action) => {
+      state.filters.prices[action.payload.name] = action.payload.value;
+    },
+    filterProduct: (state) => {
+      if (parseInt(state.filters.prices.min) > 0)
+        state.tempProducts = state.products.filter(
+          (p) => parseFloat(p.price) >= parseFloat(state.filters.prices.min)
+        );
+
+      if (parseInt(state.filters.prices.max) > 0)
+        state.tempProducts = state.products.filter(
+          (p) => parseFloat(p.price) <= parseFloat(state.filters.prices.max)
+        );
+
+      if (
+        parseInt(state.filters.prices.min) > 0 &&
+        parseInt(state.filters.prices.max) > 0
+      )
+        state.tempProducts = state.products.filter(
+          (p) =>
+            parseFloat(p.price) <= parseFloat(state.filters.prices.max) &&
+            parseFloat(p.price) >= parseFloat(state.filters.prices.min)
+        );
+      if (
+        (parseInt(state.filters.prices.min) === 0 ||
+          parseInt(state.filters.prices.min) === "") &&
+        (parseInt(state.filters.prices.max) === 0 ||
+          parseInt(state.filters.prices.max) === "")
+      )
+        state.tempProducts = state.products;
     },
   },
 });
@@ -80,4 +76,7 @@ export const {
   setProducts,
   setCreateProduct,
   setSeriesProducts,
+  setPriceRange,
+  filterPrice,
+  filterProduct
 } = productsSlice.actions;

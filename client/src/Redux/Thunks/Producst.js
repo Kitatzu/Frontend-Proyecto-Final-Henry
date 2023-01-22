@@ -7,6 +7,7 @@ import {
   setLoadingProducts,
   setProducts,
   setSeriesProducts,
+  setPriceRange
 } from "../Slices/products";
 //closure
 export const getProducts = () => {
@@ -73,6 +74,7 @@ export const createProduct = (form) => {
       });
   };
 };
+
 
 export const addProduct = (serie, productId) => {
   console.log(productId);
