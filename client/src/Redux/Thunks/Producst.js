@@ -8,6 +8,7 @@ import {
   setPages,
   setProducts,
   setSeriesProducts,
+  setPriceRange,
 } from "../Slices/products";
 //closure
 export const getProducts = () => {
@@ -30,6 +31,24 @@ export const getProducts = () => {
       });
   };
 };
+
+export const getProductsByName = (name) => {
+  return async (dispatch) => {
+    dispatch(setLoadingProducts(true));
+    await axios
+      .get(`${Global.URL}/products?name=${name}`)
+      .then((response) => {
+        console.log(response);
+        dispatch(setProducts(response.data));
+        dispatch(setLoadingProducts(false));
+      })
+      .catch((response) => {
+        alert(response.response.data.msg);
+        console.log(response);
+      });
+  };
+};
+
 export const createProduct = (form) => {
   return async (dispatch) => {
     dispatch(setLoadingProducts(true));

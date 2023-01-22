@@ -14,20 +14,21 @@ import intelImage from "../assets/Intel-nuevo-logo-2-1200x900.png";
 import nvidiaImage from "../assets/02-nvidia-logo-color-blk-500x200-4c25-p@2x.png";
 import { getCategories } from "../../Redux/Thunks/categories";
 import SearchBar from "../SearchBar/SearchBar";
+import FilterPrice from "../FilterPrice/FilterPrice";
 
 export default function Home() {
   const mode = useSelector((store) => store.theme.mode);
   const theme = useSelector((store) => store.theme);
-  const { products, isLoading } = useSelector((state) => state.products);
+  const { tempProducts, isLoading } = useSelector((state) => state.products);
   const categories = useSelector((store) => store.categories.categories);
   const [filter, setFilter] = useState("Todo");
+
   const { pages } = useSelector((store) => store.products);
-  console.log(pages);
-  console.log(products);
-  const handleChange = (e) => {
-    console.log(e.target.value);
-    setFilter(e.target.value);
-  };
+
+  // const handleChange = (e) => {
+  //   console.log(e.target.value);
+  //   setFilter(e.target.value);
+  // };
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -135,7 +136,7 @@ export default function Home() {
                 {filter.toUpperCase()}:
               </Typography>
               <select
-                onChange={handleChange}
+                // onChange={handleChange}
                 style={{
                   background: "transparent",
                   border: "none",
@@ -162,45 +163,8 @@ export default function Home() {
                     ))
                   : null}
               </select>
-              <Box display={"flex"} gap="20px" flexWrap={"wrap"}>
-                <Box>
-                  <Typography
-                    component={"label"}
-                    sx={{ color: theme[mode].textPrimary }}
-                  >
-                    Precio minimo:
-                  </Typography>
-                  <input
-                    type="number"
-                    defaultValue={0}
-                    min="0"
-                    style={{
-                      padding: "10px",
-                      border: "none",
-                      background: "#ececec",
-                      borderRadius: "10px",
-                    }}
-                  />
-                </Box>
-                <Box>
-                  <Typography
-                    component={"label"}
-                    sx={{ color: theme[mode].textPrimary }}
-                  >
-                    Precio maximo:
-                  </Typography>
-                  <input
-                    type="number"
-                    defaultValue={0}
-                    min="0"
-                    style={{
-                      padding: "10px",
-                      border: "none",
-                      background: "#ececec",
-                      borderRadius: "10px",
-                    }}
-                  />
-                </Box>
+              <Box>
+                <FilterPrice />
               </Box>
             </Box>
             <Box
@@ -214,8 +178,8 @@ export default function Home() {
               }}
             >
               {isLoading && <div></div>}
-              {products
-                ? products.map((el, id) => {
+              {tempProducts
+                ? tempProducts.map((el, id) => {
                     return (
                       <Cards
                         id={id}
