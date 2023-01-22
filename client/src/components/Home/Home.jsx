@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Alert, Box, Pagination, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import Cards from "../Cards/Cards";
 import NavBar from "../NavBar/NavBar";
@@ -6,7 +6,7 @@ import SideBar from "../SideBar/SideBar";
 
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { getProducts } from "../../Redux/Thunks/Producst";
+import { getPage } from "../../Redux/Thunks/Producst";
 
 import GPUimage from "../assets/rtx3090_1.png";
 import amdImage from "../assets/amd-default-social-image-1200x628.webp";
@@ -14,22 +14,26 @@ import intelImage from "../assets/Intel-nuevo-logo-2-1200x900.png";
 import nvidiaImage from "../assets/02-nvidia-logo-color-blk-500x200-4c25-p@2x.png";
 import { getCategories } from "../../Redux/Thunks/categories";
 import SearchBar from "../SearchBar/SearchBar";
+import FilterPrice from "../FilterPrice/FilterPrice";
 
 export default function Home() {
   const mode = useSelector((store) => store.theme.mode);
   const theme = useSelector((store) => store.theme);
-  const { products, isLoading } = useSelector((state) => state.products);
+  const { tempProducts, isLoading } = useSelector((state) => state.products);
   const categories = useSelector((store) => store.categories.categories);
   const [filter, setFilter] = useState("Todo");
-  console.log(categories);
-  const handleChange = (e) => {
-    console.log(e.target.value);
-    setFilter(e.target.value);
-  };
+
+  const { pages } = useSelector((store) => store.products);
+
+  // const handleChange = (e) => {
+  //   console.log(e.target.value);
+  //   setFilter(e.target.value);
+  // };
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getProducts());
+    dispatch(getPage(0));
+    dispatch(getPage(1));
     dispatch(getCategories());
   }, [dispatch]);
 
@@ -75,6 +79,7 @@ export default function Home() {
                 gap: { xs: "20px", sm: "none" },
                 alignItems: "center",
               }}
+              className="container"
             >
               <Box
                 sx={{
@@ -131,7 +136,7 @@ export default function Home() {
                 {filter.toUpperCase()}:
               </Typography>
               <select
-                onChange={handleChange}
+                // onChange={handleChange}
                 style={{
                   background: "transparent",
                   border: "none",
@@ -158,45 +163,8 @@ export default function Home() {
                     ))
                   : null}
               </select>
-              <Box display={"flex"} gap="20px" flexWrap={"wrap"}>
-                <Box>
-                  <Typography
-                    component={"label"}
-                    sx={{ color: theme[mode].textPrimary }}
-                  >
-                    Precio minimo:
-                  </Typography>
-                  <input
-                    type="number"
-                    defaultValue={0}
-                    min="0"
-                    style={{
-                      padding: "10px",
-                      border: "none",
-                      background: "#ececec",
-                      borderRadius: "10px",
-                    }}
-                  />
-                </Box>
-                <Box>
-                  <Typography
-                    component={"label"}
-                    sx={{ color: theme[mode].textPrimary }}
-                  >
-                    Precio maximo:
-                  </Typography>
-                  <input
-                    type="number"
-                    defaultValue={0}
-                    min="0"
-                    style={{
-                      padding: "10px",
-                      border: "none",
-                      background: "#ececec",
-                      borderRadius: "10px",
-                    }}
-                  />
-                </Box>
+              <Box>
+                <FilterPrice />
               </Box>
             </Box>
             <Box
@@ -210,8 +178,8 @@ export default function Home() {
               }}
             >
               {isLoading && <div></div>}
-              {products
-                ? products.map((el, id) => {
+              {tempProducts
+                ? tempProducts.map((el, id) => {
                     return (
                       <Cards
                         id={id}
@@ -224,6 +192,26 @@ export default function Home() {
                     );
                   })
                 : null}
+            </Box>
+            <Box
+              width={"100%"}
+              padding="20px"
+              display={"flex"}
+              justifyContent="center"
+            >
+              {pages ? (
+                <Pagination
+                  count={pages}
+                  color="secondary"
+                  onChange={(e) => {
+                    console.log(e);
+
+                    dispatch(getPage(e.target.innerText));
+                  }}
+                />
+              ) : (
+                <Alert severity="error">No hay stock disponible!</Alert>
+              )}
             </Box>
           </Box>
         </Box>

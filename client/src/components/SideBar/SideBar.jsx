@@ -1,11 +1,14 @@
 import { Icon } from "@iconify/react";
 import { IconButton, Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import { useState } from "react";
 import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 
 export default function SideBar() {
   const mode = useSelector((store) => store.theme.mode);
   const theme = useSelector((store) => store.theme);
+  const [redir, setRedir] = useState(false);
   return (
     <Box
       display={{ xs: "none", sm: "flex" }}
@@ -22,9 +25,10 @@ export default function SideBar() {
       }}
       gap="20px"
     >
+      {redir ? <Navigate to={"/" + redir} replace={true} /> : null}
       <Box>
         <Box>
-          <IconButton>
+          <IconButton onClick={() => setRedir("home")}>
             <Icon
               icon="material-symbols:home-outline-rounded"
               color={theme[mode].textPrimary}
@@ -42,7 +46,7 @@ export default function SideBar() {
       </Box>
 
       <Box>
-        <Box>
+        <Box display="none">
           <IconButton>
             <Icon
               icon="material-symbols:shopping-cart-outline-rounded"
@@ -51,7 +55,7 @@ export default function SideBar() {
           </IconButton>
         </Box>
         <Box>
-          <IconButton>
+          <IconButton onClick={() => setRedir("dashboard/crud")}>
             <Icon
               icon="vscode-icons:file-type-light-config"
               color={theme[mode].textPrimary}

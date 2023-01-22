@@ -20,10 +20,11 @@ import { addProduct, createProduct } from "../../../../Redux/Thunks/Producst";
 import { getCategories } from "../../../../Redux/Thunks/categories";
 import { getProviders } from "../../../../Redux/Thunks/providers";
 import { Icon } from "@iconify/react";
-import Swal from "sweetalert2";
+
 import Toast from "../../../Toast/Toast";
 import { getBrands } from "../../../../Redux/Thunks/brand";
 import Brands from "./inputs/Brands";
+import SideBar from "../../../SideBar/SideBar";
 export default function CreateProduct() {
   const dispatch = useDispatch();
   const [addSeries, setAddseries] = useState(false);
@@ -114,9 +115,10 @@ export default function CreateProduct() {
     <Box sx={{ width: "100%", height: "100vh", overflow: "hidden" }}>
       <NavBar />
       <Box display={"flex"}>
+        <SideBar />
         <Box
           sx={{
-            width: "100%",
+            width: { xs: "100%", sm: "calc(100% - 80px)" },
             height: "calc(100vh - 64px)",
             overflow: "scroll",
             background: theme[mode].primary,

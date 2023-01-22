@@ -5,8 +5,10 @@ import Global from "../../Global";
 import {
   setCreateProduct,
   setLoadingProducts,
+  setPages,
   setProducts,
   setSeriesProducts,
+  setPriceRange,
 } from "../Slices/products";
 //closure
 export const getProducts = () => {
@@ -29,6 +31,24 @@ export const getProducts = () => {
       });
   };
 };
+
+export const getProductsByName = (name) => {
+  return async (dispatch) => {
+    dispatch(setLoadingProducts(true));
+    await axios
+      .get(`${Global.URL}/search/${name}`)
+      .then((response) => {
+        console.log(response);
+        dispatch(setProducts(response.data));
+        dispatch(setLoadingProducts(false));
+      })
+      .catch((response) => {
+        // alert(response.response.data.msg);
+        console.log(response);
+      });
+  };
+};
+
 export const createProduct = (form) => {
   return async (dispatch) => {
     dispatch(setLoadingProducts(true));
@@ -73,4 +93,31 @@ export const addProduct = (serie, productId) => {
         Toast.fire({ icon: "error", title: response.response.data.msg });
       });
   };
+};
+
+export const getPage = (page) => {
+  if (parseInt(page) === 0) {
+    return async (dispatch) => {
+      await axios
+        .get(`${Global.URL}/products/page/${page}`)
+        .then((response) => {
+          dispatch(setPages(response.data.pages));
+        })
+        .catch((response) => {
+          Toast.fire({ icon: "error", title: response.response.data.msg });
+        });
+    };
+  } else {
+    return async (dispatch) => {
+      await axios
+        .get(`${Global.URL}/products/page/${page}`)
+        .then((response) => {
+          dispatch(setProducts(response.data));
+        })
+        .catch((response) => {
+          console.log(response);
+          Toast.fire({ icon: "error", title: response.response.data.msg });
+        });
+    };
+  }
 };
