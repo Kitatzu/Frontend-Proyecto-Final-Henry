@@ -1,4 +1,4 @@
 const Global = {
-  URL: "http://localhost:3001",
+  URL: "https://proyecto-final-henry.onrender.com",
 };
 export default Global;

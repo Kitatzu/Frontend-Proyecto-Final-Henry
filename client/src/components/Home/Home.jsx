@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Alert, Box, Pagination, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import Cards from "../Cards/Cards";
 import NavBar from "../NavBar/NavBar";
@@ -6,7 +6,7 @@ import SideBar from "../SideBar/SideBar";
 
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { getProducts } from "../../Redux/Thunks/Producst";
+import { getPage } from "../../Redux/Thunks/Producst";
 
 import GPUimage from "../assets/rtx3090_1.png";
 import amdImage from "../assets/amd-default-social-image-1200x628.webp";
@@ -22,13 +22,18 @@ export default function Home() {
   const { tempProducts, isLoading } = useSelector((state) => state.products);
   const categories = useSelector((store) => store.categories.categories);
   const [filter, setFilter] = useState("Todo");
-  const dispatch = useDispatch()
-  console.log(categories);
 
+  const { pages } = useSelector((store) => store.products);
 
+  // const handleChange = (e) => {
+  //   console.log(e.target.value);
+  //   setFilter(e.target.value);
+  // };
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getProducts());
+    dispatch(getPage(0));
+    dispatch(getPage(1));
     dispatch(getCategories());
   }, [dispatch]);
 
@@ -74,6 +79,7 @@ export default function Home() {
                 gap: { xs: "20px", sm: "none" },
                 alignItems: "center",
               }}
+              className="container"
             >
               <Box
                 sx={{
@@ -142,25 +148,24 @@ export default function Home() {
                 </option>
                 {categories
                   ? categories.map((cat) => (
-                    <option
-                      value={cat.name}
-                      id={cat.id}
-                      key={cat.id}
-                      style={{
-                        background: "transparent",
-                        border: "none",
-                        color: theme[mode].textPrimary,
-                      }}
-                    >
-                      {cat.name}
-                    </option>
-                  ))
+                      <option
+                        value={cat.name}
+                        id={cat.id}
+                        key={cat.id}
+                        style={{
+                          background: "transparent",
+                          border: "none",
+                          color: theme[mode].textPrimary,
+                        }}
+                      >
+                        {cat.name}
+                      </option>
+                    ))
                   : null}
               </select>
               <Box>
                 <FilterPrice />
               </Box>
-              
             </Box>
             <Box
               sx={{
@@ -175,18 +180,38 @@ export default function Home() {
               {isLoading && <div></div>}
               {tempProducts
                 ? tempProducts.map((el, id) => {
-                  return (
-                    <Cards
-                      id={id}
-                      img={el.img}
-                      name={el.name}
-                      description={el.description}
-                      rating={el.rating}
-                      price={el.price}
-                    />
-                  );
-                })
+                    return (
+                      <Cards
+                        id={id}
+                        img={el.img}
+                        name={el.name}
+                        description={el.description}
+                        rating={el.rating}
+                        price={el.price}
+                      />
+                    );
+                  })
                 : null}
+            </Box>
+            <Box
+              width={"100%"}
+              padding="20px"
+              display={"flex"}
+              justifyContent="center"
+            >
+              {pages ? (
+                <Pagination
+                  count={pages}
+                  color="secondary"
+                  onChange={(e) => {
+                    console.log(e);
+
+                    dispatch(getPage(e.target.innerText));
+                  }}
+                />
+              ) : (
+                <Alert severity="error">No hay stock disponible!</Alert>
+              )}
             </Box>
           </Box>
         </Box>

@@ -7,6 +7,7 @@ const initialState = {
     id: null,
     series: [],
   },
+  pages: 0,
   isLoading: false,
   filters: {
     prices: {
@@ -26,6 +27,9 @@ export const productsSlice = createSlice({
     setProducts: (state, action) => {
       state.products = action.payload;
       state.tempProducts = action.payload;
+    },
+    setPages: (state, action) => {
+      state.pages = action.payload;
     },
     setCreateProduct: (state, action) => {
       state.productCreate.id = action.payload;
@@ -76,7 +80,10 @@ export const {
   setProducts,
   setCreateProduct,
   setSeriesProducts,
+
+  setPages,
+
   setPriceRange,
   filterPrice,
-  filterProduct
+  filterProduct,
 } = productsSlice.actions;
