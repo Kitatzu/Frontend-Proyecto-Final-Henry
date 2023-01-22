@@ -20,7 +20,6 @@ export default function Home() {
   const mode = useSelector((store) => store.theme.mode);
   const theme = useSelector((store) => store.theme);
   const { tempProducts, isLoading } = useSelector((state) => state.products);
-  const products = tempProducts?.map(el => el[1])
   const categories = useSelector((store) => store.categories.categories);
   const [filter, setFilter] = useState("Todo");
 
@@ -179,8 +178,8 @@ export default function Home() {
               }}
             >
               {isLoading && <div></div>}
-              {products
-                ? products.map((el, key) => {
+              {tempProducts
+                ? tempProducts?.map((el, key) => {
                     return (
                       <Cards
                         key={key}
