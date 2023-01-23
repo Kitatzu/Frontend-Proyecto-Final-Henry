@@ -6,7 +6,7 @@ import SideBar from "../SideBar/SideBar";
 
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { getPage } from "../../Redux/Thunks/Producst";
+import { getPage, getProducts, getProductsByCategories } from "../../Redux/Thunks/Products";
 
 import GPUimage from "../assets/rtx3090_1.png";
 import amdImage from "../assets/amd-default-social-image-1200x628.webp";
@@ -14,7 +14,7 @@ import intelImage from "../assets/Intel-nuevo-logo-2-1200x900.png";
 import nvidiaImage from "../assets/02-nvidia-logo-color-blk-500x200-4c25-p@2x.png";
 import { getCategories } from "../../Redux/Thunks/categories";
 import SearchBar from "../SearchBar/SearchBar";
-import FilterPrice from "../FilterPrice/FilterPrice";
+import { filterPrice, filterProduct } from "../../Redux/Slices";
 
 export default function Home() {
   const mode = useSelector((store) => store.theme.mode);
@@ -24,17 +24,29 @@ export default function Home() {
   const [filter, setFilter] = useState("Todo");
 
   const { pages } = useSelector((store) => store.products);
-
-  // const handleChange = (e) => {
-  //   console.log(e.target.value);
-  //   setFilter(e.target.value);
-  // };
   const dispatch = useDispatch();
+  const handleChange = (el) => {
+    if(el.target.value !== "Todo"){
+
+      setFilter({...filter,[el.target.name]: el.target.value,})
+      dispatch(getProductsByCategories(el.target.value))
+    }else{
+      setFilter({...filter,[el.target.name]: el.target.value,})
+      dispatch(getProducts())
+    }
+  };
+  function handlePrice(e) {
+    dispatch(filterPrice({ name: e.target.name, value: e.target.value }));
+    dispatch(filterProduct());
+    console.log(e.target.name, e.target.value);
+}
 
   useEffect(() => {
+    
     dispatch(getPage(0));
     dispatch(getPage(1));
     dispatch(getCategories());
+    dispatch(getProducts())
   }, [dispatch]);
 
   return (
@@ -133,10 +145,10 @@ export default function Home() {
                 fontSize="20px"
                 sx={{ color: theme[mode].textPrimary }}
               >
-                {filter.toUpperCase()}:
+             
               </Typography>
               <select
-                // onChange={handleChange}
+                onChange={handleChange}
                 style={{
                   background: "transparent",
                   border: "none",
@@ -164,7 +176,51 @@ export default function Home() {
                   : null}
               </select>
               <Box>
-                <FilterPrice />
+                <Box display={"flex"} gap="20px" flexWrap={"wrap"} >
+            <Box>
+                <Typography
+                    component={"label"}
+                    sx={{ color: theme[mode].textPrimary }}
+                >
+                    Precio minimo:
+                </Typography>
+                <input
+                    type="number"
+                    defaultValue={0}
+                    min="0"
+                    name="min"
+                    onChange={e => handlePrice(e)}
+                    style={{
+                        padding: "10px",
+                        border: "none",
+                        background: "#ececec",
+                        borderRadius: "10px",
+                    }}
+                />
+            </Box>
+            <Box>
+                <Typography
+                    component={"label"}
+                    sx={{ color: theme[mode].textPrimary }}
+                >
+                    Precio maximo:
+                </Typography>
+                <input
+                    type="number"
+                    defaultValue={0}
+                    min="0"
+                    name="max"
+                    onChange={e => handlePrice(e)}
+                    style={{
+                        padding: "10px",
+                        border: "none",
+                        background: "#ececec",
+                        borderRadius: "10px",
+                    }}
+                />
+            </Box>
+        </Box>
+
               </Box>
             </Box>
             <Box
@@ -179,10 +235,11 @@ export default function Home() {
             >
               {isLoading && <div></div>}
               {tempProducts
-                ? tempProducts.map((el, id) => {
+                ? tempProducts?.map((el, key) => {
                     return (
                       <Cards
-                        id={id}
+                        key={key}
+                        id={el.id}
                         img={el.img}
                         name={el.name}
                         description={el.description}

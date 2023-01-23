@@ -4,6 +4,7 @@ import { Icon } from "@iconify/react";
 
 import MuiSwitch from "../../MuiSwitch/MuiSwitch";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 // import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 
@@ -31,16 +32,18 @@ const Nav = () => {
           >
             Login
           </Button>
-          <Button
-            variant="contained"
-            sx={{ borderRadius: "20px", fontSize: "10px" }}
-            color="secondary"
-            onClick={() => {
-              setRedir("register");
-            }}
-          >
-            Register
-          </Button>
+          <Link to="/register">
+            <Button
+              variant="contained"
+              sx={{ borderRadius: "20px", fontSize: "10px" }}
+              color="secondary"
+              onClick={() => {
+                setRedir("register");
+              }}
+            >
+              Register
+            </Button>
+          </Link> 
         </Box>
       </Box>
     </Box>

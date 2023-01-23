@@ -1,6 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import { Icon } from "@iconify/react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import spin from "../assets/spin.png";
 import imageLanding from "../assets/graficaLanding.png";
 import "./LandingPage.css";
@@ -48,13 +49,15 @@ const LandingPage = () => {
             </Typography>
           </Box>
           <Box padding={"20px"}>
-            <Button
+            <Link to={{ pathname: "/home" }} >
+              <Button
               startIcon={<Icon icon="fluent:arrow-join-20-regular" />}
               variant="contained"
               sx={{ background: Theme[mode].buttonPrimary }}
-            >
+              >
               JOIN IN THE FIGHT
-            </Button>
+              </Button>
+            </Link>
           </Box>
         </Box>
       </Box>
