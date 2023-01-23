@@ -6,7 +6,7 @@ import SideBar from "../SideBar/SideBar";
 
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { getPage } from "../../Redux/Thunks/Products";
+import { getPage, getProducts, getProductsByCategories } from "../../Redux/Thunks/Products";
 
 import GPUimage from "../assets/rtx3090_1.png";
 import amdImage from "../assets/amd-default-social-image-1200x628.webp";
@@ -16,6 +16,7 @@ import { getCategories } from "../../Redux/Thunks/categories";
 import SearchBar from "../SearchBar/SearchBar";
 import FilterPrice from "../FilterPrice/FilterPrice";
 
+
 export default function Home() {
   const mode = useSelector((store) => store.theme.mode);
   const theme = useSelector((store) => store.theme);
@@ -24,17 +25,25 @@ export default function Home() {
   const [filter, setFilter] = useState("Todo");
 
   const { pages } = useSelector((store) => store.products);
-
-  // const handleChange = (e) => {
-  //   console.log(e.target.value);
-  //   setFilter(e.target.value);
-  // };
   const dispatch = useDispatch();
+  const handleChange = (el) => {
+    if(el.target.value !== "Todo"){
+
+      setFilter({...filter,[el.target.name]: el.target.value,})
+      dispatch(getProductsByCategories(el.target.value))
+    }else{
+      setFilter({...filter,[el.target.name]: el.target.value,})
+      dispatch(getProducts())
+    }
+  };
+  
 
   useEffect(() => {
+    
     dispatch(getPage(0));
     dispatch(getPage(1));
     dispatch(getCategories());
+    dispatch(getProducts())
   }, [dispatch]);
 
   return (
@@ -133,10 +142,10 @@ export default function Home() {
                 fontSize="20px"
                 sx={{ color: theme[mode].textPrimary }}
               >
-                {filter.toUpperCase()}:
+             
               </Typography>
               <select
-                // onChange={handleChange}
+                onChange={handleChange}
                 style={{
                   background: "transparent",
                   border: "none",

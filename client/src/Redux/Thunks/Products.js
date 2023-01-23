@@ -134,3 +134,18 @@ export const getPage = (page) => {
     };
   }
 };
+export const getProductsByCategories = (name) => {
+  return async (dispatch) => {
+    dispatch(setLoadingProducts(true));
+    await axios
+      .get(`${Global.URL}/filter/${name}`)
+      .then((response) => {
+        dispatch(setProducts(response.data.filterCategories));
+        dispatch(setLoadingProducts(false));
+      })
+      .catch((response) => {
+        // alert(response.response.data.msg);
+        console.log(response);
+      });
+  };
+};
