@@ -8,6 +8,7 @@ import {
   notificationSlice,
   productsSlice,
   providerSlice,
+  userSlice,
 } from "../Slices";
 import { themeSlice } from "../Slices/theme";
 
@@ -18,6 +19,7 @@ export const store = configureStore({
     categories: categoriesSlice.reducer,
     providers: providerSlice.reducer,
     brands: brandSlice.reducer,
+    users: userSlice.reducer,
     notification: notificationSlice.reducer,
     cart: cartSlice.reducer,
     factura: facturaSlice.reducer,
