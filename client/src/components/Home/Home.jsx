@@ -14,8 +14,7 @@ import intelImage from "../assets/Intel-nuevo-logo-2-1200x900.png";
 import nvidiaImage from "../assets/02-nvidia-logo-color-blk-500x200-4c25-p@2x.png";
 import { getCategories } from "../../Redux/Thunks/categories";
 import SearchBar from "../SearchBar/SearchBar";
-import FilterPrice from "../FilterPrice/FilterPrice";
-
+import { filterPrice, filterProduct } from "../../Redux/Slices";
 
 export default function Home() {
   const mode = useSelector((store) => store.theme.mode);
@@ -36,7 +35,11 @@ export default function Home() {
       dispatch(getProducts())
     }
   };
-  
+  function handlePrice(e) {
+    dispatch(filterPrice({ name: e.target.name, value: e.target.value }));
+    dispatch(filterProduct());
+    console.log(e.target.name, e.target.value);
+}
 
   useEffect(() => {
     
@@ -173,7 +176,51 @@ export default function Home() {
                   : null}
               </select>
               <Box>
-                <FilterPrice />
+                <Box display={"flex"} gap="20px" flexWrap={"wrap"} >
+            <Box>
+                <Typography
+                    component={"label"}
+                    sx={{ color: theme[mode].textPrimary }}
+                >
+                    Precio minimo:
+                </Typography>
+                <input
+                    type="number"
+                    defaultValue={0}
+                    min="0"
+                    name="min"
+                    onChange={e => handlePrice(e)}
+                    style={{
+                        padding: "10px",
+                        border: "none",
+                        background: "#ececec",
+                        borderRadius: "10px",
+                    }}
+                />
+            </Box>
+            <Box>
+                <Typography
+                    component={"label"}
+                    sx={{ color: theme[mode].textPrimary }}
+                >
+                    Precio maximo:
+                </Typography>
+                <input
+                    type="number"
+                    defaultValue={0}
+                    min="0"
+                    name="max"
+                    onChange={e => handlePrice(e)}
+                    style={{
+                        padding: "10px",
+                        border: "none",
+                        background: "#ececec",
+                        borderRadius: "10px",
+                    }}
+                />
+            </Box>
+        </Box>
+
               </Box>
             </Box>
             <Box
