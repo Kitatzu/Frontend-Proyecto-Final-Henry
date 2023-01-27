@@ -86,10 +86,6 @@ export default function NavBar() {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <Notifications />
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem>
         <MuiSwitch />
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
@@ -171,7 +167,7 @@ export default function NavBar() {
             sx={{ display: { xs: "none", md: "flex" }, alignItems: "center" }}
           >
             <MuiSwitch />
-            <Box display={"none"}>
+            <Box display={{ xs: "none", md: "inline-block" }}>
               <Notifications />
             </Box>
             <IconButton

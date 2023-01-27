@@ -5,14 +5,13 @@ import { Provider } from "react-redux";
 import { store } from "./Redux/Store";
 import Routers from "./Routes";
 import "./index.css";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Provider store={store}>
-        <Routers />
-      </Provider>
-    </BrowserRouter>
-  </React.StrictMode>
+  <BrowserRouter>
+    <Provider store={store}>
+      <Routers />
+    </Provider>
+  </BrowserRouter>
 );

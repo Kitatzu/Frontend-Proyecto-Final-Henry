@@ -1,7 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
+
 import {
   brandSlice,
   categoriesSlice,
+  notificationSlice,
   productsSlice,
   providerSlice,
 } from "../Slices";
@@ -14,5 +16,6 @@ export const store = configureStore({
     categories: categoriesSlice.reducer,
     providers: providerSlice.reducer,
     brands: brandSlice.reducer,
+    notification: notificationSlice.reducer,
   },
 });
