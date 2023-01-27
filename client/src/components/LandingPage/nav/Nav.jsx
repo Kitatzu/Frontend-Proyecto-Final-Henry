@@ -26,12 +26,14 @@ const Nav = () => {
         </Box>
         <Box display={"flex"} gap="20px">
           <MuiSwitch />
+          <Link to={"login"}>
           <Button
             variant="contained"
             sx={{ borderRadius: "20px", fontSize: "10px" }}
           >
             Login
           </Button>
+          </Link>
           <Link to="/register">
             <Button
               variant="contained"

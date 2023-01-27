@@ -1,0 +1,8 @@
+
+@import '../../Assets/Styles/global.scss';
+
+.MuiAutocomplete-popper{
+    position: absolute !important;
+    z-index: 9999999999 !important;
+}
+
