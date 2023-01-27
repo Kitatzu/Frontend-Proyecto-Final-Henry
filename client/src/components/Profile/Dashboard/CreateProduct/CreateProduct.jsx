@@ -84,7 +84,7 @@ export default function CreateProduct() {
     } else if (type === "providers" && type !== undefined) {
       setNewProduct({
         ...newProduct,
-        proveedor: e.target.attributes.value.value,
+        provider: e.target.attributes.value.value,
       });
     } else if (type === "brand" && type !== undefined) {
       setNewProduct({
@@ -307,7 +307,7 @@ export default function CreateProduct() {
                 </Box>
                 <Box>
                   <Typography sx={{ color: theme[mode].textPrimary }}>
-                    {"PROVEEDOR: " + newProduct.proveedor}
+                    {"Provider: " + newProduct.provider}
                   </Typography>
                 </Box>
                 <Box>

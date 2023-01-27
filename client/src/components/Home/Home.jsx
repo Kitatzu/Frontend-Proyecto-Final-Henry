@@ -11,12 +11,11 @@ import { getPage, getProducts, getProductsByCategories } from "../../Redux/Thunk
 import amdImage from "../assets/amd-default-social-image-1200x628.webp";
 import intelImage from "../assets/Intel-nuevo-logo-2-1200x900.png";
 import nvidiaImage from "../assets/02-nvidia-logo-color-blk-500x200-4c25-p@2x.png";
-import image1 from "../assets/image1.png";
-import image2 from "../assets/image2.png";
-import image3 from "../assets/image3.png";
 import { getCategories } from "../../Redux/Thunks/categories";
 import SearchBar from "../SearchBar/SearchBar";
 import { filterPrice, filterProduct } from "../../Redux/Slices";
+//import { DummyInfo } from "./DummyCards";
+import CardSwipper from "../CardSwipper/CardSwipper";
 
 export default function Home() {
   const mode = useSelector((store) => store.theme.mode);
@@ -83,7 +82,7 @@ export default function Home() {
               }
             }
           >
-            {/* imagenes feas */}
+            {/* Swiper */}
             <Box
               sx={{
                 width: "100%",
@@ -93,34 +92,15 @@ export default function Home() {
               }}
             >
               <Box
-                width={"19%"}
-                height={"50%"}
-                marginTop={"300px"}
+                top = "100px"
+                left = "1800px"
                 position="absolute"
-                sx={{ background:`url(${image2})`, transform: "rotate(59.16deg)"}}
-                >
-              </Box>
-              <Box
-                width={"19%"}
-                height={"40%"}
-                top= "210px"
-                left= "400px"
-                position="absolute"
-                sx={{ background:`url(${image1})`}}
               >
-              </Box>
-              <Box
-              width={"16%"}
-              height={"40%"}
-              left= "904px"
-              position="absolute"
-              sx={{ background:`url(${image2})`}}>
+                <CardSwipper />
               </Box>
             </Box>
-            
 
-
-           {/* cuadritos */}
+            {/* cuadritos */}
             <Box
               sx={{
                 position: "absolute",
