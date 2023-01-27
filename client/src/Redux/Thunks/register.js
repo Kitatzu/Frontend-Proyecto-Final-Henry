@@ -46,7 +46,7 @@ export const RegisterUser = (form) => {
 
       .post(Global.URL + "/register", form)
       .then((data) => {
-        console.log(data);
+        console.log(data,data);
         dispatch(setIsLoading(false));
         const userData = {
           userId: data.data.id,

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
-import Register from "../components/Register/Register";
 import { loginUser } from "../Redux/Thunks/loginUsers";
 import { RegisterUser } from "../Redux/Thunks/register";
 

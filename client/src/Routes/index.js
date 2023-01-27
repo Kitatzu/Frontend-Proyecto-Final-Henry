@@ -12,7 +12,7 @@ const Routers = () => {
     <Routes>
       <Route index element={<LandingPage />} />
       <Route path={"login"} element={<Login/>}/>
-      <Route path={"register"} element={<FormRegister/>} />
+      <Route path={"login/register"} element={<FormRegister/>} />
       <Route path={"home"} element={<Home />} />
       <Route path={"products/:id"} element={<CardsDetails />} />
       <Route path={"dashboard/crud"} element={<CreateProduct />} />

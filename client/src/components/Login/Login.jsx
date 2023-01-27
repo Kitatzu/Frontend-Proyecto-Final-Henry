@@ -22,7 +22,7 @@ const Login = () => {
         email: "",
         password: "",
         name: "",
-        fechaNacimiento: "",
+        birthday: "",
         lastname: "",
         registerpassword: "",
         verifypassword: "",
