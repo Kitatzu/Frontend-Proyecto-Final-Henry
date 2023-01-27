@@ -163,9 +163,7 @@ export default function NavBar() {
             <SearchBar />
           </Box>
           <Box sx={{ flexGrow: 1 }} />
-          <Box
-            sx={{ display: { xs: "none", md: "flex" }, alignItems: "center" }}
-          >
+          <Box sx={{ alignItems: "center" }}>
             <MuiSwitch />
             <Box display={{ xs: "none", md: "inline-block" }}>
               <Notifications />
@@ -180,18 +178,6 @@ export default function NavBar() {
               color="inherit"
             >
               <Avatar />
-            </IconButton>
-          </Box>
-          <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
             </IconButton>
           </Box>
         </Toolbar>

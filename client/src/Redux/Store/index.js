@@ -2,7 +2,9 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import {
   brandSlice,
+  cartSlice,
   categoriesSlice,
+  facturaSlice,
   notificationSlice,
   productsSlice,
   providerSlice,
@@ -17,5 +19,7 @@ export const store = configureStore({
     providers: providerSlice.reducer,
     brands: brandSlice.reducer,
     notification: notificationSlice.reducer,
+    cart: cartSlice.reducer,
+    factura: facturaSlice.reducer,
   },
 });

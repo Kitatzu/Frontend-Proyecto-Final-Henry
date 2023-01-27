@@ -6,7 +6,11 @@ import SideBar from "../SideBar/SideBar";
 
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { getPage, getProducts, getProductsByCategories } from "../../Redux/Thunks/Products";
+import {
+  getPage,
+  getProducts,
+  getProductsByCategories,
+} from "../../Redux/Thunks/Products";
 
 import GPUimage from "../assets/rtx3090_1.png";
 import amdImage from "../assets/amd-default-social-image-1200x628.webp";
@@ -26,27 +30,24 @@ export default function Home() {
   const { pages } = useSelector((store) => store.products);
   const dispatch = useDispatch();
   const handleChange = (el) => {
-    if(el.target.value !== "Todo"){
-
-      setFilter({...filter,[el.target.name]: el.target.value,})
-      dispatch(getProductsByCategories(el.target.value))
-    }else{
-      setFilter({...filter,[el.target.name]: el.target.value,})
-      dispatch(getProducts())
+    if (el.target.value !== "Todo") {
+      setFilter({ ...filter, [el.target.name]: el.target.value });
+      dispatch(getProductsByCategories(el.target.value));
+    } else {
+      setFilter({ ...filter, [el.target.name]: el.target.value });
+      dispatch(getProducts());
     }
   };
   function handlePrice(e) {
     dispatch(filterPrice({ name: e.target.name, value: e.target.value }));
     dispatch(filterProduct());
     console.log(e.target.name, e.target.value);
-}
+  }
 
   useEffect(() => {
-    
     dispatch(getPage(0));
     dispatch(getPage(1));
     dispatch(getCategories());
-    dispatch(getProducts())
   }, [dispatch]);
 
   return (
@@ -144,9 +145,7 @@ export default function Home() {
                 component="h2"
                 fontSize="20px"
                 sx={{ color: theme[mode].textPrimary }}
-              >
-             
-              </Typography>
+              ></Typography>
               <select
                 onChange={handleChange}
                 style={{
@@ -176,51 +175,50 @@ export default function Home() {
                   : null}
               </select>
               <Box>
-                <Box display={"flex"} gap="20px" flexWrap={"wrap"} >
-            <Box>
-                <Typography
-                    component={"label"}
-                    sx={{ color: theme[mode].textPrimary }}
-                >
-                    Precio minimo:
-                </Typography>
-                <input
-                    type="number"
-                    defaultValue={0}
-                    min="0"
-                    name="min"
-                    onChange={e => handlePrice(e)}
-                    style={{
+                <Box display={"flex"} gap="20px" flexWrap={"wrap"}>
+                  <Box>
+                    <Typography
+                      component={"label"}
+                      sx={{ color: theme[mode].textPrimary }}
+                    >
+                      Precio minimo:
+                    </Typography>
+                    <input
+                      type="number"
+                      defaultValue={0}
+                      min="0"
+                      name="min"
+                      onChange={(e) => handlePrice(e)}
+                      style={{
                         padding: "10px",
                         border: "none",
                         background: "#ececec",
                         borderRadius: "10px",
-                    }}
-                />
-            </Box>
-            <Box>
-                <Typography
-                    component={"label"}
-                    sx={{ color: theme[mode].textPrimary }}
-                >
-                    Precio maximo:
-                </Typography>
-                <input
-                    type="number"
-                    defaultValue={0}
-                    min="0"
-                    name="max"
-                    onChange={e => handlePrice(e)}
-                    style={{
+                      }}
+                    />
+                  </Box>
+                  <Box>
+                    <Typography
+                      component={"label"}
+                      sx={{ color: theme[mode].textPrimary }}
+                    >
+                      Precio maximo:
+                    </Typography>
+                    <input
+                      type="number"
+                      defaultValue={0}
+                      min="0"
+                      name="max"
+                      onChange={(e) => handlePrice(e)}
+                      style={{
                         padding: "10px",
                         border: "none",
                         background: "#ececec",
                         borderRadius: "10px",
-                    }}
-                />
-            </Box>
-        </Box>
-
+                      }}
+                    />
+                  </Box>
+                </Box>
               </Box>
             </Box>
             <Box

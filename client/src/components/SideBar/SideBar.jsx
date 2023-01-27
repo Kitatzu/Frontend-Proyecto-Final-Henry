@@ -3,12 +3,12 @@ import { IconButton, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 export default function SideBar() {
   const mode = useSelector((store) => store.theme.mode);
   const theme = useSelector((store) => store.theme);
-  const [redir, setRedir] = useState(false);
+
   return (
     <Box
       display={{ xs: "none", sm: "flex" }}
@@ -25,14 +25,15 @@ export default function SideBar() {
       }}
       gap="20px"
     >
-      {redir ? <Navigate to={"/" + redir} replace={true} /> : null}
       <Box>
         <Box>
-          <IconButton onClick={() => setRedir("home")}>
-            <Icon
-              icon="material-symbols:home-outline-rounded"
-              color={theme[mode].textPrimary}
-            />
+          <IconButton>
+            <Link to={"/home"}>
+              <Icon
+                icon="material-symbols:home-outline-rounded"
+                color={theme[mode].textPrimary}
+              />
+            </Link>
           </IconButton>
         </Box>
         <Box>
@@ -46,20 +47,24 @@ export default function SideBar() {
       </Box>
 
       <Box>
-        <Box display="none">
+        <Box>
           <IconButton>
-            <Icon
-              icon="material-symbols:shopping-cart-outline-rounded"
-              color={theme[mode].textPrimary}
-            />
+            <Link to={"/cart"}>
+              <Icon
+                icon="material-symbols:shopping-cart-outline-rounded"
+                color={theme[mode].textPrimary}
+              />
+            </Link>
           </IconButton>
         </Box>
         <Box>
-          <IconButton onClick={() => setRedir("dashboard/crud")}>
-            <Icon
-              icon="vscode-icons:file-type-light-config"
-              color={theme[mode].textPrimary}
-            />
+          <IconButton>
+            <Link to={"/dashboard/crud"}>
+              <Icon
+                icon="vscode-icons:file-type-light-config"
+                color={theme[mode].textPrimary}
+              />
+            </Link>
           </IconButton>
         </Box>
       </Box>
