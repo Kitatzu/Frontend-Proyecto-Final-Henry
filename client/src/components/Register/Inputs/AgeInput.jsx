@@ -1,7 +1,7 @@
 import { OutlinedInput, FormControl } from "@mui/material";
 
 import { useSelector } from "react-redux";
-const AgeInput = () => {
+const AgeInput = ({ handleChange }) => {
   const mode = useSelector((store) => store.theme.mode);
   const Theme = useSelector((store) => store.theme);
   return (
@@ -13,6 +13,7 @@ const AgeInput = () => {
       <OutlinedInput
         id="outlined-adornment-lastname"
         name="date"
+        onChange={handleChange}
         type={"date"}
         style={{ color: Theme[mode].textPrimary }}
         required
