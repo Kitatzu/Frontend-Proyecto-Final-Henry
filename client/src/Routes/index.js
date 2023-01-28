@@ -10,6 +10,7 @@ import FormRegister from "../components/Login/FormRegister/FormRegister";
 import Dashboard from "../components/Profile/Dashboard/Dashboard";
 import Inventory from "../components/Profile/Dashboard/Inventory/Inventory";
 import Factura from "../components/Facturas/Factura/Factura";
+import UsersTable from "../components/Profile/Dashboard/tableUsers/UsersTable";
 
 const Routers = () => {
   return (
@@ -20,6 +21,7 @@ const Routers = () => {
       <Route path={"home"} element={<Home />} />
       <Route path={"products/:id"} element={<CardsDetails />} />
       <Route path={"dashboard/crud"} element={<CreateProduct />} />
+      <Route path={"dashboard/users"} element={<UsersTable />} />
       <Route path="dashboard/inventory" element={<Inventory />} />
       <Route path="dashboard" element={<Dashboard />} />
       <Route path={"cart"} element={<Cart />} />

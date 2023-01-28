@@ -27,6 +27,7 @@ import { Link } from "react-router-dom";
 //import { DummyInfo } from "./DummyCards";
 import CardSwipper from "../CardSwipper/CardSwipper";
 import SwipperBrand from "../CardSwipper/CardBrand/SwipperBrand";
+import CardCategories from "./CardCategories/CardCategories";
 
 export default function Home() {
   const mode = useSelector((store) => store.theme.mode);
@@ -81,6 +82,7 @@ export default function Home() {
             display: "flex",
             flexDirection: "column",
             overflow: "scroll",
+            padding: "10px",
           }}
         >
           {!isLog && (
@@ -98,7 +100,7 @@ export default function Home() {
             sx={{
               background:
                 "radial-gradient(101.77% 757.7% at 100% 43.44%, #00D4FF 0%, #090979 54.69%, #05044C 79.69%, #020024 100%)",
-              borderRadius: " 0px 0px 20px 20px",
+              borderRadius: "20px",
             }}
           >
             {/* Swiper */}
@@ -131,35 +133,10 @@ export default function Home() {
                 component="h2"
                 fontSize="20px"
                 sx={{ color: theme[mode].textPrimary }}
-              ></Typography>
-              <select
-                onChange={handleChange}
-                style={{
-                  background: "transparent",
-                  border: "none",
-                  color: theme[mode].textPrimary,
-                }}
               >
-                <option value="Todo" id="Todo" key="Todo">
-                  Todo
-                </option>
-                {categories
-                  ? categories.map((cat) => (
-                      <option
-                        value={cat.name}
-                        id={cat.id}
-                        key={cat.id}
-                        style={{
-                          background: "transparent",
-                          border: "none",
-                          color: theme[mode].textPrimary,
-                        }}
-                      >
-                        {cat.name}
-                      </option>
-                    ))
-                  : null}
-              </select>
+                INICIO
+              </Typography>
+
               <Box>
                 <Box display={"flex"} gap="20px" flexWrap={"wrap"}>
                   <Box>
@@ -232,6 +209,18 @@ export default function Home() {
                       />
                     );
                   })
+                : null}
+            </Box>
+            <Box>
+              {categories
+                ? categories.map((cat) => (
+                    <CardCategories
+                      value={cat.name}
+                      img={cat.img}
+                      key={cat.id}
+                      id={cat.id}
+                    />
+                  ))
                 : null}
             </Box>
             <Box

@@ -1,6 +1,6 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+import { Pagination, A11y } from "swiper";
 import amdImage from "../../assets/amd-default-social-image-1200x628.webp";
 import intelImage from "../../assets/Intel-nuevo-logo-2-1200x900.png";
 import nvidiaImage from "../../assets/02-nvidia-logo-color-blk-500x200-4c25-p@2x.png";

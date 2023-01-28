@@ -22,8 +22,8 @@ const Utils = () => {
         </Link>
       </Button>
       <Button variant="contained">
-        <Link to="crud">
-          <Typography sx={{ color: "white" }}>Clientes</Typography>
+        <Link to="/dashboard/users">
+          <Typography sx={{ color: "white" }}>Clientes........</Typography>
         </Link>
       </Button>
     </Box>
