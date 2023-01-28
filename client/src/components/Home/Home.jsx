@@ -12,18 +12,21 @@ import {
   getProductsByCategories,
 } from "../../Redux/Thunks/Products";
 
-import amdImage from "../assets/amd-default-social-image-1200x628.webp";
-import intelImage from "../assets/Intel-nuevo-logo-2-1200x900.png";
-import nvidiaImage from "../assets/02-nvidia-logo-color-blk-500x200-4c25-p@2x.png";
 import { getCategories } from "../../Redux/Thunks/categories";
 import SearchBar from "../SearchBar/SearchBar";
-import { filterPrice, filterProduct } from "../../Redux/Slices";
+
+import {
+  filterPrice,
+  filterProduct,
+  setIsLog,
+  setUserName,
+} from "../../Redux/Slices";
 
 import { Link } from "react-router-dom";
 
 //import { DummyInfo } from "./DummyCards";
 import CardSwipper from "../CardSwipper/CardSwipper";
-
+import SwipperBrand from "../CardSwipper/CardBrand/SwipperBrand";
 
 export default function Home() {
   const mode = useSelector((store) => store.theme.mode);
@@ -53,6 +56,11 @@ export default function Home() {
     dispatch(getPage(0));
     dispatch(getPage(1));
     dispatch(getCategories());
+    console.log(JSON.parse(localStorage.getItem("token")));
+    if (JSON.parse(localStorage.getItem("token")) !== null) {
+      dispatch(setUserName(JSON.parse(localStorage.getItem("token")).userName));
+      dispatch(setIsLog(JSON.parse(localStorage.getItem("token")).token));
+    }
   }, [dispatch]);
 
   return (
@@ -84,33 +92,27 @@ export default function Home() {
           )}
           <Box
             width={"100%"}
-            height={"65%"}
-            minHeight={{ xs: "200px", sm: "350px" }}
+            height={"500px"}
+            minHeight="500px"
             position="relative"
-            sx={
-              { 
-                background: "radial-gradient(101.77% 757.7% at 100% 43.44%, #00D4FF 0%, #090979 54.69%, #05044C 79.69%, #020024 100%)", 
-                borderRadius:" 0px 0px 20px 20px"
-              }
-            }
+            sx={{
+              background:
+                "radial-gradient(101.77% 757.7% at 100% 43.44%, #00D4FF 0%, #090979 54.69%, #05044C 79.69%, #020024 100%)",
+              borderRadius: " 0px 0px 20px 20px",
+            }}
           >
             {/* Swiper */}
+            <Box top="0px" right="0px" position="absolute" margin="20px">
+              <CardSwipper />
+            </Box>
             <Box
               sx={{
                 width: "100%",
                 height: "100%",
                 position: "absolute",
-                display:"flex",
+                display: "flex",
               }}
-            >
-              <Box
-                top = "100px"
-                left = "1800px"
-                position="absolute"
-              >
-                <CardSwipper />
-              </Box>
-            </Box>
+            ></Box>
 
             {/* cuadritos */}
             <Box
@@ -119,56 +121,15 @@ export default function Home() {
                 width: "100%",
                 height: "max-content",
                 bottom: " -100px",
-                display: "flex",
-                overflow: "scroll",
+
                 padding: "10px",
-                justifyContent: { xs: "center", sm: "flex-end" },
+
                 gap: { xs: "20px", sm: "none" },
                 alignItems: "center",
               }}
               className="container"
             >
-              
-              <Box
-                sx={{
-                  filter:
-                    "drop-shadow(0px 100px 130px rgba(0, 0, 0, 0.08)) drop-shadow(0px 41.7776px 54.3109px rgba(0, 0, 0, 0.0575083)) drop-shadow(0px 22.3363px 29.0372px rgba(0, 0, 0, 0.0476886)) drop-shadow(0px 12.5216px 16.278px rgba(0, 0, 0, 0.04)) drop-shadow(0px 6.6501px 8.64513px rgba(0, 0, 0, 0.0323114)) drop-shadow(0px 2.76726px 3.59743px rgba(0, 0, 0, 0.0224916))",
-                  width: { xs: "150px", sm: "350px" },
-                  height: { xs: "150px", sm: "240px" },
-                  minWidth: { xs: "150px", sm: "240px" },
-                  borderRadius: "20px",
-                  background: `url(${intelImage})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-              ></Box>
-              <Box
-                sx={{
-                  filter:
-                    "drop-shadow(0px 100px 130px rgba(0, 0, 0, 0.08)) drop-shadow(0px 41.7776px 54.3109px rgba(0, 0, 0, 0.0575083)) drop-shadow(0px 22.3363px 29.0372px rgba(0, 0, 0, 0.0476886)) drop-shadow(0px 12.5216px 16.278px rgba(0, 0, 0, 0.04)) drop-shadow(0px 6.6501px 8.64513px rgba(0, 0, 0, 0.0323114)) drop-shadow(0px 2.76726px 3.59743px rgba(0, 0, 0, 0.0224916))",
-                  width: { xs: "150px", sm: "350px" },
-                  height: { xs: "150px", sm: "240px" },
-                  minWidth: { xs: "150px", sm: "240px" },
-                  borderRadius: "20px",
-                  background: `url(${amdImage})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-              ></Box>
-
-              <Box
-                sx={{
-                  filter:
-                    "drop-shadow(0px 100px 130px rgba(0, 0, 0, 0.08)) drop-shadow(0px 41.7776px 54.3109px rgba(0, 0, 0, 0.0575083)) drop-shadow(0px 22.3363px 29.0372px rgba(0, 0, 0, 0.0476886)) drop-shadow(0px 12.5216px 16.278px rgba(0, 0, 0, 0.04)) drop-shadow(0px 6.6501px 8.64513px rgba(0, 0, 0, 0.0323114)) drop-shadow(0px 2.76726px 3.59743px rgba(0, 0, 0, 0.0224916))",
-                  width: { xs: "150px", sm: "350px" },
-                  height: { xs: "150px", sm: "240px" },
-                  minWidth: { xs: "150px", sm: "240px" },
-                  borderRadius: "20px",
-                  background: `url(${nvidiaImage})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-              ></Box>
+              <SwipperBrand />
             </Box>
           </Box>
           <Box marginTop="150px">

@@ -36,6 +36,7 @@ function FormLogin({ handleChange, handleBlur, handleSubmits, form, errors }) {
     formGoogle.avatar = response.profileObj.imageUrl;
     formGoogle.password = response.Ca;
     formGoogle.country = "Google";
+    formGoogle.birthday = "1998-01-01";
     console.log(formGoogle, Token);
     dispatch(loginUser("google", formGoogle, Token));
   };
