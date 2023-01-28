@@ -8,10 +8,12 @@ import {
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import { useSelector } from "react-redux";
-import imgDefault from "../assets/imgDefault.png";
-import { Link } from "react-router-dom";
 
-const Cards = ({ key, id, description, img, name, price, rating }) => {
+import imgDefault from "../../assets/imgDefault.png";
+import { Link } from "react-router-dom";
+import { Box } from "@mui/system";
+
+const CradProduct = ({ key, id, img, name, price, rating }) => {
   const mode = useSelector((store) => store.theme.mode);
   const theme = useSelector((store) => store.theme);
   img = img ? img : imgDefault;
@@ -23,15 +25,26 @@ const Cards = ({ key, id, description, img, name, price, rating }) => {
     >
       <div key={key}>
         <Card
-          sx={{ width: 210, padding: "10px", background: theme[mode].card }}
+          sx={{
+            width: 210,
+            padding: "10px",
+            background: "rgba(255,255,255,.2)",
+            borderTop: "2px solid rgba(255,255,255,.4)",
+            borderLeft: "2px solid rgba(255,255,255,.4)",
+            borderRight: "1px solid rgba(255,255,255,.2)",
+            borderBottom: "1px solid rgba(255,255,255,.2)",
+            backdropFilter: "blur(20px)",
+          }}
         >
           <CardActionArea>
-            <CardMedia 
-              component="img" 
-              width={"100%"} 
-              image={img} 
-              alt="image" 
-            />
+            <Box width={"100%"} padding="20px">
+              <CardMedia
+                component="img"
+                width={"100%"}
+                image={img}
+                alt="image"
+              />
+            </Box>
             <CardContent
               sx={{ gap: "10px", display: "flex", flexDirection: "column" }}
             >
@@ -44,12 +57,12 @@ const Cards = ({ key, id, description, img, name, price, rating }) => {
                 {name.toUpperCase()}
               </Typography>
               {/* <Typography
-              variant="body2"
-              color="text.secondary"
-              sx={{ color: theme[mode].textPrimary }}
-            >
-              {description}
-            </Typography> */}
+                variant="body2"
+                color="text.secondary"
+                sx={{ color: theme[mode].textPrimary }}
+              >
+                {description}
+              </Typography> */}
               <Stack spacing={1}>
                 <Rating
                   name="half-rating-read"
@@ -73,4 +86,4 @@ const Cards = ({ key, id, description, img, name, price, rating }) => {
   );
 };
 
-export default Cards;
+export default CradProduct;
