@@ -6,3 +6,6 @@
 .container::-webkit-scrollbar {
     -webkit-appearance: none;
 }
+a{
+  text-decoration: none;
+}

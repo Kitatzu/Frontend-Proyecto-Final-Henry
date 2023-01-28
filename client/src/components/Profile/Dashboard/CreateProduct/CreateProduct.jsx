@@ -307,7 +307,9 @@ export default function CreateProduct() {
                 </Box>
                 <Box>
                   <Typography sx={{ color: theme[mode].textPrimary }}>
-                    {"Provider: " + newProduct.provider}
+
+                    {"PROVEEDOR: " + newProduct.provider}
+
                   </Typography>
                 </Box>
                 <Box>
