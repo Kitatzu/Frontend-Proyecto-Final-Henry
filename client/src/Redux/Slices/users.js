@@ -35,6 +35,7 @@ const initialState = {
   lastName: null,
   isLog: false,
   isLoading: false,
+  users:false,
 };
 
 export const userSlice = createSlice({
@@ -82,9 +83,12 @@ export const userSlice = createSlice({
     setEmail: (store, action) => {
       store.email = action.payload;
     },
+    setUsers:(store, action)=>{
+     store.users=action.payload;
+    }
   },
 });
 
-export const { setUserName, setIsLog, logout, setIsLoading, setData } =
+export const { setUserName, setIsLog, logout, setIsLoading, setData,setUsers } =
   userSlice.actions;
 

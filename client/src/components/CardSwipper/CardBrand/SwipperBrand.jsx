@@ -39,10 +39,11 @@ function SwipperBrand() {
             width: "240px",
             height: "150px",
             minWidth: "240px",
+
             borderRadius: "20px",
             background: `url(${intelImage})`,
             backgroundSize: "cover",
-            backgroundPosition: "center",
+
             display: "inline-block",
           }}
         ></Box>
@@ -71,6 +72,7 @@ function SwipperBrand() {
             width: "240px",
             height: "150px",
             minWidth: "240px",
+
             borderRadius: "20px",
             background: `url(${nvidiaImage})`,
             backgroundSize: "cover",

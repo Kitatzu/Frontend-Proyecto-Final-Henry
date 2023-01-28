@@ -26,7 +26,12 @@ const Cards = ({ key, id, description, img, name, price, rating }) => {
           sx={{ width: 210, padding: "10px", background: theme[mode].card }}
         >
           <CardActionArea>
-            <CardMedia component="img" height="110" image={img} alt="image" />
+            <CardMedia 
+              component="img" 
+              width={"100%"} 
+              image={img} 
+              alt="image" 
+            />
             <CardContent
               sx={{ gap: "10px", display: "flex", flexDirection: "column" }}
             >
