@@ -9,6 +9,7 @@ import Login from "../components/Login/Login";
 import FormRegister from "../components/Login/FormRegister/FormRegister";
 import Dashboard from "../components/Profile/Dashboard/Dashboard";
 import Inventory from "../components/Profile/Dashboard/Inventory/Inventory";
+import Factura from "../components/Facturas/Factura/Factura";
 
 const Routers = () => {
   return (
@@ -22,6 +23,7 @@ const Routers = () => {
       <Route path="dashboard/inventory" element={<Inventory />} />
       <Route path="dashboard" element={<Dashboard />} />
       <Route path={"cart"} element={<Cart />} />
+      <Route path={"/factura"} element={<Factura />} />
       {/* <Route path="*" element={<NoMatch />} /> */}
     </Routes>
   );

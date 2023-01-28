@@ -17,13 +17,18 @@ import intelImage from "../assets/Intel-nuevo-logo-2-1200x900.png";
 import nvidiaImage from "../assets/02-nvidia-logo-color-blk-500x200-4c25-p@2x.png";
 import { getCategories } from "../../Redux/Thunks/categories";
 import SearchBar from "../SearchBar/SearchBar";
-import { filterPrice, filterProduct } from "../../Redux/Slices";
+
+import {
+  filterPrice,
+  filterProduct,
+  setIsLog,
+  setUserName,
+} from "../../Redux/Slices";
 
 import { Link } from "react-router-dom";
 
 //import { DummyInfo } from "./DummyCards";
 import CardSwipper from "../CardSwipper/CardSwipper";
-
 
 export default function Home() {
   const mode = useSelector((store) => store.theme.mode);
@@ -53,6 +58,11 @@ export default function Home() {
     dispatch(getPage(0));
     dispatch(getPage(1));
     dispatch(getCategories());
+    console.log(JSON.parse(localStorage.getItem("token")));
+    if (JSON.parse(localStorage.getItem("token")) !== null) {
+      dispatch(setUserName(JSON.parse(localStorage.getItem("token")).userName));
+      dispatch(setIsLog(JSON.parse(localStorage.getItem("token")).token));
+    }
   }, [dispatch]);
 
   return (
@@ -87,12 +97,11 @@ export default function Home() {
             height={"65%"}
             minHeight={{ xs: "200px", sm: "350px" }}
             position="relative"
-            sx={
-              { 
-                background: "radial-gradient(101.77% 757.7% at 100% 43.44%, #00D4FF 0%, #090979 54.69%, #05044C 79.69%, #020024 100%)", 
-                borderRadius:" 0px 0px 20px 20px"
-              }
-            }
+            sx={{
+              background:
+                "radial-gradient(101.77% 757.7% at 100% 43.44%, #00D4FF 0%, #090979 54.69%, #05044C 79.69%, #020024 100%)",
+              borderRadius: " 0px 0px 20px 20px",
+            }}
           >
             {/* Swiper */}
             <Box
@@ -100,14 +109,10 @@ export default function Home() {
                 width: "100%",
                 height: "100%",
                 position: "absolute",
-                display:"flex",
+                display: "flex",
               }}
             >
-              <Box
-                top = "100px"
-                left = "1800px"
-                position="absolute"
-              >
+              <Box top="100px" left="1800px" position="absolute">
                 <CardSwipper />
               </Box>
             </Box>
@@ -128,7 +133,6 @@ export default function Home() {
               }}
               className="container"
             >
-              
               <Box
                 sx={{
                   filter:

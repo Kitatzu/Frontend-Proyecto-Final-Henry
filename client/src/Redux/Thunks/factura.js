@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 
 import { setFacturaDetail, setRedir } from "../Slices";
 import { getCart } from "./getCart";
-import { getProducts } from "./Products";
+import { getPage, getProducts } from "./Products";
 const Toast = Swal.mixin({
   toast: true,
   position: "top-start",
@@ -24,7 +24,7 @@ export const stockProucts = (products) => {
         products.map(
           async (p) =>
             await axios
-              .put(Global.ApiUrl + "/products/" + p.productId, {
+              .put(Global.URL + "/products/" + p.productId, {
                 stock: p.stock,
               })
               .then((response) => {
@@ -35,7 +35,7 @@ export const stockProucts = (products) => {
                 return false;
               })
         );
-        dispatch(getProducts());
+        dispatch(getPage(1));
       } catch (e) {
         console.log(e);
       }
@@ -43,21 +43,21 @@ export const stockProucts = (products) => {
   };
 };
 
-export const createFactura = (factura, pagoId, userId, products) => {
+export const createFactura = (factura, paymentId, userId, products) => {
   return async (dispatch) => {
-    if (factura && pagoId && userId) {
+    if (factura && paymentId && userId) {
       return axios
-        .post(Global.ApiUrl + "/factura", {
+        .post(Global.URL + "/factura", {
           factura,
           userId,
-          pagoId,
+          paymentId,
         })
         .then((response) => {
           console.log(response.data);
           dispatch(
             setFacturaDetail({
               factura: response.data.data.factura.factura,
-              pagoId: response.data.data.factura.pagoId,
+              paymentId: response.data.data.factura.paymentId,
               total: response.data.data.factura.total,
               products: products,
             })
@@ -71,7 +71,6 @@ export const createFactura = (factura, pagoId, userId, products) => {
           Toast.fire({ icon: "error", title: e.response.data.msg });
         });
     } else {
-      console.log(factura, pagoId, userId);
       Toast.fire({ icon: "error", title: "No data!" });
     }
   };

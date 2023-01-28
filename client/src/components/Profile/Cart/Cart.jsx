@@ -91,49 +91,51 @@ const Cart = () => {
               justifyContent="space-around"
               padding={"20px"}
             >
-              {productsCart
-                ? productsCart.map((product) => (
-                    <Cards
-                      price={product.product.price}
-                      quantity={product.quantity}
-                      name={product.product.name}
-                      image={product.product.imageProduct}
-                      stock={product.product.stock}
-                      productId={product.product.id}
-                      cartId={product.cartId}
-                    />
-                  ))
-                : null}
-            </Box>
-            <Box
-              width={{ xs: "100%", sm: "340px" }}
-              padding="20px"
-              sx={{ marginBottom: "100px !important" }}
-            >
-              <Card>
-                <CardContent>
-                  <Box>
-                    <Typography>Total</Typography>
-                  </Box>
-                  <Box>
-                    <Typography fontWeight="bold" fontSize="24px">
-                      {totalPrice + "$"}
-                    </Typography>
-                    <Box padding={"10px"}>
-                      <Box>
-                        <PayPalButton
-                          createOrder={(data, actions) =>
-                            createOrder(data, actions)
-                          }
-                          onApprove={(data, actions) =>
-                            onApprove(data, actions)
-                          }
-                        />
+              <Box>
+                {productsCart
+                  ? productsCart.map((product) => (
+                      <Cards
+                        price={product.product.price}
+                        quantity={product.quantity}
+                        name={product.product.name}
+                        image={product.product.imageProduct}
+                        stock={product.product.stock}
+                        productId={product.product.id}
+                        cartId={product.cartId}
+                      />
+                    ))
+                  : null}
+              </Box>
+              <Box
+                width={{ xs: "100%", sm: "340px" }}
+                padding="20px"
+                sx={{ marginBottom: "100px !important" }}
+              >
+                <Card>
+                  <CardContent>
+                    <Box>
+                      <Typography>Total</Typography>
+                    </Box>
+                    <Box>
+                      <Typography fontWeight="bold" fontSize="24px">
+                        {totalPrice + "$"}
+                      </Typography>
+                      <Box padding={"10px"}>
+                        <Box>
+                          <PayPalButton
+                            createOrder={(data, actions) =>
+                              createOrder(data, actions)
+                            }
+                            onApprove={(data, actions) =>
+                              onApprove(data, actions)
+                            }
+                          />
+                        </Box>
                       </Box>
                     </Box>
-                  </Box>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </Box>
             </Box>
           </Box>
         </Box>
