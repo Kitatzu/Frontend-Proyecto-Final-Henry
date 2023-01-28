@@ -105,14 +105,6 @@ export default function Home() {
             <Box top="0px" right="0px" position="absolute" margin="20px">
               <CardSwipper />
             </Box>
-            <Box
-              sx={{
-                width: "100%",
-                height: "100%",
-                position: "absolute",
-                display: "flex",
-              }}
-            ></Box>
 
             {/* cuadritos */}
             <Box
@@ -121,15 +113,13 @@ export default function Home() {
                 width: "100%",
                 height: "max-content",
                 bottom: " -100px",
-
                 padding: "10px",
-
-                gap: { xs: "20px", sm: "none" },
-                alignItems: "center",
               }}
               className="container"
             >
-              <SwipperBrand />
+              <Box position={"relative"} width="100%">
+                <SwipperBrand />
+              </Box>
             </Box>
           </Box>
           <Box marginTop="150px">
