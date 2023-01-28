@@ -7,17 +7,15 @@ import PasswordInput from "./input/PasswordInput";
 import { Alert } from "@mui/material";
 import GoogleLogin from "react-google-login";
 import { gapi } from "gapi-script";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
-import { ValidatorForm } from "react-material-ui-form-validator";
 import EmailInput from "./input/EmailInput";
 import { loginUser } from "../../../Redux/Thunks/loginUsers";
-import { Navigate } from "react-router-dom";
 
 function FormLogin({ handleChange, handleBlur, handleSubmits, form, errors }) {
   const dispatch = useDispatch();
   const clientId =
-    "797157267486-lvn1qtius6tu6hq7drjcem2os94c9t1o.apps.googleusercontent.com";
+    "797157267486-rvkpojtcmll1q3n7slbtu09fe4heo7ol.apps.googleusercontent.com";
   useEffect(() => {
     const start = () => {
       gapi.auth2.init({

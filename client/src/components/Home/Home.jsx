@@ -36,7 +36,7 @@ export default function Home() {
       dispatch(getProductsByCategories(el.target.value));
     } else {
       setFilter({ ...filter, [el.target.name]: el.target.value });
-      dispatch(getProducts());
+      dispatch(getPage(1));
     }
   };
   function handlePrice(e) {
