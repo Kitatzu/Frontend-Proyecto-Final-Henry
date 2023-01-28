@@ -8,12 +8,12 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import MoreIcon from "@mui/icons-material/MoreVert";
 import SearchBar from "../SearchBar/SearchBar";
 import Notifications from "./Notifications/Notifications";
 import { Avatar } from "@mui/material";
 import MuiSwitch from "../MuiSwitch/MuiSwitch";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function NavBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -165,7 +165,7 @@ export default function NavBar() {
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ alignItems: "center" }}>
             <MuiSwitch />
-            <Box display={{ xs: "none", md: "inline-block" }}>
+            <Box display={{ xs: "inline-block", md: "inline-block" }}>
               <Notifications />
             </Box>
             <IconButton

@@ -7,6 +7,8 @@ import CardsDetails from "../components/CardsDetails/CardsDetails";
 import Cart from "../components/Profile/Cart/Cart";
 import Login from "../components/Login/Login";
 import FormRegister from "../components/Login/FormRegister/FormRegister";
+import Dashboard from "../components/Profile/Dashboard/Dashboard";
+import Inventory from "../components/Profile/Dashboard/Inventory/Inventory";
 
 const Routers = () => {
   return (
@@ -17,6 +19,8 @@ const Routers = () => {
       <Route path={"home"} element={<Home />} />
       <Route path={"products/:id"} element={<CardsDetails />} />
       <Route path={"dashboard/crud"} element={<CreateProduct />} />
+      <Route path="dashboard/inventory" element={<Inventory />} />
+      <Route path="dashboard" element={<Dashboard />} />
       <Route path={"cart"} element={<Cart />} />
       {/* <Route path="*" element={<NoMatch />} /> */}
     </Routes>

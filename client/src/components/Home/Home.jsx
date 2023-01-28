@@ -19,6 +19,7 @@ import nvidiaImage from "../assets/02-nvidia-logo-color-blk-500x200-4c25-p@2x.pn
 import { getCategories } from "../../Redux/Thunks/categories";
 import SearchBar from "../SearchBar/SearchBar";
 import { filterPrice, filterProduct } from "../../Redux/Slices";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   const mode = useSelector((store) => store.theme.mode);
@@ -26,7 +27,7 @@ export default function Home() {
   const { tempProducts, isLoading } = useSelector((state) => state.products);
   const categories = useSelector((store) => store.categories.categories);
   const [filter, setFilter] = useState("Todo");
-
+  const { isLog } = useSelector((store) => store.users);
   const { pages } = useSelector((store) => store.products);
   const dispatch = useDispatch();
   const handleChange = (el) => {
@@ -72,6 +73,13 @@ export default function Home() {
             overflow: "scroll",
           }}
         >
+          {!isLog && (
+            <Box padding={"20px"}>
+              <Alert variant="filled" severity="warning">
+                No olvides registrarte. <Link to="/login">Aqui</Link>
+              </Alert>
+            </Box>
+          )}
           <Box
             width={"100%"}
             minHeight={{ xs: "200px", sm: "350px" }}

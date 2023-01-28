@@ -8,7 +8,7 @@ import { Link, Navigate } from "react-router-dom";
 export default function SideBar() {
   const mode = useSelector((store) => store.theme.mode);
   const theme = useSelector((store) => store.theme);
-
+  const { isLog } = useSelector((store) => store.users);
   return (
     <Box
       display={{ xs: "none", sm: "flex" }}
@@ -45,29 +45,31 @@ export default function SideBar() {
           </IconButton>
         </Box>
       </Box>
+      {isLog && (
+        <Box>
+          <Box>
+            <IconButton>
+              <Link to={"/cart"}>
+                <Icon
+                  icon="material-symbols:shopping-cart-outline-rounded"
+                  color={theme[mode].textPrimary}
+                />
+              </Link>
+            </IconButton>
+          </Box>
 
-      <Box>
-        <Box>
-          <IconButton>
-            <Link to={"/cart"}>
-              <Icon
-                icon="material-symbols:shopping-cart-outline-rounded"
-                color={theme[mode].textPrimary}
-              />
-            </Link>
-          </IconButton>
+          <Box>
+            <IconButton>
+              <Link to={"/dashboard"}>
+                <Icon
+                  icon="vscode-icons:file-type-light-config"
+                  color={theme[mode].textPrimary}
+                />
+              </Link>
+            </IconButton>
+          </Box>
         </Box>
-        <Box>
-          <IconButton>
-            <Link to={"/dashboard/crud"}>
-              <Icon
-                icon="vscode-icons:file-type-light-config"
-                color={theme[mode].textPrimary}
-              />
-            </Link>
-          </IconButton>
-        </Box>
-      </Box>
+      )}
     </Box>
   );
 }
