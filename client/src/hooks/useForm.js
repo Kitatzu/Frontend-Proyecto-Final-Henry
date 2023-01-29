@@ -1,3 +1,4 @@
+import { ErrorResponse } from "@remix-run/router";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
@@ -44,7 +45,7 @@ export const useForm = (initialForm, validateForm, localeErrors) => {
     });
     console.log(errors);
   };
-
+   
   const handleSubmit = (e) => {
     // console.log(errors, form);
     if (
@@ -65,16 +66,7 @@ export const useForm = (initialForm, validateForm, localeErrors) => {
       form.registerpassword !== "" &&
       form.verifypassword !== ""
     ) {
-      //const formSend = {};
-
-      // formSend.firstName = form.name;
-      // formSend.lastName = form.lastname;
-      // formSend.birthday=form.birthday;
-      // formSend."userName = form.name + form.lastname + form.birthday;"
-      // formSend.email = form.registerEmail;
-      // formSend.password = form.registerpassword;
-      // formSend.country = form.country;
-      // console.log(formSend);
+     
       const formSend = new FormData();
       formSend.append("firstName", form.name);
       formSend.append("lastName", form.lastname);

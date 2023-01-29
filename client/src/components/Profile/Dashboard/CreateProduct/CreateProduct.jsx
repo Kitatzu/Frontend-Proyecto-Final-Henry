@@ -27,23 +27,16 @@ import Brands from "./inputs/Brands";
 import SideBar from "../../../SideBar/SideBar";
 export default function CreateProduct() {
   const dispatch = useDispatch();
+
   const [addSeries, setAddseries] = useState(false);
   const [newProduct, setNewProduct] = useState({});
   const LoadingProduct = useSelector((store) => store.products.isLoading);
   const mode = useSelector((store) => store.theme.mode);
   const theme = useSelector((store) => store.theme);
-  const handleSave = (e) => {
-    // const formData = new FormData();
-
-    // formData.append("userEmail", userEmail);
-    // formData.append("image", image);
-    // formData.append("name", input.name);
-    // formData.append("description", input.description);
-    // formData.append("price", input.price);
-    // formData.append("country", input.country);
-    dispatch(createProduct(newProduct));
-  };
+ 
   const [serie, setSerie] = useState("");
+  const [image, setImage] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState(null);
 
   const productId = useSelector((store) => store.products.productCreate.id);
   const series = useSelector((store) => store.products.productCreate.series);
@@ -73,6 +66,12 @@ export default function CreateProduct() {
   const { categories } = useSelector((store) => store.categories);
   const { providers } = useSelector((store) => store.providers);
   const { brands } = useSelector((store) => store.brands);
+  const handleImage = (el) => {
+    setImage(el.target.files["0"]);
+    setPreviewUrl(URL.createObjectURL(el.target.files[0]));
+    console.log(el.target.files["0"]);
+    
+  };
   const handleChange = (e, type) => {
     if (type === "categories" && type !== undefined) {
       console.log(type);
@@ -95,22 +94,35 @@ export default function CreateProduct() {
       setNewProduct({ ...newProduct, [e.target.name]: e.target.value });
     }
   };
-  //   const addServices = (formData) => {
-  //     return async function (dispatch) {
-  //       let info = await axios({
-  //         url:  ${url}/services,
-  //         method: "POST",
-  //         body: formData,
-  //         headers: {
-  //           "Content-Type": "multipart/form-data",
-  //         },
-  //         data: formData,
-  //       });
-  //       console.log(info);
-  //       dispatch({ type: ADD_SERVICES, payload: info.data });
-  //     };
-  //   };
-  console.log(newProduct);
+  const handleSave = (e) => {
+    const formData = new FormData();
+
+   formData.append("name", newProduct.name);
+   formData.append("description", newProduct.description);
+   formData.append("price", newProduct.price);
+   formData.append("typeProduct", newProduct.typeProduct);
+   formData.append("provider", newProduct.provider)
+   formData.append("brand",newProduct.brand)
+   formData.append("categories",newProduct.categories)
+   if (image) {
+     console.log(image);
+     formData.append("img", image);
+   }
+   (async () => {
+     dispatch(createProduct(formData));
+   })();
+ 
+//   else {
+//    Swal.fire({
+//      icon: "error",
+//      title: "Form",
+//      text: "Completar el formulario!",
+//    });
+//  }
+  
+   
+ };
+   
   return (
     <Box sx={{ width: "100%", height: "100vh", overflow: "hidden" }}>
       <NavBar />
@@ -208,13 +220,17 @@ export default function CreateProduct() {
                 <Providers handleChange={handleChange} providers={providers} />
                 <Brands brands={brands} handleChange={handleChange} />
                 <Box>
-                  <TextField
+                  {/* <TextField
+                    type="file" 
                     label="Imagen URL"
                     name="img"
                     InputProps={{ style: { color: theme[mode].textPrimary } }}
                     sx={{ width: "100%" }}
                     onChange={handleChange}
-                  />
+                  /> */}
+                  <Box>
+                   <input type="file" onChange={handleImage} />
+                </Box>
                 </Box>
                 <LoadingButton
                   loading={LoadingProduct}
@@ -263,7 +279,7 @@ export default function CreateProduct() {
                 </Box>
                 <Box sx={{ width: "200px" }}>
                   <img
-                    src={newProduct.img ? newProduct.img : imgDefault}
+                    src={previewUrl?previewUrl:imgDefault}
                     alt="product"
                     width="100%"
                     style={{ borderRadius: "20px" }}
