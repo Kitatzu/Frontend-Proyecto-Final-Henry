@@ -128,7 +128,11 @@ const FormRegister = ({
         </Alert>
       ) : null}
 
-      <Box display="flex" justifyContent="space-around" alignItems="center">
+      <Box 
+        display="flex" 
+        justifyContent="space-around" 
+        alignItems="center"
+      >
         <Button
           variant="contained"
           color="secondary"
