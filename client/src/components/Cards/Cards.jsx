@@ -23,15 +23,18 @@ const Cards = ({ key, id, description, img, name, price, rating }) => {
     >
       <div key={key}>
         <Card
-          sx={{ width: 210, padding: "10px", background: theme[mode].card }}
+          sx={{
+            width: 210,
+            padding: "10px",
+            background: theme[mode].card,
+            minHeight: "365.2px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+          }}
         >
+          <CardMedia component="img" width={"100%"} image={img} alt="image" />
           <CardActionArea>
-            <CardMedia 
-              component="img" 
-              width={"100%"} 
-              image={img} 
-              alt="image" 
-            />
             <CardContent
               sx={{ gap: "10px", display: "flex", flexDirection: "column" }}
             >
@@ -39,7 +42,12 @@ const Cards = ({ key, id, description, img, name, price, rating }) => {
                 gutterBottom
                 variant="h7"
                 component="div"
-                sx={{ color: theme[mode].textPrimary, fontWeight: "bold" }}
+                sx={{
+                  color: theme[mode].textPrimary,
+                  fontWeight: "bold",
+                  width: "100%",
+                  overflow: "hidden",
+                }}
               >
                 {name.toUpperCase()}
               </Typography>
