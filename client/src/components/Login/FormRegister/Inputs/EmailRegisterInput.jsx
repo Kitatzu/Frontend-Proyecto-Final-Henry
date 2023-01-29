@@ -8,7 +8,7 @@ import {
 import { Icon } from "@iconify/react";
 import { useSelector } from "react-redux";
 const EmailRegisterInput = ({ handleChange, handleBlur, form, error }) => {
-  console.log(form);
+  // console.log(form);
   const mode = useSelector((store) => store.theme.mode);
   const Theme = useSelector((store) => store.theme);
   return (

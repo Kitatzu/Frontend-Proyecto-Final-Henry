@@ -14,8 +14,7 @@ import { loginUser } from "../../../Redux/Thunks/loginUsers";
 
 function FormLogin({ handleChange, handleBlur, handleSubmits, form, errors }) {
   const dispatch = useDispatch();
-  const clientId =
-    "797157267486-rvkpojtcmll1q3n7slbtu09fe4heo7ol.apps.googleusercontent.com";
+  const clientId = "797157267486-rvkpojtcmll1q3n7slbtu09fe4heo7ol.apps.googleusercontent.com";
   useEffect(() => {
     const start = () => {
       gapi.auth2.init({
