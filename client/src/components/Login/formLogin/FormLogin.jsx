@@ -1,6 +1,7 @@
 import { React, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Icon } from "@iconify/react";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 
 import { Box } from "@mui/system";
 import PasswordInput from "./input/PasswordInput";
@@ -13,6 +14,9 @@ import EmailInput from "./input/EmailInput";
 import { loginUser } from "../../../Redux/Thunks/loginUsers";
 
 function FormLogin({ handleChange, handleBlur, handleSubmits, form, errors }) {
+  
+  const mode = useSelector((store) => store.theme.mode);
+  const theme = useSelector((store) => store.theme);
   const dispatch = useDispatch();
   const clientId = "797157267486-rvkpojtcmll1q3n7slbtu09fe4heo7ol.apps.googleusercontent.com";
   useEffect(() => {
@@ -44,7 +48,13 @@ function FormLogin({ handleChange, handleBlur, handleSubmits, form, errors }) {
   };
   return (
     <Box className="Form">
-      <h2>LOGIN</h2>
+      <Typography
+        component="h2"
+        fontSize="20px"
+        sx={{ color: theme[mode].textPrimary, padding: "20px" }}
+      >
+        Login
+      </Typography>      
       <EmailInput
         handleChange={handleChange}
         handleBlur={handleBlur}

@@ -14,7 +14,7 @@ const Nav = () => {
   return (
     <Box padding={"10px"} position="fixed" width={"100%"}>
       {/* {redir ? <Redirect to={`/${redir}`} /> : null} */}
-      <Box display={"flex"} justifyContent="space-between">
+      <Box display={"flex"} justifyContent="flex-end">
         {/* <Box display={{ xs: "none", sm: "inline-block" }}>
           <Button
             startIcon={<Icon icon="mdi:marketplace-outline" />}

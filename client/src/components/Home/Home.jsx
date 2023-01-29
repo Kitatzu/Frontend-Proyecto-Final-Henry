@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   getPage,
-  getProducts,
   getProductsByCategories,
 } from "../../Redux/Thunks/Products";
 
@@ -140,7 +139,12 @@ export default function Home() {
               </Typography>
             </Box>
             <Box>
-              <Box display={"flex"} gap="20px" flexWrap={"wrap"}>
+              <Box 
+                display={"flex"} 
+                gap="20px"
+                flexWrap={"wrap"} 
+                marginLeft="20px"
+              >
                 <Box>
                   <Typography
                     component={"label"}

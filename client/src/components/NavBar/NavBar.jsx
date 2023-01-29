@@ -157,7 +157,13 @@ export default function NavBar() {
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
           >
-            MUI
+            <Link
+              to={{ pathname: `/home` }}
+              target="_parent"
+              rel="noopener noreferer"
+            >
+            BoxTech
+            </Link>
           </Typography>
           <Box display={{ xs: "none", sm: "flex" }}>
             <SearchBar />
