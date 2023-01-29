@@ -40,7 +40,7 @@ const CradProduct = ({ key, id, img, name, price, rating }) => {
             <Box width={"100%"} padding="20px">
               <CardMedia
                 component="img"
-                width={"100%"}
+                sx={{ width: "100%" }}
                 image={img}
                 alt="image"
               />

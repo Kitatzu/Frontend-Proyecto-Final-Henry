@@ -8,16 +8,17 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "swiper/css/bundle";
 
-import "./swiper.css"
+import "./swiper.css";
+import CradProduct from "./CardProduct/CardProduct";
 
 const CardSwipper = () => {
-    const { tempProducts, isLoading } = useSelector((state) => state.products);
+  const { tempProducts, isLoading } = useSelector((state) => state.products);
 
   return (
     <>
       <Swiper
         slidesPerView={3}
-        spaceBetween={0}
+        spaceBetween={30}
         loop={true}
         pagination={{
           clickable: true,
@@ -26,28 +27,27 @@ const CardSwipper = () => {
         modules={[Pagination, Navigation]}
         className="mySwiper"
       >
-            {isLoading && <div></div>}
-            {tempProducts
-                ? tempProducts?.map((el, key) => {
-                    return (
-                        <SwiperSlide>
-                            <Cards
-                            key={key}
-                            id={el.id}
-                            img={el.img}
-                            name={el.name}
-                            description={el.description}
-                            rating={el.rating}
-                            price={el.price}
-                        />
-                        </SwiperSlide>
-                      
-                    );
-                  })
-                : null}
-        </Swiper>
+        {isLoading && <div></div>}
+        {tempProducts
+          ? tempProducts?.map((el, key) => {
+              return (
+                <SwiperSlide>
+                  <CradProduct
+                    key={key}
+                    id={el.id}
+                    img={el.img}
+                    name={el.name}
+                    description={el.description}
+                    rating={el.rating}
+                    price={el.price}
+                  />
+                </SwiperSlide>
+              );
+            })
+          : null}
+      </Swiper>
     </>
-    )
-}
+  );
+};
 
-export default CardSwipper
+export default CardSwipper;

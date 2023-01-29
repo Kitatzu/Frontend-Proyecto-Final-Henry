@@ -51,15 +51,15 @@ export const getProductsByName = (name) => {
 
 export const getProductByID = (id) => {
   return async (dispatch) => {
-    try{
+    try {
       dispatch(setLoadingProducts(true));
       const response = await axios.get(`${Global.URL}/products/${id}`);
-      dispatch(setProductID(response.data))
+      dispatch(setProductID(response.data));
       dispatch(setLoadingProducts(false));
-    } catch(error) {
-      console.log(error)
+    } catch (error) {
+      console.log(error);
     }
-  }
+  };
 };
 
 export const createProduct = (form) => {
@@ -145,6 +145,7 @@ export const getProductsByCategories = (name) => {
       })
       .catch((response) => {
         // alert(response.response.data.msg);
+        dispatch(setLoadingProducts(false));
         console.log(response);
       });
   };

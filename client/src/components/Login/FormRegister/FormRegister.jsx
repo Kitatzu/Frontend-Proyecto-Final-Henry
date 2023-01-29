@@ -1,9 +1,9 @@
 import React from "react";
 //import "./FormRegister.scss";
-import imgDefault from "../../assets/imgDefault.png"
+import imgDefault from "../../assets/imgDefault.png";
 import { Icon } from "@iconify/react";
 import { Button } from "@mui/material";
- import NameInput from "./Inputs/NameInput";
+import NameInput from "./Inputs/NameInput";
 import { Box } from "@mui/system";
 import LastNameInput from "./Inputs/LastNameInput";
 import AgeInput from "./Inputs/AgeInput";
@@ -20,13 +20,19 @@ const FormRegister = ({
   handleImage,
   form,
   errors,
+  image,
+  previewUrl,
 }) => {
   return (
     <form className="Form">
       <h2>REGISTER</h2>
       <Box>
-        <input type="file"  handleImage={handleImage}/>
-        <img src={imgDefault} alt="imgDefault"  style={{width:"200px", height:"200px", borderRadius:"50%"}}  />
+        <input type="file" onChange={handleImage} />
+        <img
+          src={image ? previewUrl : imgDefault}
+          alt="imgDefault"
+          style={{ width: "200px", height: "200px", borderRadius: "50%" }}
+        />
       </Box>
       <Box
         className="Login-form-control"
@@ -133,7 +139,6 @@ const FormRegister = ({
           Register
         </Button>
       </Box>
-      
     </form>
   );
 };
