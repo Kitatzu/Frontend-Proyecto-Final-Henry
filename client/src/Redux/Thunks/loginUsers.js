@@ -43,7 +43,7 @@ export const loginUser = (origin, form, Token) => {
     } else if (origin === "google") {
       await dispatch(setIsLoading(true));
       await axios
-        .get(Global.ApiUrl + "/users?email=" + form.email)
+        .get(Global.URL + "/users?email=" + form.email)
         .then((data) => {
           //console.log(data);
           const userData = {
@@ -70,7 +70,7 @@ export const loginUser = (origin, form, Token) => {
           dispatch(setIsLoading(true));
           return await axios
 
-            .post(Global.ApiUrl + "/register", form)
+            .post(Global.URL + "/register", form)
             .then((data) => {
               dispatch(setIsLoading(false));
               const userData = {

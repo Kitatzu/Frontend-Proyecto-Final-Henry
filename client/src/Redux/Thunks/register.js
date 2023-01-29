@@ -44,9 +44,16 @@ export const RegisterUser = (form) => {
     dispatch(setIsLoading(true));
     return await axios
 
-      .post(Global.URL + "/register", form)
+      ({
+        url :`${Global.URL}/register`,
+        method: "POST",
+        body: form,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        data: form,
+      })
       .then((data) => {
-        console.log(data,data);
         dispatch(setIsLoading(false));
         const userData = {
           userId: data.data.id,

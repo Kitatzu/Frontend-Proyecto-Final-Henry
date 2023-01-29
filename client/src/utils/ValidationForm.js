@@ -89,9 +89,9 @@ const validationsForm = (name, value) => {
       errors.registerEmail = undefined;
     if (name === "registerEmail" && value && !regexEmail.test(value.trim()))
       errors.registerEmail = "Este campo es incorrecto";
-    /** 
+    
   
-      }**/
+    
     return errors;
   };
   export default validationsForm;

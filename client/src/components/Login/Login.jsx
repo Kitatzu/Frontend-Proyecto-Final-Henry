@@ -16,6 +16,7 @@ import { useForm } from "../../hooks/useForm";
 import validationsForm from "../../utils/ValidationForm";
 import Nav from "../LandingPage/nav/Nav";
 import FormLogin from "./formLogin/FormLogin";
+import Loading from "../Loading/Loading";
 
 const Login = () => {
     const initialForm = {
@@ -55,7 +56,7 @@ const Login = () => {
         }
     });
     const isLog = useSelector((store) => store.isLog);
-    const isLoading = useSelector((store) => store.isLoading);
+    const {isLoading} = useSelector((store) => store.users);
     return (
         <div
             className="Login-container"
@@ -63,16 +64,8 @@ const Login = () => {
         >
             
             {isLoading ? (
-                // <Loading />
-                <Box
-                    display={{ xs: "none", sm: "none", md: "flex" }}
-                    position="absolute"
-                    bottom={"0"}
-                    right="0"
-                    padding={"20px"}
-                >
-                    <img className="spin" src={spin} alt="spin" />
-                </Box>
+                 <Loading />
+                
             ) : (
                 <>
                     <Grid2 container spacing={2}>
