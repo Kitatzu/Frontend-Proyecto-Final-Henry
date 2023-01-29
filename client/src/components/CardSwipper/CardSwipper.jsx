@@ -17,8 +17,8 @@ const CardSwipper = () => {
   return (
     <>
       <Swiper
-        slidesPerView={3}
-        spaceBetween={30}
+        slidesPerView={2}
+        spaceBetween={1}
         loop={true}
         pagination={{
           clickable: true,

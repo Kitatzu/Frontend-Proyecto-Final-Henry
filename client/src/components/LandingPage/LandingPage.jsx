@@ -37,15 +37,14 @@ const LandingPage = () => {
               fontSize="45px"
               sx={{ color: Theme[mode].textPrimary }}
             >
-              Nombre de la pagina.
+              Box Tech
             </Typography>
           </Box>
 
           <Box padding={"20px"}>
             <Typography sx={{ color: Theme[mode].textPrimary }}>
-              Our utility palette/semantic palette is comprised of green,
-              yellow, and red. Semantic color helps users find people, identify
-              status,
+            Box Tech provides computer part selection, for DIY (do-it-yourself) computer builders. 
+            We make it easy to build you personal list of parts.
             </Typography>
           </Box>
           <Box padding={"20px"}>
