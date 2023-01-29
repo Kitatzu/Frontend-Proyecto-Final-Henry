@@ -1,8 +1,11 @@
 import { Button, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { getProductsByCategories } from "../../../Redux/Thunks/Products";
 
 function CardCategories({ value, key, id, img }) {
+  const dispatch = useDispatch();
   return (
     <Button
       key={key}
@@ -13,6 +16,7 @@ function CardCategories({ value, key, id, img }) {
         background: "#282828",
         width: "300px",
       }}
+      onClick={() => dispatch(getProductsByCategories(value))}
     >
       <Box padding={"20px"}>
         <Typography sx={{ color: "white" }}>{value}</Typography>

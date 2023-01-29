@@ -28,6 +28,7 @@ import { Link } from "react-router-dom";
 import CardSwipper from "../CardSwipper/CardSwipper";
 import SwipperBrand from "../CardSwipper/CardBrand/SwipperBrand";
 import CardCategories from "./CardCategories/CardCategories";
+import { getBrands } from "../../Redux/Thunks/brand";
 
 export default function Home() {
   const mode = useSelector((store) => store.theme.mode);
@@ -57,6 +58,7 @@ export default function Home() {
     dispatch(getPage(0));
     dispatch(getPage(1));
     dispatch(getCategories());
+    dispatch(getBrands());
     console.log(JSON.parse(localStorage.getItem("token")));
     if (JSON.parse(localStorage.getItem("token")) !== null) {
       dispatch(setUserName(JSON.parse(localStorage.getItem("token")).userName));
@@ -132,55 +134,54 @@ export default function Home() {
               <Typography
                 component="h2"
                 fontSize="20px"
-                sx={{ color: theme[mode].textPrimary }}
+                sx={{ color: theme[mode].textPrimary, padding: "20px" }}
               >
                 INICIO
               </Typography>
-
-              <Box>
-                <Box display={"flex"} gap="20px" flexWrap={"wrap"}>
-                  <Box>
-                    <Typography
-                      component={"label"}
-                      sx={{ color: theme[mode].textPrimary }}
-                    >
-                      Precio minimo:
-                    </Typography>
-                    <input
-                      type="number"
-                      defaultValue={0}
-                      min="0"
-                      name="min"
-                      onChange={(e) => handlePrice(e)}
-                      style={{
-                        padding: "10px",
-                        border: "none",
-                        background: "#ececec",
-                        borderRadius: "10px",
-                      }}
-                    />
-                  </Box>
-                  <Box>
-                    <Typography
-                      component={"label"}
-                      sx={{ color: theme[mode].textPrimary }}
-                    >
-                      Precio maximo:
-                    </Typography>
-                    <input
-                      type="number"
-                      defaultValue={0}
-                      min="0"
-                      name="max"
-                      onChange={(e) => handlePrice(e)}
-                      style={{
-                        padding: "10px",
-                        border: "none",
-                        background: "#ececec",
-                        borderRadius: "10px",
-                      }}
-                    />
-                  </Box>
+            </Box>
+            <Box>
+              <Box display={"flex"} gap="20px" flexWrap={"wrap"}>
+                <Box>
+                  <Typography
+                    component={"label"}
+                    sx={{ color: theme[mode].textPrimary }}
+                  >
+                    Precio minimo:
+                  </Typography>
+                  <input
+                    type="number"
+                    defaultValue={0}
+                    min="0"
+                    name="min"
+                    onChange={(e) => handlePrice(e)}
+                    style={{
+                      padding: "10px",
+                      border: "none",
+                      background: "#ececec",
+                      borderRadius: "10px",
+                    }}
+                  />
+                </Box>
+                <Box>
+                  <Typography
+                    component={"label"}
+                    sx={{ color: theme[mode].textPrimary }}
+                  >
+                    Precio maximo:
+                  </Typography>
+                  <input
+                    type="number"
+                    defaultValue={0}
+                    min="0"
+                    name="max"
+                    onChange={(e) => handlePrice(e)}
+                    style={{
+                      padding: "10px",
+                      border: "none",
+                      background: "#ececec",
+                      borderRadius: "10px",
+                    }}
+                  />
                 </Box>
               </Box>
             </Box>
@@ -211,7 +212,12 @@ export default function Home() {
                   })
                 : null}
             </Box>
-            <Box>
+            <Box
+              display={"flex"}
+              width="100%"
+              flexWrap={"wrap"}
+              justifyContent="center"
+            >
               {categories
                 ? categories.map((cat) => (
                     <CardCategories
