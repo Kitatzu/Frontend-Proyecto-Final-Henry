@@ -9,7 +9,6 @@ import {
   import { useSelector } from "react-redux";
   
   const EmailInput = ({ handleChange, handleBlur, form, error }) => {
-    console.log(form);
     const mode = useSelector((store) => store.theme.mode);
     const Theme = useSelector((store) => store.theme);
     return (
