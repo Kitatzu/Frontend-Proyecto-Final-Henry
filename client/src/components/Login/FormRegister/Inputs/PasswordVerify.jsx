@@ -20,7 +20,7 @@ const PasswordVerifyInput = ({ handleChange, handleBlur, form, error }) => {
   const Theme = useSelector((store) => store.theme);
   return (
     <FormControl
-      sx={{ m: 1, width: "25ch" }}
+      sx={{ m: 1, width: "50%" }}
       variant="outlined"
       className="Login-form-control"
     >

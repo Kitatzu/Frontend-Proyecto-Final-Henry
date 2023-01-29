@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   getPage,
-  getProducts,
   getProductsByCategories,
 } from "../../Redux/Thunks/Products";
 
@@ -110,7 +109,7 @@ export default function Home() {
             }}
           >
             {/* Swiper */}
-            <Box top="0px" right="0px" position="absolute" margin="20px">
+            <Box top="0px" right="0px" position="absolute" margin="30px">
               <CardSwipper />
             </Box>
 
@@ -144,7 +143,12 @@ export default function Home() {
               </Typography>
             </Box>
             <Box>
-              <Box display={"flex"} gap="20px" flexWrap={"wrap"} padding="20px">
+              <Box 
+                display={"flex"} 
+                gap="20px"
+                flexWrap={"wrap"} 
+                padding="20px"
+              >
                 <Box>
                   <Typography
                     component={"label"}
