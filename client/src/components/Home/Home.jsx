@@ -38,6 +38,7 @@ export default function Home() {
   const [filter, setFilter] = useState("Todo");
   const { isLog } = useSelector((store) => store.users);
   const { pages } = useSelector((store) => store.products);
+  const [banner, setBanner] = useState(null);
   const dispatch = useDispatch();
   const handleChange = (el) => {
     if (el.target.value !== "Todo") {
@@ -100,9 +101,12 @@ export default function Home() {
             minHeight="500px"
             position="relative"
             sx={{
-              background:
-                "radial-gradient(101.77% 757.7% at 100% 43.44%, #00D4FF 0%, #090979 54.69%, #05044C 79.69%, #020024 100%)",
+              background: banner
+                ? `url(${banner})`
+                : "radial-gradient(101.77% 757.7% at 100% 43.44%, #00D4FF 0%, #090979 54.69%, #05044C 79.69%, #020024 100%)",
               borderRadius: "20px",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
             }}
           >
             {/* Swiper */}
@@ -122,7 +126,7 @@ export default function Home() {
               className="container"
             >
               <Box position={"relative"} width="100%">
-                <SwipperBrand />
+                <SwipperBrand setBanner={setBanner} />
               </Box>
             </Box>
           </Box>
@@ -140,7 +144,7 @@ export default function Home() {
               </Typography>
             </Box>
             <Box>
-              <Box display={"flex"} gap="20px" flexWrap={"wrap"}>
+              <Box display={"flex"} gap="20px" flexWrap={"wrap"} padding="20px">
                 <Box>
                   <Typography
                     component={"label"}

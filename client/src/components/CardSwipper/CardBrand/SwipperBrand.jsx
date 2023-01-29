@@ -12,7 +12,7 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { useSelector } from "react-redux";
 import CardBrand from "./CardBrand";
-function SwipperBrand() {
+function SwipperBrand({ setBanner }) {
   const { brands } = useSelector((store) => store.brands);
   return (
     <Swiper
@@ -37,7 +37,7 @@ function SwipperBrand() {
       {brands
         ? brands.map((b) => (
             <SwiperSlide>
-              <CardBrand img={b.img} />
+              <CardBrand img={b.img} setBanner={setBanner} />
             </SwiperSlide>
           ))
         : null}

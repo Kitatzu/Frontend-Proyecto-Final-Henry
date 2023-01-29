@@ -27,24 +27,35 @@ const CradProduct = ({ key, id, img, name, price, rating }) => {
         <Card
           sx={{
             width: 210,
-            padding: "10px",
+            padding: "20px",
             background: "rgba(255,255,255,.2)",
             borderTop: "2px solid rgba(255,255,255,.4)",
             borderLeft: "2px solid rgba(255,255,255,.4)",
             borderRight: "1px solid rgba(255,255,255,.2)",
             borderBottom: "1px solid rgba(255,255,255,.2)",
             backdropFilter: "blur(20px)",
+            minHeight: "365.2px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
           }}
         >
+          <Box
+            width={"100%"}
+            display="flex"
+            justifyContent={"center"}
+            padding="20px"
+            alignItems={"center"}
+            height="max-content"
+          >
+            <CardMedia
+              component="img"
+              sx={{ width: "100%" }}
+              image={img}
+              alt="image"
+            />
+          </Box>
           <CardActionArea>
-            <Box width={"100%"} padding="20px">
-              <CardMedia
-                component="img"
-                sx={{ width: "100%" }}
-                image={img}
-                alt="image"
-              />
-            </Box>
             <CardContent
               sx={{ gap: "10px", display: "flex", flexDirection: "column" }}
             >
@@ -52,7 +63,7 @@ const CradProduct = ({ key, id, img, name, price, rating }) => {
                 gutterBottom
                 variant="h7"
                 component="div"
-                sx={{ color: theme[mode].textPrimary, fontWeight: "bold" }}
+                sx={{ color: "white", fontWeight: "bold" }}
               >
                 {name.toUpperCase()}
               </Typography>
@@ -74,7 +85,7 @@ const CradProduct = ({ key, id, img, name, price, rating }) => {
               <Typography
                 variant="body2"
                 color="text.secondary"
-                sx={{ color: theme[mode].textPrimary }}
+                sx={{ color: "white" }}
               >
                 ${price}
               </Typography>
