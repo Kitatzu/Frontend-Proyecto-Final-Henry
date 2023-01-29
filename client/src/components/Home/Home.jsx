@@ -109,7 +109,7 @@ export default function Home() {
             }}
           >
             {/* Swiper */}
-            <Box top="0px" right="0px" position="absolute" margin="20px">
+            <Box top="0px" right="0px" position="absolute" margin="30px">
               <CardSwipper />
             </Box>
 

@@ -1,8 +1,8 @@
 import React from "react";
-//import "./FormRegister.scss";
+import { useSelector } from "react-redux";
 import imgDefault from "../../assets/imgDefault.png";
 import { Icon } from "@iconify/react";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import NameInput from "./Inputs/NameInput";
 import { Box } from "@mui/system";
 import LastNameInput from "./Inputs/LastNameInput";
@@ -23,21 +23,50 @@ const FormRegister = ({
   image,
   previewUrl,
 }) => {
+
+  const mode = useSelector((store) => store.theme.mode);
+  const theme = useSelector((store) => store.theme);
+
   return (
-    <form className="Form">
-      <h2>REGISTER</h2>
-      <Box>
-        <input type="file" onChange={handleImage} />
+    <Box className="Form">
+      <Typography
+        component="h2"
+        fontSize="20px"
+        display={"flex"}
+        justifyContent={"center"}
+        sx={{ color: theme[mode].textPrimary, padding: "30px" }}
+      >
+        REGISTER
+      </Typography>
+      <Box 
+        display={"flex"} 
+        flexDirection="row-reverse" 
+        alignContent={"center"}
+        justifyContent={"center"}
+        marginLeft="180px"
+      > 
+        <input 
+          type="file" 
+          onChange={handleImage} 
+          style={{ margin:"auto auto auto 30px" }}
+        />
         <img
           src={image ? previewUrl : imgDefault}
           alt="imgDefault"
-          style={{ width: "200px", height: "200px", borderRadius: "50%" }}
+          style={{ 
+              width: "200px", 
+              height: "200px", 
+              borderRadius: "50%", 
+              marginBottom: "10px"
+            }}
         />
       </Box>
+      
       <Box
         className="Login-form-control"
-        display="flex-column"
-        justifyContent="center"
+        display="flex"
+        flexDirection={"column"}
+        alignItems={"center"}
       >
         <NameInput
           handleChange={handleChange}
@@ -67,6 +96,12 @@ const FormRegister = ({
         </Alert>
       ) : null}
 
+      <Box
+        className="Login-form-control"
+        display="flex"
+        flexDirection={"column"}
+        alignItems={"center"}
+      >
       <AgeInput
         handleChange={handleChange}
         handleBlur={handleBlur}
@@ -122,6 +157,7 @@ const FormRegister = ({
         handleSubmit={handleSubmit}
         form={form}
       />
+      </Box>
       {errors.verifypassword !== undefined ? (
         <Alert severity="error" sx={{ margin: "15px 0" }}>
           {errors.verifypassword}
@@ -138,12 +174,13 @@ const FormRegister = ({
           color="secondary"
           startIcon={<Icon className="IconL" icon="ph:sign-in-light" />}
           className="Form-button register-button"
+          style={{ marginTop: "20px"}}
           onClick={handleSubmit}
         >
           Register
         </Button>
       </Box>
-    </form>
+    </Box>
   );
 };
 

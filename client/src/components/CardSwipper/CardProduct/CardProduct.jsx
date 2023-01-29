@@ -7,15 +7,12 @@ import {
 } from "@mui/material";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
-import { useSelector } from "react-redux";
 
 import imgDefault from "../../assets/imgDefault.png";
 import { Link } from "react-router-dom";
 import { Box } from "@mui/system";
 
 const CradProduct = ({ key, id, img, name, price, rating }) => {
-  const mode = useSelector((store) => store.theme.mode);
-  const theme = useSelector((store) => store.theme);
   img = img ? img : imgDefault;
   return (
     <Link
@@ -27,7 +24,7 @@ const CradProduct = ({ key, id, img, name, price, rating }) => {
         <Card
           sx={{
             width: 210,
-            padding: "20px",
+            padding: "40px",
             background: "rgba(255,255,255,.2)",
             borderTop: "2px solid rgba(255,255,255,.4)",
             borderLeft: "2px solid rgba(255,255,255,.4)",
@@ -44,7 +41,7 @@ const CradProduct = ({ key, id, img, name, price, rating }) => {
             width={"100%"}
             display="flex"
             justifyContent={"center"}
-            padding="20px"
+            padding="5px"
             alignItems={"center"}
             height="max-content"
           >
@@ -57,7 +54,7 @@ const CradProduct = ({ key, id, img, name, price, rating }) => {
           </Box>
           <CardActionArea>
             <CardContent
-              sx={{ gap: "10px", display: "flex", flexDirection: "column" }}
+              sx={{ gap: "5px", display: "flex", flexDirection: "column" }}
             >
               <Typography
                 gutterBottom
