@@ -65,8 +65,17 @@ export const getProductByID = (id) => {
 export const createProduct = (form) => {
   return async (dispatch) => {
     dispatch(setLoadingProducts(true));
-    axios
-      .post(`${Global.URL}/products`, form)
+   return await axios
+
+      ({
+        url :`${Global.URL}/products`,
+        method: "POST",
+        body: form,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        data: form,
+      })
       .then((response) => {
         console.log(response);
         dispatch(getProducts());
