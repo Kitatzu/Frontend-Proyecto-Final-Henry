@@ -1,8 +1,11 @@
 .cardBrand{
     transform: scale(1) !important;
     border: none !important ;
+    box-shadow: 0px 10px 10px 10px rgba(0,0,0,.3);
 }
 .cardBrandActive{
+    transition: 0.5s;
     transform: scale(1.2) !important;
     border: 4px solid #1976D2 !important;
+    box-shadow: 0px 10px 20px 20px rgba(0,0,0,.2);
 }
