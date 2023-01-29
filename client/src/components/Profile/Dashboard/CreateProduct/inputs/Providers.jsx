@@ -13,21 +13,21 @@ export default function Providers({ handleChange, providers }) {
         handleChange(e, "providers");
       }}
       options={providers}
-      getOptionLabel={(option) => option.proveedor}
+      getOptionLabel={(option) => option.provider}
       renderOption={(props, option) => (
         <Box
           component={"li"}
           {...props}
-          value={option.proveedor}
+          value={option.provider}
           key={option.id}
         >
-          {option.proveedor}
+          {option.provider}
         </Box>
       )}
       renderInput={(params) => (
         <TextField
           {...params}
-          label="Proveedores"
+          label="provider"
           //   style={{ color: Theme[mode].textPrimary }}
           inputProps={{
             ...params.inputProps,

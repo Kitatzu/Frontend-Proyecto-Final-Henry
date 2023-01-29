@@ -6,7 +6,6 @@ import MuiSwitch from "../../MuiSwitch/MuiSwitch";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-// import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 
 const Nav = () => {
   const theme = useSelector((store) => store.theme);
@@ -16,23 +15,25 @@ const Nav = () => {
     <Box padding={"10px"} position="fixed" width={"100%"}>
       {/* {redir ? <Redirect to={`/${redir}`} /> : null} */}
       <Box display={"flex"} justifyContent="space-between">
-        <Box display={{ xs: "none", sm: "inline-block" }}>
+        {/* <Box display={{ xs: "none", sm: "inline-block" }}>
           <Button
             startIcon={<Icon icon="mdi:marketplace-outline" />}
             sx={{ color: theme[mode].textPrimary }}
           >
             Market
           </Button>
-        </Box>
+        </Box> */}
         <Box display={"flex"} gap="20px">
           <MuiSwitch />
+          <Link to={"login"}>
           <Button
             variant="contained"
             sx={{ borderRadius: "20px", fontSize: "10px" }}
           >
-            Login
+            Login / Register
           </Button>
-          <Link to="/register">
+          </Link>
+          {/* <Link to="/register">
             <Button
               variant="contained"
               sx={{ borderRadius: "20px", fontSize: "10px" }}
@@ -43,7 +44,7 @@ const Nav = () => {
             >
               Register
             </Button>
-          </Link> 
+          </Link>  */}
         </Box>
       </Box>
     </Box>
