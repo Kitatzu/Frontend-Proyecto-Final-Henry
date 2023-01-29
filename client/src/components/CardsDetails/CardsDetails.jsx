@@ -82,7 +82,7 @@ const CardsDetails = () => {
                   onClick={(e) => {
                     if (
                       cantidadProducto > 0 &&
-                      cantidadProducto < products.stock
+                      cantidadProducto <= products.stock
                     ) {
                       dispatch(
                         setCart({

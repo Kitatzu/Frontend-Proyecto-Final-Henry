@@ -11,9 +11,14 @@ export const useForm = (initialForm, validateForm, localeErrors) => {
 
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState(null);
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState(null);
+
   const handleImage = (el) => {
-    setImage(el.target.files[0]);
+    setImage(el.target.files["0"]);
+    setPreviewUrl(URL.createObjectURL(el.target.files[0]));
+    console.log(el.target.files["0"]);
+    console.log(image);
   };
   const handleChange = (e, type) => {
     if (type === "country" && type !== undefined) {
@@ -30,7 +35,7 @@ export const useForm = (initialForm, validateForm, localeErrors) => {
       [name]: value,
     });
   };
-   
+
   const handleBlur = (e) => {
     handleChange(e);
     setErrors({
@@ -41,15 +46,13 @@ export const useForm = (initialForm, validateForm, localeErrors) => {
   };
 
   const handleSubmit = (e) => {
-    console.log(errors, form);
+    // console.log(errors, form);
     if (
-      
       errors.lastname === undefined &&
       errors.name === undefined &&
       errors.registerEmail === undefined &&
       errors.registerpassword === undefined &&
       errors.verifypassword === undefined &&
-      
       form.lastname !== undefined &&
       form.name !== undefined &&
       form.registerEmail !== undefined &&
@@ -63,7 +66,7 @@ export const useForm = (initialForm, validateForm, localeErrors) => {
       form.verifypassword !== ""
     ) {
       //const formSend = {};
-      
+
       // formSend.firstName = form.name;
       // formSend.lastName = form.lastname;
       // formSend.birthday=form.birthday;
@@ -72,16 +75,20 @@ export const useForm = (initialForm, validateForm, localeErrors) => {
       // formSend.password = form.registerpassword;
       // formSend.country = form.country;
       // console.log(formSend);
-      const formSend = new FormData()
-      formSend.append("firstName",form.name)
-      formSend.append("lastName",form.lastname)
-      formSend.append("birthday",form.birthday)
-      formSend.append("userName",form.name + form.lastname + form.birthday)
-      formSend.append("email",form.registerEmail)
-      formSend.append("password",form.registerpassword)
-      formSend.append("country",form.country)
-      formSend.append("avatar",image) 
-      
+      const formSend = new FormData();
+      formSend.append("firstName", form.name);
+      formSend.append("lastName", form.lastname);
+      formSend.append("birthday", form.birthday);
+      formSend.append("userName", form.name + form.lastname + form.birthday);
+      formSend.append("email", form.registerEmail);
+      formSend.append("password", form.registerpassword);
+      formSend.append("country", form.country);
+      // formSend.append("avatar", image);
+
+      if (image) {
+        console.log(image);
+        formSend.append("avatar", image);
+      }
       (async () => {
         dispatch(RegisterUser(formSend));
       })();
@@ -127,6 +134,8 @@ export const useForm = (initialForm, validateForm, localeErrors) => {
     handleBlur,
     handleSubmit,
     handleSubmits,
-    handleImage
+    handleImage,
+    image,
+    previewUrl,
   };
 };

@@ -48,6 +48,7 @@ export const getCart = () => {
       });
   };
 };
+
 export const setCart = (form) => {
   const userId = JSON.parse(localStorage.getItem("token"))
     ? JSON.parse(localStorage.getItem("token")).userId
