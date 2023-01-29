@@ -17,7 +17,7 @@ export const loginUser = (origin, form, Token) => {
             lastName: data.data.lastName,
             avatar: form.avatar,
             token: data.data.newToken,
-            rol: data.data.role.rol
+            rol: data.data.role.rol,
           };
           localStorage.setItem("token", JSON.stringify(userData));
           dispatch(setIsLoading(false));
@@ -31,7 +31,7 @@ export const loginUser = (origin, form, Token) => {
           });
         })
         .catch((response) => {
-          console.log(response)
+          console.log(response);
           dispatch(setIsLoading(false));
           Swal.fire({
             icon: "error",
@@ -42,17 +42,18 @@ export const loginUser = (origin, form, Token) => {
         });
     } else if (origin === "google") {
       await dispatch(setIsLoading(true));
+      console.log(form);
       await axios
         .get(Global.URL + "/users?email=" + form.email)
         .then((data) => {
-          //console.log(data);
+          console.log(data);
           const userData = {
             userId: data.data.id,
             userName: form.email,
             name: data.data.firstName,
             lastName: data.data.lastName,
             avatar: form.avatar,
-            rol: data.data.roles[0].roleName,
+            rol: data.data.role.rol,
             token: Token,
           };
           localStorage.setItem("token", JSON.stringify(userData));
@@ -67,6 +68,7 @@ export const loginUser = (origin, form, Token) => {
           });
         })
         .catch(async (response) => {
+          console.log(response);
           dispatch(setIsLoading(true));
           return await axios
 
@@ -100,7 +102,7 @@ export const loginUser = (origin, form, Token) => {
                 text: "Error no se registro el usuario!",
               });
               dispatch(setIsLoading(false));
-              //console.log(response);
+              console.log(response);
             });
         });
     }

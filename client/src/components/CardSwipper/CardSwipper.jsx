@@ -6,17 +6,18 @@ import { Pagination, Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import "swiper/css/bundle";
 
 import "./swiper.css"
 
 const CardSwipper = () => {
     const { tempProducts, isLoading } = useSelector((state) => state.products);
 
-    return(
-        <>
-        <Swiper
-        slidesPerView={2}
-        spaceBetween={30}
+  return (
+    <>
+      <Swiper
+        slidesPerView={3}
+        spaceBetween={0}
         loop={true}
         pagination={{
           clickable: true,

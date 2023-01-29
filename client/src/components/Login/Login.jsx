@@ -1,4 +1,3 @@
-
 import FormRegister from "./FormRegister/FormRegister";
 //import Nav from "./Nav/Nav";
 //import WavesLogin from "../Waves/WavesLogin/WavesLogin";
@@ -16,24 +15,23 @@ import { useForm } from "../../hooks/useForm";
 import validationsForm from "../../utils/ValidationForm";
 import Nav from "../LandingPage/nav/Nav";
 import FormLogin from "./formLogin/FormLogin";
-import Loading from "../Loading/Loading";
 
 const Login = () => {
-    const initialForm = {
-        email: "",
-        password: "",
-        name: "",
-        birthday: "",
-        lastname: "",
-        registerpassword: "",
-        verifypassword: "",
-        registerEmail: "",
-        country: "",
-        userName:""
-    };
+  const initialForm = {
+    email: "",
+    password: "",
+    name: "",
+    birthday: "",
+    lastname: "",
+    registerpassword: "",
+    verifypassword: "",
+    registerEmail: "",
+    country: "",
+    userName: "",
+  };
 
-    const [loginType, setLoginType] = useState("login");
-    const url = window.location.href;
+  const [loginType, setLoginType] = useState("login");
+  const url = window.location.href;
 
     const mode = useSelector((state) => state.theme.mode);
     const Theme = useSelector((state) => state.theme);
@@ -56,7 +54,7 @@ const Login = () => {
         }
     });
     const isLog = useSelector((store) => store.isLog);
-    const {isLoading} = useSelector((store) => store.users);
+    const isLoading = useSelector((store) => store.isLoading);
     return (
         <div
             className="Login-container"
@@ -64,8 +62,16 @@ const Login = () => {
         >
             
             {isLoading ? (
-                 <Loading />
-                
+                // <Loading />
+                <Box
+                    display={{ xs: "none", sm: "none", md: "flex" }}
+                    position="absolute"
+                    bottom={"0"}
+                    right="0"
+                    padding={"20px"}
+                >
+                    <img className="spin" src={spin} alt="spin" />
+                </Box>
             ) : (
                 <>
                     <Grid2 container spacing={2}>
@@ -135,11 +141,11 @@ const Login = () => {
                         {/* <Grid2 xs={6} sm={6} xl={6} className="Image-display">
                             <img src={Presentation} alt="Natural gift" />
                         </Grid2> */}
-                    </Grid2>
-                    {/* <WavesLogin /> */}
-                </>
-            )}
-        </div>
-    );
+          </Grid2>
+          {/* <WavesLogin /> */}
+        </>
+      )}
+    </div>
+  );
 };
 export default Login;

@@ -3,20 +3,18 @@ import { Icon } from "@iconify/react";
 import { Button } from "@mui/material";
 
 import { Box } from "@mui/system";
-import PasswordInput from "./input/PasswordInput"
+import PasswordInput from "./input/PasswordInput";
 import { Alert } from "@mui/material";
 import GoogleLogin from "react-google-login";
 import { gapi } from "gapi-script";
 import { useDispatch } from "react-redux";
 
-import { ValidatorForm } from "react-material-ui-form-validator";
 import EmailInput from "./input/EmailInput";
 import { loginUser } from "../../../Redux/Thunks/loginUsers";
 
 function FormLogin({ handleChange, handleBlur, handleSubmits, form, errors }) {
   const dispatch = useDispatch();
-  const clientId =
-  "797157267486-lvn1qtius6tu6hq7drjcem2os94c9t1o.apps.googleusercontent.com"
+  const clientId = "797157267486-rvkpojtcmll1q3n7slbtu09fe4heo7ol.apps.googleusercontent.com";
   useEffect(() => {
     const start = () => {
       gapi.auth2.init({
@@ -25,6 +23,7 @@ function FormLogin({ handleChange, handleBlur, handleSubmits, form, errors }) {
     };
     gapi.load("client:auth2", start);
   }, []);
+
   const responseGooglesuccess = (response) => {
     const Token = response.accessToken;
     const formGoogle = {};
@@ -36,6 +35,7 @@ function FormLogin({ handleChange, handleBlur, handleSubmits, form, errors }) {
     formGoogle.avatar = response.profileObj.imageUrl;
     formGoogle.password = response.Ca;
     formGoogle.country = "Google";
+    formGoogle.birthday = "1998-01-01";
     console.log(formGoogle, Token);
     dispatch(loginUser("google", formGoogle, Token));
   };
@@ -109,9 +109,9 @@ export default FormLogin;
 
 //   function handleSubmit(event) {
 //     event.preventDefault();
-  //   // Aquí deberías enviar la información del formulario al servidor o manejar la lógica de inicio de sesión en el lado del cliente
-  //   console.log(email, password);
-  // }
+//   // Aquí deberías enviar la información del formulario al servidor o manejar la lógica de inicio de sesión en el lado del cliente
+//   console.log(email, password);
+// }
 
 //   return (
 //     <ValidatorForm onSubmit={handleSubmit}>
