@@ -22,15 +22,14 @@ export default function NavBar() {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const { isLog } = useSelector((store) => store.users);
   const pages = ["home", "dashboard/crud", "carrito", "configuracion"];
+  const { avatar, firstName } = useSelector((store) => store.users);
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const logOut = () => {
     localStorage.removeItem("token");
     dispatch(logout());
     handleMenuClose();
-    navigate("/login")
-    
-    
+    navigate("/login");
   };
 
   const isMenuOpen = Boolean(anchorEl);
@@ -197,7 +196,7 @@ export default function NavBar() {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <Avatar />
+              <Avatar src={avatar} alt={firstName} />
             </IconButton>
           </Box>
         </Toolbar>
