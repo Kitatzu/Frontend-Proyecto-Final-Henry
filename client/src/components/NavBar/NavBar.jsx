@@ -12,14 +12,27 @@ import SearchBar from "../SearchBar/SearchBar";
 import Notifications from "./Notifications/Notifications";
 import { Avatar } from "@mui/material";
 import MuiSwitch from "../MuiSwitch/MuiSwitch";
-import { Link, Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../Redux/Slices";
 
 export default function NavBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const { isLog } = useSelector((store) => store.users);
   const pages = ["home", "dashboard/crud", "carrito", "configuracion"];
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
+  const logOut = () => {
+    localStorage.removeItem("token");
+    dispatch(logout());
+    handleMenuClose();
+    navigate("/login")
+    
+    
+  };
+
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -65,6 +78,7 @@ export default function NavBar() {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      {isLog && <MenuItem onClick={logOut}>Log out</MenuItem>}
     </Menu>
   );
 
@@ -162,7 +176,7 @@ export default function NavBar() {
               target="_parent"
               rel="noopener noreferer"
             >
-            BoxTech
+              BoxTech
             </Link>
           </Typography>
           <Box display={{ xs: "none", sm: "flex" }}>
