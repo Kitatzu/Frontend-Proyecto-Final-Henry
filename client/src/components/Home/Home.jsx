@@ -119,7 +119,7 @@ export default function Home() {
                 position: "absolute",
                 width: "100%",
                 height: "max-content",
-                bottom: " -100px",
+                bottom: " -150px",
                 padding: "10px",
               }}
               className="container"
