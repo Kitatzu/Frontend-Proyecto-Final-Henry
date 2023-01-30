@@ -1,7 +1,7 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import Global from "../../Global";
-import { setIsLoading, setIsLog, setUserName } from "../Slices";
+import { setData, setIsLoading, setIsLog, setUserName } from "../Slices";
 export const loginUser = (origin, form, Token) => {
   return async (dispatch) => {
     if (origin === "local") {
@@ -64,6 +64,14 @@ export const loginUser = (origin, form, Token) => {
             text: "Usuario Logeado correctamente!",
           }).then(async (response) => {
             await dispatch(setUserName(form.email));
+            await dispatch(
+              setData({
+                avatar: form.avatar,
+                firstName: data.data.firstName,
+                lastName: data.data.lastName,
+                email: data.data.email,
+              })
+            );
             await dispatch(setIsLog(Token));
           });
         })
@@ -74,6 +82,7 @@ export const loginUser = (origin, form, Token) => {
 
             .post(Global.URL + "/register", form)
             .then((data) => {
+              console.log(data);
               dispatch(setIsLoading(false));
               const userData = {
                 userId: data.data.id,
@@ -81,7 +90,7 @@ export const loginUser = (origin, form, Token) => {
                 name: data.data.firstName,
                 lastName: data.data.lastName,
                 avatar: form.avatar,
-                rol: data.data.roles[0].roleName,
+
                 token: data.data.newToken,
               };
               localStorage.setItem("token", JSON.stringify(userData));
@@ -93,9 +102,18 @@ export const loginUser = (origin, form, Token) => {
               }).then(async (response) => {
                 await dispatch(setUserName(form.userName));
                 await dispatch(setIsLog(data.data.newToken));
+                await dispatch(
+                  setData({
+                    avatar: form.avatar,
+                    firstName: data.data.firstName,
+                    lastName: data.data.lastName,
+                    email: data.data.email,
+                  })
+                );
               });
             })
             .catch((response) => {
+              console.log(response);
               Swal.fire({
                 icon: "error",
                 title: "Error!",
