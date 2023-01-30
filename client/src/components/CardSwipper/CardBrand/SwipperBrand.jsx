@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, A11y, Navigation } from "swiper";
 import amdImage from "../../assets/amd-default-social-image-1200x628.webp";
@@ -12,27 +12,36 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { useSelector } from "react-redux";
 import CardBrand from "./CardBrand";
+
 function SwipperBrand({ setBanner }) {
+  const scale = window.screen.width;
+  const [widScreen, setWidScreen] = useState(false);
+  useEffect(() => {
+    setWidScreen(scale);
+  }, [scale]);
+
+  console.log(widScreen);
+  let numberCard = 3;
+  if (widScreen <= 877) {
+    numberCard = 2;
+  } else if (widScreen <= 551) {
+    numberCard = 1;
+  } else {
+    numberCard = 3;
+  }
   const { brands } = useSelector((store) => store.brands);
   return (
     <Swiper
       pagination={{
         clickable: true,
       }}
-      spaceBetween={10}
-      slidesPerView={3}
-      scrollbar={{ draggable: true }}
-      navigation
-      modules={[Navigation, Pagination, A11y]}
+      slidesPerView={numberCard}
+      spaceBetween={30}
+      loop={true}
+      navigation={true}
+      modules={[Pagination, Navigation]}
       className="mySwiper"
-      loop="true"
       style={{ width: "100%", padding: "20px" }}
-      onSlideChange={(s) => console.log("slide change", s)}
-      onSwiper={(swiper) => console.log(swiper)}
-      autoplay={{
-        delay: 500,
-        disableOnInteraction: false,
-      }}
     >
       {brands
         ? brands.map((b) => (
