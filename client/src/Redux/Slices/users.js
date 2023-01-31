@@ -85,10 +85,13 @@ export const userSlice = createSlice({
     },
     setUsers:(store, action)=>{
      store.users=action.payload;
+    },
+    setUsersDeleted:(store,action)=>{
+      store.users=action.payload;
     }
   },
 });
 
-export const { setUserName, setIsLog, logout, setIsLoading, setData,setUsers } =
+export const { setUserName, setIsLog, logout, setIsLoading, setData,setUsers,setUsersDeleted } =
   userSlice.actions;
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 import Global from "../../Global";
-import { setUsers,setIsLoading } from "../Slices/users";
+import { setUsers,setIsLoading,setUsersDeleted } from "../Slices/users";
 
 export const getUser=()=>{
     return async(dispatch)=>{
@@ -14,3 +14,15 @@ export const getUser=()=>{
         alert(response.response.data.msg)});
     };
 };
+export const satusZero=()=>{
+    return async(dispatch)=>{
+        dispatch(setIsLoading(true))
+        await axios.get(Global.URL+"/users/status")
+        .then((response)=>{
+        console.log(response.data)
+        dispatch(setUsersDeleted(response.data))
+        dispatch(setIsLoading(false))
+        }).catch((response)=>{console.log(response)
+        alert(response.response.data.msg)})
+    }
+}

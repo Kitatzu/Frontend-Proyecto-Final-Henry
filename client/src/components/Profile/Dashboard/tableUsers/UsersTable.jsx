@@ -7,22 +7,41 @@ import {
   TableHead,
   TableRow,
   Paper,
+  Select,
+  MenuItem
 } from "@mui/material";
-import { getUser } from "../../../../Redux/Thunks/getUser";
+import { getUser,satusZero } from "../../../../Redux/Thunks/getUser";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 
 export default function UsersTable() {
   const dispatch = useDispatch();
-
   const { users } = useSelector((store) => store.users);
-  console.log(users);
+
   useEffect(() => {
     dispatch(getUser());
   }, [dispatch]);
 
+const [status,setStatus]=useState("0");
+const [aux,setAux]=useState("");
+
+function handlerSelect(event){
+setStatus(event.target.value)
+if(status==="0"){
+  dispatch(satusZero());
+  console.log(status)
+}else{
+  dispatch(getUser());
+  console.log(status)
+}
+/* setAux("") */
+}
   return (
     <TableContainer component={Paper}>
+      <Select value={status}  onChange={e=>handlerSelect(e)}>
+         <MenuItem value={"0"}>Usuario activo</MenuItem>
+         <MenuItem value={"1"}>Usuario eliminado</MenuItem>
+      </Select>
       <Table sx={{ width: "100%" }} aria-label="simple table">
         <TableHead>
           <TableRow>
