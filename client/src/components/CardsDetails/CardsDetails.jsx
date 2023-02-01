@@ -12,9 +12,9 @@ import { setCart } from "../../Redux/Thunks/getCart";
 import NavBar from "../NavBar/NavBar";
 import SideBar from "../SideBar/SideBar"
 import { setIsLog, setUserName } from "../../Redux/Slices";
-import ReviewForm from "./Reviews/Reviews";
+import Reviews from "./Reviews/Reviews";
 
-const CardsDetails = ({ productId, averageRating }) => {
+const CardsDetails = () => {
   const { products } = useSelector((store) => store.products);
   const loadingCart = useSelector((store) => store.cart.isLoading);
   const mode = useSelector((store) => store.theme.mode);
@@ -44,6 +44,8 @@ const CardsDetails = ({ productId, averageRating }) => {
               width: { xs: "100%", sm: "calc(100% - 80px)" },
               display: "flex",
               flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
               padding: { xs: "10px", sm: "20px" },
               overflow: "scroll",
             }}
@@ -52,10 +54,8 @@ const CardsDetails = ({ productId, averageRating }) => {
             display={"flex"}
             alignItems="center"
             justifyContent={"center"}
-            flexWrap="wrap"
             width="100%"
-            padding={"20px"}
-            minHeight={"100vh"}
+            minHeight={"10vh"}
           >
             <Box width="350px" padding={"20px"}>
               <img
@@ -122,12 +122,12 @@ const CardsDetails = ({ productId, averageRating }) => {
                   >
                     Add to Cart
                   </LoadingButton>
-                  <ReviewForm
-                   productId={productId} 
-                   averageRating={averageRating}/>
                 </Box>
               </Box>
             </Box>
+          </Box>
+          <Box >
+            <Reviews />
           </Box>
         </Box>
       </Box>

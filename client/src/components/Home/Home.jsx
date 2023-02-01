@@ -23,7 +23,6 @@ import {
 
 import { Link } from "react-router-dom";
 
-//import { DummyInfo } from "./DummyCards";
 import CardSwipper from "../CardSwipper/CardSwipper";
 import SwipperBrand from "../CardSwipper/CardBrand/SwipperBrand";
 import CardCategories from "./CardCategories/CardCategories";
