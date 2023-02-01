@@ -12,8 +12,9 @@ import { setCart } from "../../Redux/Thunks/getCart";
 import NavBar from "../NavBar/NavBar";
 import SideBar from "../SideBar/SideBar"
 import { setIsLog, setUserName } from "../../Redux/Slices";
+import ReviewForm from "./Reviews/Reviews";
 
-const CardsDetails = () => {
+const CardsDetails = ({ productId, averageRating }) => {
   const { products } = useSelector((store) => store.products);
   const loadingCart = useSelector((store) => store.cart.isLoading);
   const mode = useSelector((store) => store.theme.mode);
@@ -93,6 +94,7 @@ const CardsDetails = () => {
                     color="info"
                     sx={{ width: "max-content", padding: "10px", marginRight: "20px"}}
                   />
+                 
                   <LoadingButton
                     loading={loadingCart}
                     loadingPosition="end"
@@ -120,6 +122,9 @@ const CardsDetails = () => {
                   >
                     Add to Cart
                   </LoadingButton>
+                  <ReviewForm
+                   productId={productId} 
+                   averageRating={averageRating}/>
                 </Box>
               </Box>
             </Box>
