@@ -6,6 +6,7 @@ import {
   setIsLoading,
   setUsersDeleted,
   setUserDetail,
+  setData,
 } from "../Slices/users";
 
 export const getUser = () => {
@@ -48,7 +49,7 @@ export const getUserA = (userId) => {
       .get(`${Global.URL}/users/${userId}`)
       .then((response) => {
         console.log(response.data);
-        dispatch(setUserDetail(response.data));
+        dispatch(setData(response.data));
         dispatch(setIsLoading(false));
       })
       .catch((e) => {
