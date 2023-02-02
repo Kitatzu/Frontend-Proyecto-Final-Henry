@@ -6,14 +6,15 @@ import { saveReview } from '../../../Redux/Thunks/reviews';
 
 
 const ReviewForm = () => {
-    const [stars, setStars] = useState(0);
+    const [rating, setRating] = useState(0);
     const [review, setReview] = useState("");
 
     const dispatch = useDispatch();
     const { id } = useParams(); //Product Id
-    
-    const handleStars = e => {
-        setStars(e.target.value);   
+    const {userId} = JSON.parse(localStorage.getItem("token"));
+    console.log(id, userId)
+    const handleRating = e => {
+        setRating(e.target.value);
     };
 
     const handleReviews = e => {
@@ -21,8 +22,8 @@ const ReviewForm = () => {
     };
 
     const handleForm = () => {
-        //dispatch(saveReview(id, stars, review));
-        console.log(`El review es ${review} con una cali de ${stars}`)
+        dispatch(saveReview(userId, id, parseFloat(rating), review));
+        //console.log(rating, typeof(rating))
     }
 
     return(
@@ -43,15 +44,15 @@ const ReviewForm = () => {
                     name="simple-controlled"
                     size='large'
                     precision={0.5}
-                    value={stars}
-                    onChange={event => handleStars(event)}
+                    value={parseFloat(rating)}
+                    onChange={event => handleRating(event)}
                 />
              </Stack>
              <TextField
                 id="filled-basic"
                 multiline   
                 rows={4}
-                label="Leave your review" 
+                label="Deja tu resena" 
                 variant="filled"
                 value={review}
                 onChange={event => handleReviews(event)}
@@ -63,7 +64,7 @@ const ReviewForm = () => {
                     variant="contained" 
                     color="primary"
                     onClick={() => handleForm()}
-                > Submit Review</Button>
+                > Postear</Button>
              </Box>
         </Box>
     )

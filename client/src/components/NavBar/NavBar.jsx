@@ -14,7 +14,9 @@ import { Avatar } from "@mui/material";
 import MuiSwitch from "../MuiSwitch/MuiSwitch";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
 import { logout } from "../../Redux/Slices";
+import { getUserA } from "../../Redux/Thunks/getUser";
 
 export default function NavBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -59,7 +61,12 @@ export default function NavBar() {
   };
   //FIXME: PETICION CON USEEFFECT
 
-  React.useEffect(() => {
+  const userId = JSON.parse(localStorage.getItem("token")).userId;
+
+  console.log(userId);
+
+  useEffect(() => {
+    dispatch(getUserA(userId));
     //TODO: DISPATCH A THUNK GETUSERA
   }, []);
 

@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-
 import {
   brandSlice,
   cartSlice,
@@ -9,6 +8,7 @@ import {
   productsSlice,
   providerSlice,
   userSlice,
+  reviewsSlice
 } from "../Slices";
 import { themeSlice } from "../Slices/theme";
 
@@ -22,6 +22,7 @@ export const store = configureStore({
     users: userSlice.reducer,
     notification: notificationSlice.reducer,
     cart: cartSlice.reducer,
+    reviews: reviewsSlice.reducer,
     factura: facturaSlice.reducer,
   },
 });
