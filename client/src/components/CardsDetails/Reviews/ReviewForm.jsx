@@ -12,7 +12,7 @@ const ReviewForm = () => {
     const dispatch = useDispatch();
     const { id } = useParams(); //Product Id
     const {userId} = JSON.parse(localStorage.getItem("token"));
-    
+    console.log(id, userId)
     const handleRating = e => {
         setRating(e.target.value);
     };
@@ -22,8 +22,8 @@ const ReviewForm = () => {
     };
 
     const handleForm = () => {
-        dispatch(saveReview(id, userId, rating, review));
-        console.log(`El review es ${review} con una cali de ${rating}`)
+        dispatch(saveReview(userId, id, parseFloat(rating), review));
+        //console.log(rating, typeof(rating))
     }
 
     return(
@@ -44,7 +44,7 @@ const ReviewForm = () => {
                     name="simple-controlled"
                     size='large'
                     precision={0.5}
-                    value={rating}
+                    value={parseFloat(rating)}
                     onChange={event => handleRating(event)}
                 />
              </Stack>
@@ -52,7 +52,7 @@ const ReviewForm = () => {
                 id="filled-basic"
                 multiline   
                 rows={4}
-                label="Leave your review" 
+                label="Deja tu resena" 
                 variant="filled"
                 value={review}
                 onChange={event => handleReviews(event)}
@@ -64,7 +64,7 @@ const ReviewForm = () => {
                     variant="contained" 
                     color="primary"
                     onClick={() => handleForm()}
-                > Submit Review</Button>
+                > Postear</Button>
              </Box>
         </Box>
     )

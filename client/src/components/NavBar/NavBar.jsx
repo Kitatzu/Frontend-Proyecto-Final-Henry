@@ -14,7 +14,9 @@ import { Avatar } from "@mui/material";
 import MuiSwitch from "../MuiSwitch/MuiSwitch";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
 import { logout } from "../../Redux/Slices";
+import { getUserA } from "../../Redux/Thunks/getUser";
 
 export default function NavBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -57,6 +59,18 @@ export default function NavBar() {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+  //FIXME: PETICION CON USEEFFECT
+
+  const userId = JSON.parse(localStorage.getItem("token")).userId;
+
+  console.log(userId);
+
+  useEffect(() => {
+    dispatch(getUserA(userId));
+    //TODO: DISPATCH A THUNK GETUSERA
+  }, []);
+
+  //FIXME: PETICION CON USEEFFECT
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
@@ -196,7 +210,9 @@ export default function NavBar() {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
+              {/**FIXME: src = avatar de store.users */}
               <Avatar src={avatar} alt={firstName} />
+              {/**FIXME: src = avatar de store.users */}
             </IconButton>
           </Box>
         </Toolbar>

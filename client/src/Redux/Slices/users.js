@@ -35,7 +35,8 @@ const initialState = {
   lastName: null,
   isLog: false,
   isLoading: false,
-  users:false,
+  userDetail: null,
+  users: false,
 };
 
 export const userSlice = createSlice({
@@ -78,20 +79,30 @@ export const userSlice = createSlice({
       store.firstName = action.payload.firstName;
       store.lastName = action.payload.lastName;
       store.email = action.payload.email;
-//store.linkName = action.payload.userName;
+      //store.linkName = action.payload.userName;
+    },
+    setUserDetail: (store, action) => {
+      store.userDetail = action.payload;
     },
     setEmail: (store, action) => {
       store.email = action.payload;
     },
-    setUsers:(store, action)=>{
-     store.users=action.payload;
+    setUsers: (store, action) => {
+      store.users = action.payload;
     },
-    setUsersDeleted:(store,action)=>{
-      store.users=action.payload;
-    }
+    setUsersDeleted: (store, action) => {
+      store.users = action.payload;
+    },
   },
 });
 
-export const { setUserName, setIsLog, logout, setIsLoading, setData,setUsers,setUsersDeleted } =
-  userSlice.actions;
-
+export const {
+  setUserName,
+  setIsLog,
+  logout,
+  setIsLoading,
+  setData,
+  setUsers,
+  setUsersDeleted,
+  setUserDetail,
+} = userSlice.actions;
