@@ -23,7 +23,7 @@ const CardsDetails = () => {
   const [cantidadProducto, setCantidad] = useState(1);
   const dispatch = useDispatch();
   const { id } = useParams();
-  console.log(products);
+  console.log(products?.rating);
 
   useEffect(() => {
     dispatch(getProductByID(id));
@@ -72,7 +72,8 @@ const CardsDetails = () => {
               <Stack spacing={1} marginLeft={"10px"}>
                 <Rating
                   name="half-rating-read"
-                  defaultValue={products?.rating}
+                  value={products?.rating}
+                  size="large"
                   precision={0.5}
                   readOnly
                 />
