@@ -4,8 +4,8 @@ const initialState = {
   mode: "light",
   dark: {
     primary:
-      "linear-gradient(243.18deg, #0F0F0F 0%, rgba(39, 39, 39, 0.71) 100%)",
-    textPrimary: "#f2f2f2",
+      "linear-gradient(243.18deg, #000000 0%, #272727 50%, #323232 100%)",
+    textPrimary: "#FAFAFA",
     textSecondary: "#1976D2",
     sidebar: "#272727",
     buttonPrimary:
@@ -14,7 +14,7 @@ const initialState = {
     cardSecondary: "#1976D2",
   },
   light: {
-    primary: "#f2f2f2f2",
+    primary: "#FAFAFA",
     textPrimary: "#272727",
     textSecondary: "#565656",
     sidebar: "white",

@@ -57,6 +57,13 @@ export default function NavBar() {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+  //FIXME: PETICION CON USEEFFECT
+
+  React.useEffect(() => {
+    //TODO: DISPATCH A THUNK GETUSERA
+  }, []);
+
+  //FIXME: PETICION CON USEEFFECT
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
@@ -196,7 +203,9 @@ export default function NavBar() {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
+              {/**FIXME: src = avatar de store.users */}
               <Avatar src={avatar} alt={firstName} />
+              {/**FIXME: src = avatar de store.users */}
             </IconButton>
           </Box>
         </Toolbar>
