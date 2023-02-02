@@ -1,15 +1,14 @@
 import { useSelector } from "react-redux";
-import Cards from "../Cards/Cards";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper";
-
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "swiper/css/bundle";
-
 import "./swiper.css";
 import CradProduct from "./CardProduct/CardProduct";
+import SwiperCore, { Autoplay } from "swiper";
+SwiperCore.use([Autoplay]);
 
 const CardSwipper = () => {
   const { tempProducts, isLoading } = useSelector((state) => state.products);
@@ -25,6 +24,7 @@ const CardSwipper = () => {
         }}
         navigation={true}
         modules={[Pagination, Navigation]}
+        autoplay={{ delay: 1000 }}
         className="mySwiper"
       >
         {isLoading && <div></div>}

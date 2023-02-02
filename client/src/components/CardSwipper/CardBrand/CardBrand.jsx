@@ -22,7 +22,11 @@ function CardBrand({ img, brand, key, setBanner }) {
         setBanner(img);
         if (className === "cardBrand") {
           setClassName("cardBrandActive");
-        } else if (className === "cardBrandActive") {
+        }
+      }}
+      onBlur={() => {
+        setBanner(img);
+        if (className === "cardBrandActive") {
           setClassName("cardBrand");
         }
       }}

@@ -12,6 +12,8 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { useSelector } from "react-redux";
 import CardBrand from "./CardBrand";
+import SwiperCore, { Autoplay } from "swiper";
+SwiperCore.use([Autoplay]);
 
 function SwipperBrand({ setBanner }) {
   const scale = window.screen.width;
@@ -40,6 +42,7 @@ function SwipperBrand({ setBanner }) {
       loop={true}
       navigation={true}
       modules={[Pagination, Navigation]}
+      autoplay={{ delay: 1000 }}
       className="mySwiper"
       style={{ width: "100%", padding: "20px" }}
     >

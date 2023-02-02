@@ -6,10 +6,7 @@ import SideBar from "../SideBar/SideBar";
 
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  getPage,
-  getProductsByCategories,
-} from "../../Redux/Thunks/Products";
+import { getPage, getProductsByCategories } from "../../Redux/Thunks/Products";
 
 import { getCategories } from "../../Redux/Thunks/categories";
 import SearchBar from "../SearchBar/SearchBar";
@@ -85,6 +82,7 @@ export default function Home() {
             overflow: "scroll",
             padding: "10px",
           }}
+          className="container"
         >
           {!isLog && (
             <Box padding={"20px"}>
@@ -142,12 +140,7 @@ export default function Home() {
               </Typography>
             </Box>
             <Box>
-              <Box 
-                display={"flex"} 
-                gap="20px"
-                flexWrap={"wrap"} 
-                padding="20px"
-              >
+              <Box display={"flex"} gap="20px" flexWrap={"wrap"} padding="20px">
                 <Box>
                   <Typography
                     component={"label"}
