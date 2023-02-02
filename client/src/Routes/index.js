@@ -11,6 +11,7 @@ import Dashboard from "../components/Profile/Dashboard/Dashboard";
 import Inventory from "../components/Profile/Dashboard/Inventory/Inventory";
 import Factura from "../components/Facturas/Factura/Factura";
 import UsersTable from "../components/Profile/Dashboard/tableUsers/UsersTable";
+import Bar from "../components/Bar/Bar";
 
 const Routers = () => {
   return (
@@ -26,6 +27,7 @@ const Routers = () => {
       <Route path="dashboard" element={<Dashboard />} />
       <Route path={"cart"} element={<Cart />} />
       <Route path={"/factura"} element={<Factura />} />
+      <Route path={"/chat"} element={< Bar/>} />
       {/* <Route path="*" element={<NoMatch />} /> */}
     </Routes>
   );
