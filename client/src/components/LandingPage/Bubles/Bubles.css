@@ -1,0 +1,19 @@
+.buble{
+    animation: buble 5s linear infinite;
+  
+   
+}
+
+@keyframes buble{
+    0%,100%{
+        transform: scale(1);
+    }50%{
+        transform: scale(1.5);
+    }
+}
+
+@media screen and (max-width: 1250px) {
+    .buble{
+        display: none !important;
+    }
+}
