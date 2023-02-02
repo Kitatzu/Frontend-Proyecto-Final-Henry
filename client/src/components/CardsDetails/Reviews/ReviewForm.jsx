@@ -6,14 +6,15 @@ import { saveReview } from '../../../Redux/Thunks/reviews';
 
 
 const ReviewForm = () => {
-    const [stars, setStars] = useState(0);
+    const [rating, setRating] = useState(0);
     const [review, setReview] = useState("");
 
     const dispatch = useDispatch();
     const { id } = useParams(); //Product Id
+    const {userId} = JSON.parse(localStorage.getItem("token"));
     
-    const handleStars = e => {
-        setStars(e.target.value);   
+    const handleRating = e => {
+        setRating(e.target.value);
     };
 
     const handleReviews = e => {
@@ -21,8 +22,8 @@ const ReviewForm = () => {
     };
 
     const handleForm = () => {
-        //dispatch(saveReview(id, stars, review));
-        console.log(`El review es ${review} con una cali de ${stars}`)
+        dispatch(saveReview(id, userId, rating, review));
+        console.log(`El review es ${review} con una cali de ${rating}`)
     }
 
     return(
@@ -43,8 +44,8 @@ const ReviewForm = () => {
                     name="simple-controlled"
                     size='large'
                     precision={0.5}
-                    value={stars}
-                    onChange={event => handleStars(event)}
+                    value={rating}
+                    onChange={event => handleRating(event)}
                 />
              </Stack>
              <TextField
