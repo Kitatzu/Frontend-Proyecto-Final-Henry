@@ -1,16 +1,22 @@
-// actions/reviewActions.js
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
-const reviewSlice = createSlice({
+const initialState = {
+  reviews: null,
+  isLoading: false
+}
+
+export const reviewsSlice = createSlice({
   name: 'reviews',
-  initialState: [],
+  initialState,
   reducers: {
+    setLoadingReviews: (state, action) => {
+      state.isLoading = action.payload;
+    },
+
     addReview: (state, action) => {
-      state.push(action.payload);
+      state.reviews = action.payload;
     }
   }
 });
 
-export const { addReview } = reviewSlice.actions;
-
-export default reviewSlice.reducer;
+export const { setLoadingReviews, addReview } = reviewsSlice.actions;
