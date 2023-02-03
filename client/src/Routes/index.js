@@ -12,6 +12,7 @@ import AccountSettings from "../components/Profile/AccountSettings/AccountSettin
 import Inventory from "../components/Profile/Dashboard/Inventory/Inventory";
 import Factura from "../components/Facturas/Factura/Factura";
 import UsersTable from "../components/Profile/Dashboard/tableUsers/UsersTable";
+import PageNotFound from "../components/PageNotFound/PageNotFound";
 
 const Routers = () => {
   return (
@@ -28,7 +29,7 @@ const Routers = () => {
       <Route path="account" element={<AccountSettings />} />
       <Route path={"cart"} element={<Cart />} />
       <Route path={"/factura"} element={<Factura />} />
-      {/* <Route path="*" element={<NoMatch />} /> */}
+      <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
 };
