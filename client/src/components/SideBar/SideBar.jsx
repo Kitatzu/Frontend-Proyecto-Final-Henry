@@ -1,9 +1,12 @@
 import { Icon } from "@iconify/react";
 import { IconButton, Typography } from "@mui/material";
+import ChatIcon from '@mui/icons-material/Chat';
 import { Box } from "@mui/system";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
+import Chat from "../Chat/Chat";
+
 
 export default function SideBar() {
   const mode = useSelector((store) => store.theme.mode);
@@ -60,6 +63,13 @@ export default function SideBar() {
               </Link>
             </IconButton>
           </Box>
+          <Box>
+          <IconButton>
+            {/* <Link to={"/chat"}> */}
+              <Chat/>
+           {/*  </Link> */}
+          </IconButton>
+        </Box>
         </Box>
       )}
     </Box>
