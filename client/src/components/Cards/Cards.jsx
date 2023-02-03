@@ -15,6 +15,7 @@ const Cards = ({ key, id, description, img, name, price, rating }) => {
   const mode = useSelector((store) => store.theme.mode);
   const theme = useSelector((store) => store.theme);
   img = img ? img : imgDefault;
+
   return (
     <Link
       to={{ pathname: `/products/${id}` }}
@@ -24,13 +25,15 @@ const Cards = ({ key, id, description, img, name, price, rating }) => {
       <div key={key}>
         <Card
           sx={{
-            width: 210,
-            padding: "10px",
+            width: "200px",
+            padding: "20px",
             background: theme[mode].card,
-            height: "365.2px",
+            height: "300px",
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",
+            borderRadius: "20px",
+            boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
           }}
         >
           <CardMedia

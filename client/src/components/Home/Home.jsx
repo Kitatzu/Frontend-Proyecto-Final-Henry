@@ -3,14 +3,9 @@ import { useSelector } from "react-redux";
 import Cards from "../Cards/Cards";
 import NavBar from "../NavBar/NavBar";
 import SideBar from "../SideBar/SideBar";
-
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  getPage,
-  getProductsByCategories,
-} from "../../Redux/Thunks/Products";
-
+import { getPage, getProductsByCategories } from "../../Redux/Thunks/Products";
 import { getCategories } from "../../Redux/Thunks/categories";
 import SearchBar from "../SearchBar/SearchBar";
 
@@ -20,14 +15,12 @@ import {
   setIsLog,
   setUserName,
 } from "../../Redux/Slices";
-
 import { Link } from "react-router-dom";
-
 import CardSwipper from "../CardSwipper/CardSwipper";
 import SwipperBrand from "../CardSwipper/CardBrand/SwipperBrand";
 import CardCategories from "./CardCategories/CardCategories";
 import { getBrands } from "../../Redux/Thunks/brand";
-
+import banner from "../assets/banner.png";
 export default function Home() {
   const mode = useSelector((store) => store.theme.mode);
   const theme = useSelector((store) => store.theme);
@@ -36,7 +29,7 @@ export default function Home() {
   const [filter, setFilter] = useState("Todo");
   const { isLog } = useSelector((store) => store.users);
   const { pages } = useSelector((store) => store.products);
-  const [banner, setBanner] = useState(null);
+
   const dispatch = useDispatch();
   const handleChange = (el) => {
     if (el.target.value !== "Todo") {
@@ -94,6 +87,7 @@ export default function Home() {
             overflow: "scroll",
             padding: "10px",
           }}
+          className="container"
         >
           {!isLog && (
             <Box padding={"20px"}>
@@ -104,20 +98,25 @@ export default function Home() {
           )}
           <Box
             width={"100%"}
-            height={"500px"}
-            minHeight="500px"
+            height={{ xs: "250px", md: "500px" }}
+            minHeight={{ xs: "250px", md: "500px" }}
             position="relative"
+            id="particles-js"
             sx={{
-              background: banner
-                ? `url(${banner})`
-                : "radial-gradient(101.77% 757.7% at 100% 43.44%, #00D4FF 0%, #090979 54.69%, #05044C 79.69%, #020024 100%)",
+              background: `url(${banner})`,
               borderRadius: "20px",
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
           >
             {/* Swiper */}
-            <Box top="0px" right="0px" position="absolute" margin="30px">
+            <Box
+              top="0px"
+              right="0px"
+              position="absolute"
+              margin="30px"
+              display={{ xs: "none", md: "block" }}
+            >
               <CardSwipper />
             </Box>
 
@@ -133,7 +132,7 @@ export default function Home() {
               className="container"
             >
               <Box position={"relative"} width="100%">
-                <SwipperBrand setBanner={setBanner} />
+                <SwipperBrand />
               </Box>
             </Box>
           </Box>
@@ -144,23 +143,22 @@ export default function Home() {
             <Box width="100%" display={"flex"} gap="20px" flexWrap={"wrap"}>
               <Typography
                 component="h2"
-                fontSize="20px"
-                sx={{ color: theme[mode].textPrimary, padding: "20px" }}
+                fontSize="35px"
+                sx={{
+                  color: theme[mode].textPrimary,
+                  padding: "20px",
+                  fontWeight: 800,
+                }}
               >
                 INICIO
               </Typography>
             </Box>
             <Box>
-              <Box 
-                display={"flex"} 
-                gap="20px"
-                flexWrap={"wrap"} 
-                padding="20px"
-              >
+              <Box display={"flex"} gap="20px" flexWrap={"wrap"} padding="20px">
                 <Box>
                   <Typography
                     component={"label"}
-                    sx={{ color: theme[mode].textPrimary }}
+                    sx={{ color: theme[mode].textPrimary, fontWeight: "bold" }}
                   >
                     Precio minimo:
                   </Typography>
@@ -181,7 +179,7 @@ export default function Home() {
                 <Box>
                   <Typography
                     component={"label"}
-                    sx={{ color: theme[mode].textPrimary }}
+                    sx={{ color: theme[mode].textPrimary, fontWeight: "bold" }}
                   >
                     Precio maximo:
                   </Typography>
@@ -196,6 +194,7 @@ export default function Home() {
                       border: "none",
                       background: "#ececec",
                       borderRadius: "10px",
+                      width: "max-content",
                     }}
                   />
                 </Box>
@@ -205,6 +204,23 @@ export default function Home() {
 
             
 
+            <Box
+              display={"flex"}
+              width="100%"
+              flexWrap={"wrap"}
+              justifyContent="center"
+            >
+              {categories
+                ? categories.map((cat) => (
+                    <CardCategories
+                      value={cat.name}
+                      img={cat.img}
+                      key={cat.id}
+                      id={cat.id}
+                    />
+                  ))
+                : null}
+            </Box>
             <Box
               sx={{
                 display: "flex",
@@ -232,23 +248,7 @@ export default function Home() {
                   })
                 : null}
             </Box>
-            <Box
-              display={"flex"}
-              width="100%"
-              flexWrap={"wrap"}
-              justifyContent="center"
-            >
-              {categories
-                ? categories.map((cat) => (
-                    <CardCategories
-                      value={cat.name}
-                      img={cat.img}
-                      key={cat.id}
-                      id={cat.id}
-                    />
-                  ))
-                : null}
-            </Box>
+
             <Box
               width={"100%"}
               padding="20px"

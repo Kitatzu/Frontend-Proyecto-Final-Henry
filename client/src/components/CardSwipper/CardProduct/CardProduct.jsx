@@ -23,18 +23,20 @@ const CradProduct = ({ key, id, img, name, price, rating }) => {
       <div key={key}>
         <Card
           sx={{
-            width: 210,
-            padding: "40px",
+            width: "175px",
+            padding: "20px",
             background: "rgba(255,255,255,.2)",
             borderTop: "2px solid rgba(255,255,255,.4)",
             borderLeft: "2px solid rgba(255,255,255,.4)",
             borderRight: "1px solid rgba(255,255,255,.2)",
             borderBottom: "1px solid rgba(255,255,255,.2)",
             backdropFilter: "blur(20px)",
-            minHeight: "365.2px",
+            height: "245px",
+            borderRadius: "20px",
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",
+            boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
           }}
         >
           <Box
