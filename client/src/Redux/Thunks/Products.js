@@ -9,6 +9,7 @@ import {
   setProductID,
   setSeriesProducts,
   setPages,
+  setPopularProducts,
 } from "../Slices/Products";
 //closure
 export const getProducts = () => {
@@ -53,9 +54,16 @@ export const getProductByID = (id) => {
   return async (dispatch) => {
     try {
       dispatch(setLoadingProducts(true));
-      const response = await axios.get(`${Global.URL}/products/${id}`);
-      dispatch(setProductID(response.data));
-      dispatch(setLoadingProducts(false));
+      axios
+        .get(`${Global.URL}/products/${id}`)
+        .then((response) => {
+          dispatch(setProductID(response.data));
+          dispatch(setLoadingProducts(false));
+        })
+        .catch((e) => {
+          console.log(e);
+          dispatch(setLoadingProducts(false));
+        });
     } catch (error) {
       console.log(error);
     }
@@ -65,17 +73,15 @@ export const getProductByID = (id) => {
 export const createProduct = (form) => {
   return async (dispatch) => {
     dispatch(setLoadingProducts(true));
-   return await axios
-
-      ({
-        url :`${Global.URL}/products`,
-        method: "POST",
-        body: form,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        data: form,
-      })
+    return await axios({
+      url: `${Global.URL}/products`,
+      method: "POST",
+      body: form,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      data: form,
+    })
       .then((response) => {
         console.log(response);
         dispatch(getProducts());
@@ -156,6 +162,23 @@ export const getProductsByCategories = (name) => {
         // alert(response.response.data.msg);
         dispatch(setLoadingProducts(false));
         console.log(response);
+      });
+  };
+};
+export const getPopularProducts = () => {
+  return async (dispatch) => {
+    axios
+      .get(Global.URL + "/products/other/popular")
+      .then((response) => {
+        console.log(response);
+        dispatch(setPopularProducts(response.data));
+      })
+      .catch((e) => {
+        console.log(e);
+        Toast.fire({
+          icon: "warning",
+          title: "Advertencia! no existen productos populares.",
+        });
       });
   };
 };

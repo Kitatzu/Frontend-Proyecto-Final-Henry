@@ -16,21 +16,20 @@ import SwiperCore, { Autoplay } from "swiper";
 SwiperCore.use([Autoplay]);
 
 function SwipperBrand() {
-  const scale = window.screen.width;
-  const [widScreen, setWidScreen] = useState(false);
+  const [widScreen, setWidScreen] = useState(878);
   const [numberCard, setNumberCard] = useState(3);
   useEffect(() => {
-    setWidScreen(scale);
-    if (widScreen <= 877) {
-      setNumberCard(2);
-    }
-    if (widScreen <= 551) {
-      setNumberCard(1);
-    }
-    if (widScreen > 877) {
-      setNumberCard(3);
-    }
-  }, [scale]);
+    (() => {
+      const scale = window.screen.width;
+      setWidScreen(scale);
+      if (widScreen <= 551) {
+        setNumberCard(1);
+      }
+      if (widScreen <= 877 && widScreen >= 551) {
+        setNumberCard(2);
+      }
+    })();
+  }, [widScreen, numberCard]);
 
   console.log(widScreen);
   // let numberCard = 3;

@@ -2,7 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   products: null,
+  productDetail: null,
   tempProducts: null,
+  popularProducts: null,
   productCreate: {
     id: null,
     series: [],
@@ -28,11 +30,14 @@ export const productsSlice = createSlice({
       state.products = action.payload;
       state.tempProducts = action.payload;
     },
+    setPopularProducts: (state, action) => {
+      state.popularProducts = action.payload;
+    },
     setPages: (state, action) => {
       state.pages = action.payload;
     },
     setProductID: (state, action) => {
-      state.products = action.payload;
+      state.productDetail = action.payload;
     },
     setCreateProduct: (state, action) => {
       state.productCreate.id = action.payload;
@@ -88,4 +93,5 @@ export const {
   setPriceRange,
   filterPrice,
   filterProduct,
+  setPopularProducts,
 } = productsSlice.actions;
