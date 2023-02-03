@@ -1,5 +1,6 @@
 import { Icon } from "@iconify/react";
 import { IconButton, Typography } from "@mui/material";
+import ChatIcon from '@mui/icons-material/Chat';
 import { Box } from "@mui/system";
 import { useState } from "react";
 import { useSelector } from "react-redux";
@@ -68,6 +69,16 @@ export default function SideBar() {
               </Link>
             </IconButton>
           </Box>
+          <Box>
+          <IconButton>
+            <Link to={"/chat"}>
+              <Icon
+                icon="vscode-icons:file-type-light-config"
+                color={theme[mode].textPrimary}
+              />
+            </Link>
+          </IconButton>
+        </Box>
         </Box>
       )}
     </Box>
