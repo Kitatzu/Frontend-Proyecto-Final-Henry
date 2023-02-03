@@ -86,7 +86,10 @@ export default function Chat() {
 
   const listChatMessages = messages.map((message, index) => (
     <ListItem key={index}>
-      <ListItemText primary={`${message.user}:${message.body}`} />
+      <ListItemText
+        primary={`${message.user}:${message.body}`}
+        style={{ color: "white", background: "blue" }}
+      />
     </ListItem>
   ));
 
@@ -141,7 +144,7 @@ export default function Chat() {
                       value={message.user}
                       label={user}
                       variant="outlined"
-                      disabled                    
+                      disabled
                     />
                   </FormControl>
                 </Grid>

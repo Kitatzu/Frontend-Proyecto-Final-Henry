@@ -12,11 +12,7 @@ import AccountSettings from "../components/Profile/AccountSettings/AccountSettin
 import Inventory from "../components/Profile/Dashboard/Inventory/Inventory";
 import Factura from "../components/Facturas/Factura/Factura";
 import UsersTable from "../components/Profile/Dashboard/tableUsers/UsersTable";
-<<<<<<< HEAD
 import Chat from "../components/Chat/Chat";
-=======
-import PageNotFound from "../components/PageNotFound/PageNotFound";
->>>>>>> 74864f0e258b361e629bd8fff07311b951e7bcb9
 
 const Routers = () => {
   return (
@@ -32,14 +28,9 @@ const Routers = () => {
       <Route path="dashboard" element={<Dashboard />} />
       <Route path="account" element={<AccountSettings />} />
       <Route path={"cart"} element={<Cart />} />
-<<<<<<< HEAD
       <Route path={"/factura"} element={<Factura />} />
       {/* <Route path={"/chat"} element={< Chat/>} /> */}
       {/* <Route path="*" element={<NoMatch />} /> */}
-=======
-      <Route path={"/factura/:facturaId"} element={<Factura />} />
-      <Route path="*" element={<PageNotFound />} />
->>>>>>> 74864f0e258b361e629bd8fff07311b951e7bcb9
     </Routes>
   );
 };
