@@ -49,10 +49,10 @@ export const loginUser = (origin, form, Token) => {
           console.log(data);
           const userData = {
             userId: data.data.id,
-            userName: form.email,
+            userName: data.data.email,
             name: data.data.firstName,
             lastName: data.data.lastName,
-            avatar: form.avatar,
+            avatar: data.data.avatar,
             rol: data.data.role.rol,
             token: Token,
           };
@@ -82,15 +82,14 @@ export const loginUser = (origin, form, Token) => {
 
             .post(Global.URL + "/register", form)
             .then((data) => {
-              console.log(data);
+              console.log(data, form);
               dispatch(setIsLoading(false));
               const userData = {
                 userId: data.data.id,
                 userName: form.email,
                 name: data.data.firstName,
                 lastName: data.data.lastName,
-                avatar: form.avatar,
-
+                avatar: data.data.avatar,
                 token: data.data.newToken,
               };
               localStorage.setItem("token", JSON.stringify(userData));
@@ -104,7 +103,7 @@ export const loginUser = (origin, form, Token) => {
                 await dispatch(setIsLog(data.data.newToken));
                 await dispatch(
                   setData({
-                    avatar: form.avatar,
+                    avatar: data.data.avatar,
                     firstName: data.data.firstName,
                     lastName: data.data.lastName,
                     email: data.data.email,

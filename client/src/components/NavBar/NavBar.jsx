@@ -61,12 +61,17 @@ export default function NavBar() {
   };
   //FIXME: PETICION CON USEEFFECT
 
-  const userId = JSON.parse(localStorage.getItem("token")).userId;
+  const userId = JSON.parse(localStorage.getItem("token"))
+    ? JSON.parse(localStorage.getItem("token")).userId
+    : null;
 
   console.log(userId);
 
   useEffect(() => {
-    dispatch(getUserA(userId));
+    if (userId) {
+      console.log("hello");
+      dispatch(getUserA(userId));
+    }
     //TODO: DISPATCH A THUNK GETUSERA
   }, []);
 

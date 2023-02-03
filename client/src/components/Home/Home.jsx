@@ -3,28 +3,23 @@ import { useSelector } from "react-redux";
 import Cards from "../Cards/Cards";
 import NavBar from "../NavBar/NavBar";
 import SideBar from "../SideBar/SideBar";
-
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getPage, getProductsByCategories } from "../../Redux/Thunks/Products";
-
 import { getCategories } from "../../Redux/Thunks/categories";
 import SearchBar from "../SearchBar/SearchBar";
-
 import {
   filterPrice,
   filterProduct,
   setIsLog,
   setUserName,
 } from "../../Redux/Slices";
-
 import { Link } from "react-router-dom";
-
 import CardSwipper from "../CardSwipper/CardSwipper";
 import SwipperBrand from "../CardSwipper/CardBrand/SwipperBrand";
 import CardCategories from "./CardCategories/CardCategories";
 import { getBrands } from "../../Redux/Thunks/brand";
-
+import banner from "../assets/banner.png";
 export default function Home() {
   const mode = useSelector((store) => store.theme.mode);
   const theme = useSelector((store) => store.theme);
@@ -33,7 +28,7 @@ export default function Home() {
   const [filter, setFilter] = useState("Todo");
   const { isLog } = useSelector((store) => store.users);
   const { pages } = useSelector((store) => store.products);
-  const [banner, setBanner] = useState(null);
+
   const dispatch = useDispatch();
   const handleChange = (el) => {
     if (el.target.value !== "Todo") {
@@ -97,9 +92,7 @@ export default function Home() {
             minHeight="500px"
             position="relative"
             sx={{
-              background: banner
-                ? `url(${banner})`
-                : "radial-gradient(101.77% 757.7% at 100% 43.44%, #00D4FF 0%, #090979 54.69%, #05044C 79.69%, #020024 100%)",
+              background: `url(${banner})`,
               borderRadius: "20px",
               backgroundSize: "cover",
               backgroundPosition: "center",
@@ -122,7 +115,7 @@ export default function Home() {
               className="container"
             >
               <Box position={"relative"} width="100%">
-                <SwipperBrand setBanner={setBanner} />
+                <SwipperBrand />
               </Box>
             </Box>
           </Box>

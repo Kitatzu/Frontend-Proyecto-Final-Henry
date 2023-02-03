@@ -15,7 +15,7 @@ import CardBrand from "./CardBrand";
 import SwiperCore, { Autoplay } from "swiper";
 SwiperCore.use([Autoplay]);
 
-function SwipperBrand({ setBanner }) {
+function SwipperBrand() {
   const scale = window.screen.width;
   const [widScreen, setWidScreen] = useState(false);
   useEffect(() => {
@@ -49,7 +49,7 @@ function SwipperBrand({ setBanner }) {
       {brands
         ? brands.map((b) => (
             <SwiperSlide>
-              <CardBrand img={b.img} setBanner={setBanner} />
+              <CardBrand img={b.img} />
             </SwiperSlide>
           ))
         : null}
