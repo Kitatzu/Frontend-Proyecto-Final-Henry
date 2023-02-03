@@ -75,3 +75,6 @@ export const createFactura = (factura, paymentId, userId, products) => {
     }
   };
 };
+
+//TODO:GETFACTURAS
+//TODO: GETFACTURA DETAIL

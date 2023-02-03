@@ -15,9 +15,8 @@ import { useForm } from "../../hooks/useForm";
 import validationsForm from "../../utils/ValidationForm";
 import Nav from "../LandingPage/nav/Nav";
 import FormLogin from "./formLogin/FormLogin";
-import SideBar from "../SideBar/SideBar"
+import SideBar from "../SideBar/SideBar";
 import { Link, Navigate } from "react-router-dom";
-
 
 const Login = () => {
   const initialForm = {
@@ -66,7 +65,6 @@ const Login = () => {
       className="Login-container"
       style={{ background: Theme[mode].primary, minHeight: "100vh" }}
     >
-      
       {isLog && <Navigate to="/home" />}
       {isLoading ? (
         // <Loading />
@@ -80,26 +78,22 @@ const Login = () => {
           <img className="spin" src={spin} alt="spin" />
         </Box>
       ) : (
-        <Box minHeight={"100vh"} sx={{ background: Theme[mode].primary}}>
-              <Nav setLoginType={setLoginType} />
-              <Box display="flex">
-                <SideBar />
-                <Box
-            sx={{
-              height: "calc(100vh - 64px)",
-              width: { xs: "100%", sm: "calc(100% - 80px)" },
-              display: "flex",
-              flexDirection: "column",
-              padding: { xs: "10px", sm: "20px" },
-              overflow: "scroll",
-            }}
-          >
-            {loginType === "login" ? (
-                  <Box 
-                    marginTop={"10rem"}
-                    display="flex"
-                    justifyContent="center"
-                  >
+        <Box minHeight={"100vh"} sx={{ background: Theme[mode].primary }}>
+          <Nav setLoginType={setLoginType} />
+          <Box display="flex">
+            <Box
+              sx={{
+                height: "calc(100vh - 64px)",
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+
+                overflow: "scroll",
+              }}
+              className="container"
+            >
+              {loginType === "login" ? (
+                <Box display="flex" justifyContent="center" width="100%">
                   <FormLogin
                     form={form}
                     handleChange={handleChange}
@@ -107,13 +101,9 @@ const Login = () => {
                     handleSubmits={handleSubmits}
                     errors={errors}
                   />
-                  </Box>
-                ) : (
-                  <Box 
-                    marginTop={"10rem"}
-                    display="flex"
-                    justifyContent="center"
-                  >
+                </Box>
+              ) : (
+                <Box display="flex" justifyContent="center">
                   <FormRegister
                     form={form}
                     handleChange={handleChange}
@@ -124,34 +114,34 @@ const Login = () => {
                     previewUrl={previewUrl}
                     errors={errors}
                   />
-                  </Box>
-                )}
-                <Box
-                  marginTop={"1rem"}
-                  display="flex"
-                  justifyContent="center"
-                  className="Login-form-links"
-                >
-                  {loginType === "login" ? (
-                    <Button
-                      variant="text"
-                      onClick={() => setLoginType("register")}
-                      style={{ color: Theme[mode].textPrimary }}
-                    >
-                      Register
-                    </Button>
-                  ) : (
-                    <Button
-                      variant="text"
-                      onClick={() => setLoginType("login")}
-                      style={{ color: Theme[mode].textPrimary }}
-                    >
-                      Login
-                    </Button>
-                  )}
                 </Box>
-              </Box> 
+              )}
+              <Box
+                // marginTop={"1rem"}
+                display="flex"
+                justifyContent="center"
+                className="Login-form-links"
+              >
+                {loginType === "login" ? (
+                  <Button
+                    variant="text"
+                    onClick={() => setLoginType("register")}
+                    style={{ color: Theme[mode].textPrimary }}
+                  >
+                    Registrar
+                  </Button>
+                ) : (
+                  <Button
+                    variant="text"
+                    onClick={() => setLoginType("login")}
+                    style={{ color: Theme[mode].textPrimary }}
+                  >
+                    Acceder
+                  </Button>
+                )}
+              </Box>
             </Box>
+          </Box>
         </Box>
       )}
     </div>

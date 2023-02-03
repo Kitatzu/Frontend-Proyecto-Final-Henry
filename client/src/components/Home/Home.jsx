@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { getPage, getProductsByCategories } from "../../Redux/Thunks/Products";
 import { getCategories } from "../../Redux/Thunks/categories";
 import SearchBar from "../SearchBar/SearchBar";
+
 import {
   filterPrice,
   filterProduct,
@@ -88,9 +89,10 @@ export default function Home() {
           )}
           <Box
             width={"100%"}
-            height={"500px"}
-            minHeight="500px"
+            height={{ xs: "250px", md: "500px" }}
+            minHeight={{ xs: "250px", md: "500px" }}
             position="relative"
+            id="particles-js"
             sx={{
               background: `url(${banner})`,
               borderRadius: "20px",
@@ -99,7 +101,13 @@ export default function Home() {
             }}
           >
             {/* Swiper */}
-            <Box top="0px" right="0px" position="absolute" margin="30px">
+            <Box
+              top="0px"
+              right="0px"
+              position="absolute"
+              margin="30px"
+              display={{ xs: "none", md: "block" }}
+            >
               <CardSwipper />
             </Box>
 
@@ -126,8 +134,12 @@ export default function Home() {
             <Box width="100%" display={"flex"} gap="20px" flexWrap={"wrap"}>
               <Typography
                 component="h2"
-                fontSize="20px"
-                sx={{ color: theme[mode].textPrimary, padding: "20px" }}
+                fontSize="35px"
+                sx={{
+                  color: theme[mode].textPrimary,
+                  padding: "20px",
+                  fontWeight: 800,
+                }}
               >
                 INICIO
               </Typography>
@@ -137,7 +149,7 @@ export default function Home() {
                 <Box>
                   <Typography
                     component={"label"}
-                    sx={{ color: theme[mode].textPrimary }}
+                    sx={{ color: theme[mode].textPrimary, fontWeight: "bold" }}
                   >
                     Precio minimo:
                   </Typography>
@@ -158,7 +170,7 @@ export default function Home() {
                 <Box>
                   <Typography
                     component={"label"}
-                    sx={{ color: theme[mode].textPrimary }}
+                    sx={{ color: theme[mode].textPrimary, fontWeight: "bold" }}
                   >
                     Precio maximo:
                   </Typography>
@@ -173,10 +185,28 @@ export default function Home() {
                       border: "none",
                       background: "#ececec",
                       borderRadius: "10px",
+                      width: "max-content",
                     }}
                   />
                 </Box>
               </Box>
+            </Box>
+            <Box
+              display={"flex"}
+              width="100%"
+              flexWrap={"wrap"}
+              justifyContent="center"
+            >
+              {categories
+                ? categories.map((cat) => (
+                    <CardCategories
+                      value={cat.name}
+                      img={cat.img}
+                      key={cat.id}
+                      id={cat.id}
+                    />
+                  ))
+                : null}
             </Box>
             <Box
               sx={{
@@ -205,23 +235,7 @@ export default function Home() {
                   })
                 : null}
             </Box>
-            <Box
-              display={"flex"}
-              width="100%"
-              flexWrap={"wrap"}
-              justifyContent="center"
-            >
-              {categories
-                ? categories.map((cat) => (
-                    <CardCategories
-                      value={cat.name}
-                      img={cat.img}
-                      key={cat.id}
-                      id={cat.id}
-                    />
-                  ))
-                : null}
-            </Box>
+
             <Box
               width={"100%"}
               padding="20px"

@@ -18,19 +18,29 @@ SwiperCore.use([Autoplay]);
 function SwipperBrand() {
   const scale = window.screen.width;
   const [widScreen, setWidScreen] = useState(false);
+  const [numberCard, setNumberCard] = useState(3);
   useEffect(() => {
     setWidScreen(scale);
+    if (widScreen <= 877) {
+      setNumberCard(2);
+    }
+    if (widScreen <= 551) {
+      setNumberCard(1);
+    }
+    if (widScreen > 877) {
+      setNumberCard(3);
+    }
   }, [scale]);
 
   console.log(widScreen);
-  let numberCard = 3;
-  if (widScreen <= 877) {
-    numberCard = 2;
-  } else if (widScreen <= 551) {
-    numberCard = 1;
-  } else {
-    numberCard = 3;
-  }
+  // let numberCard = 3;
+  // if (widScreen <= 877) {
+  //   numberCard = 2;
+  // } else if (widScreen <= 551) {
+  //   numberCard = 1;
+  // } else {
+  //   numberCard = 3;
+  // }
   const { brands } = useSelector((store) => store.brands);
   return (
     <Swiper
