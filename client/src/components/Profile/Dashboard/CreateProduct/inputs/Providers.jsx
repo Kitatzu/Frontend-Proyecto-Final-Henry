@@ -9,6 +9,12 @@ export default function Providers({ handleChange, providers }) {
     <Autocomplete
       disablePortal
       id="combo-box-demo"
+      onKeyUp={(e) => {
+        if (e.key === "Enter") {
+          handleChange(e, "providers");
+          handleChange(e, "providers");
+        }
+      }}
       onChange={(e) => {
         handleChange(e, "providers");
       }}
@@ -16,7 +22,7 @@ export default function Providers({ handleChange, providers }) {
       getOptionLabel={(option) => option.provider}
       renderOption={(props, option) => (
         <Box
-          component={"li"}
+          component={"option"}
           {...props}
           value={option.provider}
           key={option.id}

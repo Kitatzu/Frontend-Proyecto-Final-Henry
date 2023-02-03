@@ -209,14 +209,6 @@ export default function CreateProduct() {
                 <Providers handleChange={handleChange} providers={providers} />
                 <Brands brands={brands} handleChange={handleChange} />
                 <Box>
-                  {/* <TextField
-                    type="file" 
-                    label="Imagen URL"
-                    name="img"
-                    InputProps={{ style: { color: theme[mode].textPrimary } }}
-                    sx={{ width: "100%" }}
-                    onChange={handleChange}
-                  /> */}
                   <Box>
                     {/* <input type="file" onChange={handleImage} /> */}
                     <div class="input-file">

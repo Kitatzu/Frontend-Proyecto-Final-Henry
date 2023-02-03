@@ -24,6 +24,7 @@ export const useForm = (initialForm, validateForm, localeErrors) => {
   const handleChange = (e, type) => {
     if (type === "country" && type !== undefined) {
       form.country = e.target.attributes.value.value;
+      console.log(e.target.attributes.value.value, form.country);
     }
     if (e.target.name === "verifypassword") {
       if (e.target.value !== form.registerpassword) {
@@ -45,7 +46,7 @@ export const useForm = (initialForm, validateForm, localeErrors) => {
     });
     console.log(errors);
   };
-   
+
   const handleSubmit = (e) => {
     // console.log(errors, form);
     if (
@@ -66,7 +67,6 @@ export const useForm = (initialForm, validateForm, localeErrors) => {
       form.registerpassword !== "" &&
       form.verifypassword !== ""
     ) {
-     
       const formSend = new FormData();
       formSend.append("firstName", form.name);
       formSend.append("lastName", form.lastname);

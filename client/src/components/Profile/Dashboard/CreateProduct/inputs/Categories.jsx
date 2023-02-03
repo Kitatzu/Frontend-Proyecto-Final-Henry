@@ -8,13 +8,24 @@ export default function Categories({ handleChange, categories }) {
     <Autocomplete
       disablePortal
       id="combo-box-demo"
+      onKeyUp={(e) => {
+        if (e.key === "Enter") {
+          handleChange(e, "categories");
+          handleChange(e, "categories");
+        }
+      }}
       onChange={(e) => {
         handleChange(e, "categories");
       }}
       options={categories}
       getOptionLabel={(option) => option.name}
       renderOption={(props, option) => (
-        <Box component={"li"} {...props} value={option.name} key={option.id}>
+        <Box
+          component={"option"}
+          {...props}
+          value={option.name}
+          key={option.id}
+        >
           {option.name}
         </Box>
       )}
