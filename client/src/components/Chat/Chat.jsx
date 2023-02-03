@@ -32,18 +32,18 @@ export default function Chat() {
   useEffect(() => {
     const receiveMessage = (message) => {
       console.log(message.from);
-      setMessages([message, ...messages]);
+      setMessages([message.body, ...messages]);
     };
     socket.on("message", receiveMessage);
     return () => {
       socket.off("message", receiveMessage);
     };
   }, [messages]);
-  console.log(messages)
+  console.log(messages);
   return (
     <Fragment>
       <Container>
-        {/* <Paper elevation={5}>
+        <Paper elevation={5}>
           <Box p={3}>
             <Typography variant="h4" gutterBottom>
               Happy chatting...!!!
@@ -57,18 +57,20 @@ export default function Chat() {
               />
               <button>Send</button>
             </form>
-           
-            {messages.map((message, index) => (
-              <div key={index}>
-                <p>
-                  {message.from}: {message.body}
-                </p>
-              </div>
-              
-            ))}
+
+            {messages.map((message, index) => {
+              console.log(message);
+              return (
+                <div key={index}>
+                  <p>
+                    {message.from}: {message.body}
+                  </p>
+                </div>
+              );
+            })}
           </Box>
-        </Paper> */}
+        </Paper>
       </Container>
     </Fragment>
-  )
+  );
 }
