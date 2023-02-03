@@ -65,6 +65,15 @@ export default function Home() {
     }
   }, [dispatch]);
 
+  function filterReset(e) {
+    dispatch(getPage(1));
+    const priceMin = document.querySelector('input[name="min"]');
+    priceMin.value = 0;
+    const priceMax = document.querySelector('input[name="max"]');
+    priceMax.value = 0;
+
+  }
+
   return (
     <Box
       sx={{
@@ -190,8 +199,12 @@ export default function Home() {
                     }}
                   />
                 </Box>
-              </Box>
+                <button onClick={filterReset}>Inicio</button>
+              </Box>              
             </Box>
+
+            
+
             <Box
               sx={{
                 display: "flex",
