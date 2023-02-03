@@ -9,6 +9,7 @@ import {
   setProductID,
   setSeriesProducts,
   setPages,
+  setDeletedProducts,
 } from "../Slices/Products";
 //closure
 export const getProducts = () => {
@@ -159,3 +160,45 @@ export const getProductsByCategories = (name) => {
       });
   };
 };
+export const pageStatusCero = (page) => {
+  if (parseInt(page) === 0) {
+    return async (dispatch) => {
+      await axios
+        .get(`${Global.URL}/products/page0/${page}`)
+        .then((response) => {
+          dispatch(setPages(response.data.pages));
+          console.log(response.data.pages)
+        })
+        .catch((response) => {
+          Toast.fire({ icon: "error", title: response.response.data.msg });
+        });
+    };
+  } else {
+    return async (dispatch) => {
+      await axios
+        .get(`${Global.URL}/products/page0/${page}`)
+        .then((response) => {
+          dispatch(setDeletedProducts(response.data));
+        })
+        .catch((response) => {
+          console.log(response);
+          Toast.fire({ icon: "error", title: response.response.data.msg });
+        });
+    };
+  }
+};
+
+export const deletedProducts=()=>{
+  return async(dispatch)=>{
+    dispatch(setLoadingProducts(true));
+    await axios.get(`${Global.URL}/products/status`)
+    .then((response)=>{
+      dispatch(setDeletedProducts(response.data))
+      dispatch(setLoadingProducts(false))
+    })
+    .catch((response)=>{dispatch(setLoadingProducts(false))
+    console.log(response)
+  });
+  };
+};
+
