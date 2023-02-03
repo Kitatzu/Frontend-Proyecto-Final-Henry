@@ -12,7 +12,7 @@ import AccountSettings from "../components/Profile/AccountSettings/AccountSettin
 import Inventory from "../components/Profile/Dashboard/Inventory/Inventory";
 import Factura from "../components/Facturas/Factura/Factura";
 import UsersTable from "../components/Profile/Dashboard/tableUsers/UsersTable";
-import Bar from "../components/Bar/Bar";
+import Chat from "../components/Chat/Chat";
 
 const Routers = () => {
   return (
@@ -29,7 +29,7 @@ const Routers = () => {
       <Route path="account" element={<AccountSettings />} />
       <Route path={"cart"} element={<Cart />} />
       <Route path={"/factura"} element={<Factura />} />
-      <Route path={"/chat"} element={< Bar/>} />
+      {/* <Route path={"/chat"} element={< Chat/>} /> */}
       {/* <Route path="*" element={<NoMatch />} /> */}
     </Routes>
   );

@@ -5,6 +5,8 @@ import { Box } from "@mui/system";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
+import Chat from "../Chat/Chat";
+
 
 export default function SideBar() {
   const mode = useSelector((store) => store.theme.mode);
@@ -71,12 +73,9 @@ export default function SideBar() {
           </Box>
           <Box>
           <IconButton>
-            <Link to={"/chat"}>
-              <Icon
-                icon="vscode-icons:file-type-light-config"
-                color={theme[mode].textPrimary}
-              />
-            </Link>
+            {/* <Link to={"/chat"}> */}
+              <Chat/>
+           {/*  </Link> */}
           </IconButton>
         </Box>
         </Box>
