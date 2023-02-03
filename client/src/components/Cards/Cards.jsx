@@ -38,7 +38,7 @@ const Cards = ({ key, id, description, img, name, price, rating }) => {
         >
           <CardMedia
             component="img"
-            sx={{ width: "100%", maxHeight: "164px" }}
+            sx={{ width: "100%", maxHeight: "120px" }}
             image={img}
             alt="image"
           />

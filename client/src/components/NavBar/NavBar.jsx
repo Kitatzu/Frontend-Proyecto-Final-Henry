@@ -18,8 +18,9 @@ import { useEffect } from "react";
 import { logout } from "../../Redux/Slices";
 import { getUserA } from "../../Redux/Thunks/getUser";
 import LogoNova from "../assets/LogoDark.png";
-
 export default function NavBar() {
+  const url = window.location.href.split("/")[3].toLowerCase();
+  const urlRoute = window.location.href.split("/")[4];
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -197,7 +198,9 @@ export default function NavBar() {
           </IconButton>
 
           <Box display={{ xs: "none", sm: "flex" }}>
-            <SearchBar />
+            {url === "home" && (urlRoute === "" || urlRoute === undefined) ? (
+              <SearchBar />
+            ) : null}
           </Box>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ alignItems: "center" }}>
