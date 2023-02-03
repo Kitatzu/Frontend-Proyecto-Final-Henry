@@ -28,7 +28,7 @@ const Routers = () => {
       <Route path="dashboard" element={<Dashboard />} />
       <Route path="account" element={<AccountSettings />} />
       <Route path={"cart"} element={<Cart />} />
-      <Route path={"/factura"} element={<Factura />} />
+      <Route path={"/factura/:facturaId"} element={<Factura />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );

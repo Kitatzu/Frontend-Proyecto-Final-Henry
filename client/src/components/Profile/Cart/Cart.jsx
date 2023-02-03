@@ -19,7 +19,7 @@ const Cart = () => {
   const Theme = useSelector((store) => store.theme);
   const mode = useSelector((store) => store.theme.mode);
   const { redir } = useSelector((store) => store.factura);
-
+  const facturaId = useSelector((store) => store.factura.facturaDetail?.id);
   let userId = JSON.parse(localStorage.getItem("token"))
     ? JSON.parse(localStorage.getItem("token")).userId
     : null;
@@ -72,7 +72,7 @@ const Cart = () => {
   return (
     <Box sx={{ background: Theme[mode].primary, minHeight: "100vh" }}>
       <Box>
-        {redir ? <Navigate to={"/factura"} /> : null}
+        {redir ? <Navigate to={"/factura/" + facturaId} /> : null}
         <NavBar />
         <Box display={"flex"}>
           <SideBar />
