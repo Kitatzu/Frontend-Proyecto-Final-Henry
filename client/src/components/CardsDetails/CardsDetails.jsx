@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { getProductByID } from "../../Redux/Thunks/Products";
 import imgDefault from "../assets/imgDefault.png";
 
-import { Box, Typography, Paper, Stack, Rating, Chip } from "@mui/material";
+import { Box, Typography, Stack, Rating, Chip } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
 import { Icon } from "@iconify/react";
 import Toast from "../Toast/Toast";
