@@ -33,7 +33,7 @@ export default function CreateProduct() {
   const LoadingProduct = useSelector((store) => store.products.isLoading);
   const mode = useSelector((store) => store.theme.mode);
   const theme = useSelector((store) => store.theme);
- 
+
   const [serie, setSerie] = useState("");
   const [image, setImage] = useState(false);
   const [previewUrl, setPreviewUrl] = useState(null);
@@ -70,7 +70,6 @@ export default function CreateProduct() {
     setImage(el.target.files["0"]);
     setPreviewUrl(URL.createObjectURL(el.target.files[0]));
     console.log(el.target.files["0"]);
-    
   };
   const handleChange = (e, type) => {
     if (type === "categories" && type !== undefined) {
@@ -97,32 +96,22 @@ export default function CreateProduct() {
   const handleSave = (e) => {
     const formData = new FormData();
 
-   formData.append("name", newProduct.name);
-   formData.append("description", newProduct.description);
-   formData.append("price", newProduct.price);
-   formData.append("typeProduct", newProduct.typeProduct);
-   formData.append("provider", newProduct.provider)
-   formData.append("brand",newProduct.brand)
-   formData.append("categories",newProduct.categories)
-   if (image) {
-     console.log(image);
-     formData.append("img", image);
-   }
-   (async () => {
-     dispatch(createProduct(formData));
-   })();
- 
-//   else {
-//    Swal.fire({
-//      icon: "error",
-//      title: "Form",
-//      text: "Completar el formulario!",
-//    });
-//  }
-  
-   
- };
-   
+    formData.append("name", newProduct.name);
+    formData.append("description", newProduct.description);
+    formData.append("price", newProduct.price);
+    formData.append("typeProduct", newProduct.typeProduct);
+    formData.append("provider", newProduct.provider);
+    formData.append("brand", newProduct.brand);
+    formData.append("categories", newProduct.categories);
+    if (image) {
+      console.log(image);
+      formData.append("img", image);
+    }
+    (async () => {
+      dispatch(createProduct(formData));
+    })();
+  };
+
   return (
     <Box sx={{ width: "100%", height: "100vh", overflow: "hidden" }}>
       <NavBar />
@@ -229,8 +218,19 @@ export default function CreateProduct() {
                     onChange={handleChange}
                   /> */}
                   <Box>
-                   <input type="file" onChange={handleImage} />
-                </Box>
+                    {/* <input type="file" onChange={handleImage} /> */}
+                    <div class="input-file">
+                      <input
+                        type="file"
+                        id="file"
+                        class="input-file-input"
+                        onChange={handleImage}
+                      />
+                      <label for="file" class="input-file__btn">
+                        Seleccionar archivo
+                      </label>
+                    </div>
+                  </Box>
                 </Box>
                 <LoadingButton
                   loading={LoadingProduct}
@@ -263,9 +263,10 @@ export default function CreateProduct() {
                   justifyContent: "center",
                   alignContent: "center",
                   alignItems: "center",
-                  border: "2px solid rgba(0,0,0,.2)",
-                  borderRadius: "20px",
+                  borderRadius: "40px",
                   margin: "20px 0",
+                  boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                  backdropFilter: "blur(50px)",
                 }}
               >
                 <Box>
@@ -279,7 +280,7 @@ export default function CreateProduct() {
                 </Box>
                 <Box sx={{ width: "200px" }}>
                   <img
-                    src={previewUrl?previewUrl:imgDefault}
+                    src={previewUrl ? previewUrl : imgDefault}
                     alt="product"
                     width="100%"
                     style={{ borderRadius: "20px" }}
@@ -323,9 +324,7 @@ export default function CreateProduct() {
                 </Box>
                 <Box>
                   <Typography sx={{ color: theme[mode].textPrimary }}>
-
                     {"PROVEEDOR: " + newProduct.provider}
-
                   </Typography>
                 </Box>
                 <Box>

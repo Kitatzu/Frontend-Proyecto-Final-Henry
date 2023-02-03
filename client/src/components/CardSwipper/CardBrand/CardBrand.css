@@ -1,7 +1,15 @@
 .cardBrand{
     transform: scale(1) !important;
     border: none !important ;
-    box-shadow: 0px 10px 10px 10px rgba(0,0,0,.3);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 20px;
+    transition: 0.3s;
+}
+.cardBrand:hover{
+    transition: 0.3s;
+    transform: scale(1.1) !important;
+    border: none !important ;
+    box-shadow: 0px 10px 10px 10px rgba(0,0,0,.2);
 }
 .cardBrandActive{
     transition: 0.5s;

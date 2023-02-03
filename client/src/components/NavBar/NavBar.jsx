@@ -17,13 +17,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { logout } from "../../Redux/Slices";
 import { getUserA } from "../../Redux/Thunks/getUser";
+import LogoNova from "../assets/LogoDark.png";
 
 export default function NavBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const { isLog } = useSelector((store) => store.users);
-  const pages = ["home", "dashboard/crud", "carrito", "configuracion"];
+  const pages = ["home", "dashboard", "cart"];
   const { avatar, firstName } = useSelector((store) => store.users);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ export default function NavBar() {
     handleMenuClose();
     navigate("/login");
   };
-
+  console.log(avatar);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -61,12 +62,17 @@ export default function NavBar() {
   };
   //FIXME: PETICION CON USEEFFECT
 
-  const userId = JSON.parse(localStorage.getItem("token")).userId;
+  const userId = JSON.parse(localStorage.getItem("token"))
+    ? JSON.parse(localStorage.getItem("token")).userId
+    : null;
 
   console.log(userId);
 
   useEffect(() => {
-    dispatch(getUserA(userId));
+    if (userId) {
+      console.log("hello");
+      dispatch(getUserA(userId));
+    }
     //TODO: DISPATCH A THUNK GETUSERA
   }, []);
 
@@ -178,20 +184,18 @@ export default function NavBar() {
             </Menu>
           </Box>
 
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: "none", sm: "block" } }}
+          <IconButton
+            sx={{
+              display: { xs: "none", sm: "block" },
+              width: "40px",
+              height: "40px",
+            }}
           >
-            <Link
-              to={{ pathname: `/home` }}
-              target="_parent"
-              rel="noopener noreferer"
-            >
-              BoxTech
+            <Link to={"/home"}>
+              <img src={LogoNova} alt="nova" style={{ width: "100%" }} />
             </Link>
-          </Typography>
+          </IconButton>
+
           <Box display={{ xs: "none", sm: "flex" }}>
             <SearchBar />
           </Box>

@@ -39,14 +39,6 @@ export default function SideBar() {
             </Link>
           </IconButton>
         </Box>
-        <Box>
-          <IconButton>
-            <Icon
-              icon="material-symbols:monitor-outline-rounded"
-              color={theme[mode].textPrimary}
-            />
-          </IconButton>
-        </Box>
       </Box>
       {isLog && (
         <Box>
