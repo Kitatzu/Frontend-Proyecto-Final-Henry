@@ -4,11 +4,9 @@ import { useEffect, useState } from "react";
 import { getProductByID } from "../../Redux/Thunks/Products";
 import imgDefault from "../assets/imgDefault.png";
 
-
 import {
   Box,
   Typography,
-  Paper,
   Stack,
   Rating,
   Chip,
@@ -24,9 +22,11 @@ import NavBar from "../NavBar/NavBar";
 import SideBar from "../SideBar/SideBar";
 import { setIsLog, setUserName } from "../../Redux/Slices";
 import Reviews from "./Reviews/Reviews";
+import CardSwipper from "../CardSwipper/CardSwipper";
+import { getReviews, validateRating } from "../../Redux/Thunks/reviews";
 
 const CardsDetails = () => {
-  const { products } = useSelector((store) => store.products);
+  const { productDetail } = useSelector((store) => store.products);
   const loadingCart = useSelector((store) => store.cart.isLoading);
   const mode = useSelector((store) => store.theme.mode);
   const Theme = useSelector((store) => store.theme);
@@ -34,13 +34,18 @@ const CardsDetails = () => {
   const [cantidadProducto, setCantidad] = useState(1);
   const dispatch = useDispatch();
   const { id } = useParams();
-  console.log(products?.rating);
+  console.log(productDetail?.rating);
 
   useEffect(() => {
     dispatch(getProductByID(id));
+    dispatch(getReviews(id));
+
     if (JSON.parse(localStorage.getItem("token")) !== null) {
       dispatch(setUserName(JSON.parse(localStorage.getItem("token")).userName));
       dispatch(setIsLog(JSON.parse(localStorage.getItem("token")).token));
+      dispatch(
+        validateRating(id, JSON.parse(localStorage.getItem("token")).userId)
+      );
     }
   }, [dispatch, id]);
 
@@ -59,8 +64,11 @@ const CardsDetails = () => {
           sx={{
             height: "calc(100vh - 64px)",
             width: { xs: "100%", sm: "calc(100% - 80px)" },
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
 
-            padding: { xs: "20px", sm: "20px" },
+            padding: { xs: "5px", sm: "20px" },
             overflow: "scroll",
             minHeight: "max-content",
           }}
@@ -72,7 +80,7 @@ const CardsDetails = () => {
             justifyContent={"center"}
             width="100%"
             flexDirection={{ xs: "column", md: "row" }}
-            padding="20px"
+            padding={{ xs: "10px", md: "20px" }}
           >
             <Box width={{ xs: "400px", md: "40%" }} padding={"20px"}>
               <img
@@ -81,7 +89,7 @@ const CardsDetails = () => {
                   borderRadius: "20px",
                   minWidth: "200px",
                 }}
-                src={products?.img ? products.img : imgDefault}
+                src={productDetail?.img ? productDetail.img : imgDefault}
                 alt="Product"
               />
             </Box>
@@ -92,7 +100,7 @@ const CardsDetails = () => {
                 gutterBottom
                 sx={{ color: Theme[mode].textPrimary }}
               >
-                {products?.name.toUpperCase()}
+                {productDetail?.name.toUpperCase()}
               </Typography>
               <Box
                 display={"flex"}
@@ -104,7 +112,7 @@ const CardsDetails = () => {
                 <Stack spacing={1} marginLeft={"10px"}>
                   <Rating
                     name="half-rating-read"
-                    value={products?.rating}
+                    value={productDetail?.rating}
                     size="large"
                     precision={0.5}
                     readOnly
@@ -119,9 +127,14 @@ const CardsDetails = () => {
                   flexDirection: "column",
                 }}
               >
-                <Typography fontWeight={"bold"}>DESCRIPTION</Typography>
+                <Typography
+                  fontWeight={"bold"}
+                  sx={{ color: Theme[mode].textPrimary }}
+                >
+                  DESCRIPTION
+                </Typography>
                 <Typography sx={{ color: Theme[mode].textPrimary }}>
-                  {products?.description}
+                  {productDetail?.description}
                 </Typography>
                 <Box
                   width={"100%"}
@@ -131,7 +144,7 @@ const CardsDetails = () => {
                 >
                   <Chip
                     fontWeight={"bold"}
-                    label={"$" + products?.price}
+                    label={"$" + productDetail?.price}
                     variant="filled"
                     color="info"
                     sx={{
@@ -142,7 +155,7 @@ const CardsDetails = () => {
                   />
                   <Alert severity="success" variant="filled">
                     <Typography fontWeight={"bold"} component="p">
-                      STOCK:{products?.stock}. Compralo ya!
+                      STOCK:{productDetail?.stock}. Compralo ya!
                     </Typography>
                   </Alert>
                 </Box>
@@ -161,7 +174,7 @@ const CardsDetails = () => {
                   variant="standard"
                   type={"number"}
                   onChange={(e) => {
-                    if (e.target.value > products?.stock) {
+                    if (e.target.value > productDetail?.stock) {
                       Toast.fire({
                         icon: "warning",
                         title: "Valor supera el STOCK!",
@@ -186,7 +199,7 @@ const CardsDetails = () => {
                   onClick={(e) => {
                     if (
                       cantidadProducto > 0 &&
-                      cantidadProducto <= products.stock
+                      cantidadProducto <= productDetail.stock
                     ) {
                       dispatch(
                         setCart({
@@ -206,6 +219,16 @@ const CardsDetails = () => {
                 </LoadingButton>
               </Box>
             </Box>
+          </Box>
+          <Box display={"flex"} justifyContent="center" padding={"20px"}>
+            <Typography fontSize={"28px"}>Productos populares.</Typography>
+          </Box>
+          <Box width={"100%"} sx={{ background: "#cecece" }}>
+            <CardSwipper origin={"other"} />
+          </Box>
+
+          <Box>
+            <Reviews />
           </Box>
         </Box>
       </Box>
