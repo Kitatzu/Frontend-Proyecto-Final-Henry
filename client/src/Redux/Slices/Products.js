@@ -48,6 +48,8 @@ export const productsSlice = createSlice({
         ...state.productCreate.series,
         action.payload,
       ];
+    },setDeletedProducts:(state,action)=>{
+      state.products=action.payload
     },
     filterPrice: (state, action) => {
       state.filters.prices[action.payload.name] = action.payload.value;
@@ -94,4 +96,5 @@ export const {
   filterPrice,
   filterProduct,
   setPopularProducts,
+  setDeletedProducts,
 } = productsSlice.actions;

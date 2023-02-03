@@ -20,10 +20,13 @@ export default function UsersTable() {
 
   useEffect(() => {
     dispatch(getUser());
+    return()=>{
+      dispatch(getUser());
+    }
   }, [dispatch]);
 
 const [status,setStatus]=useState("0");
-const [aux,setAux]=useState("");
+;
 
 function handlerSelect(event){
 setStatus(event.target.value)
@@ -45,7 +48,7 @@ if(status==="0"){
       <Table sx={{ width: "100%" }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell align="center">UserName</TableCell>
+           {/*  <TableCell align="center">UserName</TableCell> */}
             <TableCell align="center">email</TableCell>
             <TableCell align="center">firstName</TableCell>
             <TableCell align="center">lastName</TableCell>
@@ -61,7 +64,7 @@ if(status==="0"){
                     key={e.id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
-                    <TableCell align="center">{e.userName}</TableCell>
+                  {/*   <TableCell align="center">{e.userName}</TableCell> */}
                     <TableCell align="center">{e.email}</TableCell>
                     <TableCell align="center">{e.firstName}</TableCell>
                     <TableCell align="center">{e.lastName}</TableCell>

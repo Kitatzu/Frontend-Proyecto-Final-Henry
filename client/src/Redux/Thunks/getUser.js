@@ -58,3 +58,18 @@ export const getUserA = (userId) => {
       });
   };
 };
+
+export const DeleteUser=(userId)=>{
+  return async(dispatch)=>{
+    dispatch(setIsLoading(true));
+    axios.delete(Global.URL+"/users/"+userId)
+    .then((response)=>{console.log(response);
+    dispatch(setData(response.data));
+    dispatch(setIsLoading(false));
+  })
+  .catch((response) => {
+    console.log(response);
+    alert(response.response.data.msg);
+  });
+  };
+};
