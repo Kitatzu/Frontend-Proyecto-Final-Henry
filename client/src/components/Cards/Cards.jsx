@@ -17,11 +17,7 @@ const Cards = ({ key, id, description, img, name, price, rating }) => {
   img = img ? img : imgDefault;
 
   return (
-    <Link
-      to={{ pathname: `/products/${id}` }}
-      target="_parent"
-      rel="noopener noreferer"
-    >
+    <Link to={`/products/${id}`}>
       <div key={key}>
         <Card
           sx={{

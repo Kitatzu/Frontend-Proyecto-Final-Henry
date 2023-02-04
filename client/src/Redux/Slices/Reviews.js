@@ -2,21 +2,29 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   reviews: null,
-  isLoading: false
-}
+  yourReview: null,
+  isReview: false,
+  isLoading: false,
+};
 
 export const reviewsSlice = createSlice({
-  name: 'reviews',
+  name: "reviews",
   initialState,
   reducers: {
     setLoadingReviews: (state, action) => {
       state.isLoading = action.payload;
+      state.isReview = false;
     },
 
-    addReview: (state, action) => {
+    setReviews: (state, action) => {
       state.reviews = action.payload;
-    }
-  }
+    },
+    setYourReview: (state, action) => {
+      state.yourReview = action.payload;
+      state.isReview = true;
+    },
+  },
 });
 
-export const { setLoadingReviews, addReview } = reviewsSlice.actions;
+export const { setLoadingReviews, setReviews, setYourReview } =
+  reviewsSlice.actions;

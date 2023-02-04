@@ -1,4 +1,4 @@
-import { Alert, Box, Pagination, Typography } from "@mui/material";
+import { Alert, Box, Button, Pagination, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import Cards from "../Cards/Cards";
 import NavBar from "../NavBar/NavBar";
@@ -64,7 +64,6 @@ export default function Home() {
     priceMin.value = 0;
     const priceMax = document.querySelector('input[name="max"]');
     priceMax.value = 0;
-
   }
 
   return (
@@ -117,7 +116,7 @@ export default function Home() {
               margin="30px"
               display={{ xs: "none", md: "block" }}
             >
-              <CardSwipper />
+              <CardSwipper origin={"banner"} />
             </Box>
 
             {/* cuadritos */}
@@ -198,11 +197,8 @@ export default function Home() {
                     }}
                   />
                 </Box>
-                <button onClick={filterReset}>Inicio</button>
-              </Box>              
+              </Box>
             </Box>
-
-            
 
             <Box
               display={"flex"}
@@ -210,6 +206,21 @@ export default function Home() {
               flexWrap={"wrap"}
               justifyContent="center"
             >
+              <Button
+                onClick={filterReset}
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  margin: "20px",
+                  background: "#282828",
+                  width: "300px",
+                  boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                }}
+              >
+                <Box padding={"20px"}>
+                  <Typography sx={{ color: "white" }}>TODO</Typography>
+                </Box>
+              </Button>
               {categories
                 ? categories.map((cat) => (
                     <CardCategories
