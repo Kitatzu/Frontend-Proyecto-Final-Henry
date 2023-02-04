@@ -33,6 +33,9 @@ const initialState = {
   email: null,
   firstName: null,
   lastName: null,
+  country: null,
+  city: null,
+  phone: null,
   isLog: false,
   isLoading: false,
   userDetail: null,
@@ -79,6 +82,9 @@ export const userSlice = createSlice({
       store.firstName = action.payload.firstName;
       store.lastName = action.payload.lastName;
       store.email = action.payload.email;
+      store.country = action.payload.country;
+      store.city = action.payload.city;
+      store.phone = action.payload.phone;
       //store.linkName = action.payload.userName;
     },
     setUserDetail: (store, action) => {

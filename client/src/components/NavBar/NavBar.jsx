@@ -63,8 +63,6 @@ export default function NavBar() {
 
   const userId = JSON.parse(localStorage.getItem("token")).userId;
 
-  console.log(userId);
-
   useEffect(() => {
     dispatch(getUserA(userId));
     //TODO: DISPATCH A THUNK GETUSERA
@@ -89,9 +87,10 @@ export default function NavBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-      {isLog && <MenuItem onClick={logOut}>Log out</MenuItem>}
+      <MenuItem onClick={handleMenuClose}>
+        <Link to="/account"> Perfil </Link>
+      </MenuItem>
+      {isLog && <MenuItem onClick={logOut}> Log out </MenuItem>}
     </Menu>
   );
 
@@ -125,7 +124,7 @@ export default function NavBar() {
         >
           <AccountCircle />
         </IconButton>
-        <p>Profile</p>
+        <p> Perfil </p>
       </MenuItem>
     </Menu>
   );
