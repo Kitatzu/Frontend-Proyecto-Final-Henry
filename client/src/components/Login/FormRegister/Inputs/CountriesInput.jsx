@@ -3,15 +3,25 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { useSelector } from "react-redux";
+
 export default function CountrySelect({ handleChange, handleBlur, form }) {
   const mode = useSelector((store) => store.theme.mode);
   const Theme = useSelector((store) => store.theme);
+
   return (
     <Autocomplete
       id="country-select-demo"
       sx={{ m: 1, width: "50%" }}
       options={countries}
+      onKeyUp={(e) => {
+        if (e.key === "Enter") {
+          handleChange(e, "country");
+          handleChange(e, "country");
+        }
+      }}
       onChange={(e) => {
+        console.log(e.target.value);
+        handleChange(e, "country");
         handleChange(e, "country");
       }}
       style={{ color: Theme[mode].textPrimary }}
@@ -20,7 +30,7 @@ export default function CountrySelect({ handleChange, handleBlur, form }) {
       renderOption={(props, option) => (
         <>
           <Box
-            component="li"
+            component="option"
             sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
             {...props}
             value={option.label}
@@ -68,6 +78,7 @@ const countries = [
     label: "Antigua and Barbuda",
     phone: "1-268",
   },
+
   { code: "AI", label: "Anguilla", phone: "1-264" },
   { code: "AL", label: "Albania", phone: "355" },
   { code: "AM", label: "Armenia", phone: "374" },

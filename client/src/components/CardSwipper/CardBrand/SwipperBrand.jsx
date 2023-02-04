@@ -12,23 +12,34 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { useSelector } from "react-redux";
 import CardBrand from "./CardBrand";
+import SwiperCore, { Autoplay } from "swiper";
+SwiperCore.use([Autoplay]);
 
-function SwipperBrand({ setBanner }) {
-  const scale = window.screen.width;
-  const [widScreen, setWidScreen] = useState(false);
+function SwipperBrand() {
+  const [widScreen, setWidScreen] = useState(878);
+  const [numberCard, setNumberCard] = useState(3);
   useEffect(() => {
-    setWidScreen(scale);
-  }, [scale]);
+    (() => {
+      const scale = window.screen.width;
+      setWidScreen(scale);
+      if (widScreen <= 551) {
+        setNumberCard(1);
+      }
+      if (widScreen <= 877 && widScreen >= 551) {
+        setNumberCard(2);
+      }
+    })();
+  }, [widScreen, numberCard]);
 
   console.log(widScreen);
-  let numberCard = 3;
-  if (widScreen <= 877) {
-    numberCard = 2;
-  } else if (widScreen <= 551) {
-    numberCard = 1;
-  } else {
-    numberCard = 3;
-  }
+  // let numberCard = 3;
+  // if (widScreen <= 877) {
+  //   numberCard = 2;
+  // } else if (widScreen <= 551) {
+  //   numberCard = 1;
+  // } else {
+  //   numberCard = 3;
+  // }
   const { brands } = useSelector((store) => store.brands);
   return (
     <Swiper
@@ -40,13 +51,14 @@ function SwipperBrand({ setBanner }) {
       loop={true}
       navigation={true}
       modules={[Pagination, Navigation]}
+      autoplay={{ delay: 1000 }}
       className="mySwiper"
       style={{ width: "100%", padding: "20px" }}
     >
       {brands
         ? brands.map((b) => (
             <SwiperSlide>
-              <CardBrand img={b.img} setBanner={setBanner} />
+              <CardBrand img={b.img} />
             </SwiperSlide>
           ))
         : null}

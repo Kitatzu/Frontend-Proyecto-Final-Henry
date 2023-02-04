@@ -5,6 +5,7 @@ import {
   CardActions,
   Button,
   Avatar,
+  Alert,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import EmailAddress from "./Inputs/EmailAddress";
@@ -77,6 +78,7 @@ const ProfileSettings = () => {
           justifyContent={"space-between"}
         >
           <NameInput name="name" label="Name" value={firstName} />
+
           <NameInput name="lastName" label="Last Name" value={lastName} />
         </Box>
         <Box sx={{ padding: "8px" }}>

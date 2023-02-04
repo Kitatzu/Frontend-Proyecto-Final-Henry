@@ -23,7 +23,7 @@ const Nav = () => {
             NOVA
           </Typography>
         </Box>
-        <Link to={"login"}>
+        <Link to={"/login"}>
           <Button
             variant="contained"
             sx={{

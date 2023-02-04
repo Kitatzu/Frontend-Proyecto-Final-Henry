@@ -11,7 +11,7 @@ const initialState = {
     buttonPrimary:
       "linear-gradient(135.13deg, #7DFFB4 10.46%, #4244FF 127.81%)",
     card: "#565656",
-    cardSecondary: "#1976D2",
+    cardSecondary: "rgba(255,255,255,.5)",
   },
   light: {
     primary: "#FAFAFA",

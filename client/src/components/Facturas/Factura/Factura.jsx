@@ -13,22 +13,32 @@ import {
   Button,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import Pdf from "react-to-pdf";
 import NavBar from "../../NavBar/NavBar";
 import { setRedir } from "../../../Redux/Slices";
-import { Navigate } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
+import { getFacturaDetail } from "../../../Redux/Thunks/factura";
 const Factura = () => {
+  const { facturaId } = useParams();
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getFacturaDetail(facturaId));
+  }, []);
   const theme = useSelector((store) => store.theme);
   const mode = useSelector((store) => store.theme.mode);
-  const products = useSelector((store) => store.factura.facturaDetail.products);
-  const { redir } = useSelector((store) => store.factura);
-  const { total, numberBill, paymentId } = useSelector(
-    (store) => store.factura.facturaDetail
+  const products = useSelector(
+    (store) => store.factura.facturaDetail?.products
   );
+  const { redir } = useSelector((store) => store.factura);
+  // const { total, numberBill, paymentId } = useSelector(
+  //   (store) => store.factura.facturaDetail
+  // );
+  const { facturaDetail } = useSelector((store) => store.factura);
+  console.log(facturaDetail);
   const ref = React.createRef();
+
   return (
     <>
       <NavBar />
@@ -50,12 +60,12 @@ const Factura = () => {
                 </Box>
                 <Box padding={"0 10px"}>
                   <Typography sx={{ color: theme[mode].textSecond }}>
-                    Factura N° 000000-0{numberBill}
+                    Factura N° 000000-0{facturaDetail?.numberBill}
                   </Typography>
                 </Box>
                 <Box padding={"0 10px"}>
                   <Typography sx={{ color: theme[mode].textSecond }}>
-                    Numero de orden {paymentId}
+                    Numero de orden {facturaDetail?.paymentId}
                   </Typography>
                 </Box>
               </CardContent>
@@ -85,7 +95,7 @@ const Factura = () => {
                 <TableRow>
                   <TableCell></TableCell>
                   <TableCell></TableCell>
-                  <TableCell>{total}$</TableCell>
+                  <TableCell>{facturaDetail?.total}$</TableCell>
                 </TableRow>
               </TableBody>
             </Table>
@@ -101,7 +111,10 @@ const Factura = () => {
         <Button variant={"outlined"} onClick={() => dispatch(setRedir(false))}>
           Volver al carrito
         </Button>
-        <Pdf targetRef={ref} filename={"factura" + numberBill + ".pdf"}>
+        <Pdf
+          targetRef={ref}
+          filename={"factura" + facturaDetail?.numberBill + ".pdf"}
+        >
           {({ toPdf }) => (
             <Button variant="contained" color="secondary" onClick={toPdf}>
               PDF

@@ -38,9 +38,9 @@ const LandingPage = () => {
               sx={{ width: "100%", padding: "20px", color: "#fafafa" }}
               component="p"
             >
-              Our utility palette/semantic palette is comprised of green,
-              yellow, and red. Semantic color helps users find people, identify
-              status,
+              Box Tech proporciona selección de piezas de computadora, para los
+              constructores de computadoras DIY ( do-it-yourself ). Facilitamos
+              la creación de su lista personal de piezas.
             </Typography>
             <Box padding="20px">
               <Button

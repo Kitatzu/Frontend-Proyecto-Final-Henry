@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import imgDefault from "../../assets/imgDefault.png";
 import "./CardBrand.css";
 
-function CardBrand({ img, brand, key, setBanner }) {
+function CardBrand({ img, brand, key }) {
   const [className, setClassName] = useState("cardBrand");
   img = img ? img : imgDefault;
   return (
@@ -19,10 +19,12 @@ function CardBrand({ img, brand, key, setBanner }) {
         display: "inline-block",
       }}
       onClick={() => {
-        setBanner(img);
         if (className === "cardBrand") {
           setClassName("cardBrandActive");
-        } else if (className === "cardBrandActive") {
+        }
+      }}
+      onBlur={() => {
+        if (className === "cardBrandActive") {
           setClassName("cardBrand");
         }
       }}
