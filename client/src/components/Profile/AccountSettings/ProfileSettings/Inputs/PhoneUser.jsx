@@ -1,33 +1,34 @@
-import { InputLabel, OutlinedInput, FormControl } from "@mui/material";
 import { useSelector } from "react-redux";
+import { InputLabel, OutlinedInput, FormControl } from "@mui/material";
 
-const NameInput = ({ name, label, value }) => {
+const PhoneUser = ({ phone }) => {
   const mode = useSelector((store) => store.theme.mode);
   const Theme = useSelector((store) => store.theme);
+
   return (
     <FormControl
-      sx={{ m: 1, width: "25ch" }}
+      sx={{ m: 1, width: "100%", margin: "8px 0" }}
       variant="outlined"
-      className="Login-form-control register-name"
+      className="Login-form-control"
     >
       <InputLabel
-        htmlFor="outlined-adornment-name"
+        htmlFor="outlined-adornment-email"
         style={{ color: Theme[mode].textPrimary }}
       >
-        {label}
+        Telefono
       </InputLabel>
       <OutlinedInput
-        id="outlined-adornment-name"
-        name={name}
-        type={"text"}
+        id="outlined-adornment-email"
+        name="phoneUser"
+        type={"phone"}
         className="Login-input"
         style={{ color: Theme[mode].textPrimary }}
-        defaultValue={value}
+        defaultValue={phone}
         required
-        label={label}
+        label="Phone"
       />
     </FormControl>
   );
 };
 
-export default NameInput;
+export default PhoneUser;

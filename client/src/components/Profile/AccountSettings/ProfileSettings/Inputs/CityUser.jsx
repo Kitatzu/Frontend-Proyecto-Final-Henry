@@ -1,33 +1,35 @@
-import { InputLabel, OutlinedInput, FormControl } from "@mui/material";
 import { useSelector } from "react-redux";
+import { InputLabel, OutlinedInput, FormControl } from "@mui/material";
+import { useState } from "react";
 
-const NameInput = ({ name, label, value }) => {
+const CityUser = ({ city }) => {
   const mode = useSelector((store) => store.theme.mode);
   const Theme = useSelector((store) => store.theme);
+
   return (
     <FormControl
-      sx={{ m: 1, width: "25ch" }}
+      sx={{ m: 1, width: "100%", margin: "8px 0" }}
       variant="outlined"
-      className="Login-form-control register-name"
+      className="Login-form-control"
     >
       <InputLabel
-        htmlFor="outlined-adornment-name"
+        htmlFor="outlined-adornment-email"
         style={{ color: Theme[mode].textPrimary }}
       >
-        {label}
+        Ciudad
       </InputLabel>
       <OutlinedInput
-        id="outlined-adornment-name"
-        name={name}
-        type={"text"}
+        id="outlined-adornment-email"
+        name="cityUser"
+        type={"city"}
         className="Login-input"
         style={{ color: Theme[mode].textPrimary }}
-        defaultValue={value}
+        defaultValue={city}
         required
-        label={label}
+        label="City"
       />
     </FormControl>
   );
 };
 
-export default NameInput;
+export default CityUser;
