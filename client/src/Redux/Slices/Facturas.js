@@ -18,8 +18,8 @@ export const facturaSlice = createSlice({
     },
     setFacturas: (state, action) => {
       state.isLoading = false;
-      state.facturas = action.payload.facturas;
-      state.tempFactura = action.payload.facturas;
+      state.facturas = action.payload;
+      
     },
     setStatusFactura: (state, action) => {
       state.error = action.payload.msg;

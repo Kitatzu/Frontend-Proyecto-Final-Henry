@@ -13,6 +13,7 @@ import Inventory from "../components/Profile/Dashboard/Inventory/Inventory";
 import Factura from "../components/Facturas/Factura/Factura";
 import UsersTable from "../components/Profile/Dashboard/tableUsers/UsersTable";
 import PageNotFound from "../components/PageNotFound/PageNotFound";
+import FacturaTable from "../components/Facturas/FacturaTable/FacturaTable";
 
 const Routers = () => {
   return (
@@ -24,6 +25,7 @@ const Routers = () => {
       <Route path={"products/:id"} element={<CardsDetails />} />
       <Route path={"dashboard/crud"} element={<CreateProduct />} />
       <Route path={"dashboard/users"} element={<UsersTable />} />
+      <Route path={"dashboard/facturas"} element={<FacturaTable />} />
       <Route path="dashboard/inventory" element={<Inventory />} />
       <Route path="dashboard" element={<Dashboard />} />
       <Route path="account" element={<AccountSettings />} />
