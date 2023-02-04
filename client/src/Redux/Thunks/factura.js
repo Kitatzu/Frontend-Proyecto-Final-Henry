@@ -2,7 +2,7 @@ import Global from "../../Global";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-import { setFacturaDetail, setRedir, startLoadingFactura } from "../Slices";
+import { setFacturaDetail, setFacturas, setRedir, startLoadingFactura } from "../Slices";
 import { getCart } from "./getCart";
 import { getPage } from "./Products";
 const Toast = Swal.mixin({
@@ -101,5 +101,21 @@ export const getFacturaDetail = (factura) => {
       });
   };
 };
-//TODO:GETFACTURAS
+//TODO:GETFACTURAS 
+export const getFactura=(userId)=>{
+ return  async (dispatch) =>{
+  dispatch(startLoadingFactura(true))
+  axios.get(`${Global.URL}/factura/user/${userId}`)
+  .then((response) =>{
+     console.log(response)
+     dispatch(setFacturas(response.data))
+     dispatch(startLoadingFactura(false))
+  })
+  .catch((response)=>{
+    console.log(response);
+    Toast.fire({ icon: "warning", title: "La factura no existe!" });
+  })
+ }
+ 
+}
 //TODO: GETFACTURA DETAIL

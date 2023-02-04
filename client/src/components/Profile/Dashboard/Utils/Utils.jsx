@@ -26,6 +26,11 @@ const Utils = () => {
           <Typography sx={{ color: "white" }}>Clientes........</Typography>
         </Link>
       </Button>
+      <Button variant="contained">
+        <Link to="/dashboard/facturas">
+          <Typography sx={{ color: "white" }}>Facturas........</Typography>
+        </Link>
+      </Button>
     </Box>
   );
 };
