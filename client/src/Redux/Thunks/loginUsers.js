@@ -12,11 +12,12 @@ export const loginUser = (origin, form, Token) => {
           console.log(data);
           const userData = {
             userId: data.data.id,
-            userName: form.email,
+            userName: data.data.userName,
+            email: data.data.email,
             name: data.data.firstName,
             lastName: data.data.lastName,
             avatar: form.avatar,
-            token: data.data.newToken,
+            token: data.data.token,
             rol: data.data.role.rol,
           };
           localStorage.setItem("token", JSON.stringify(userData));
@@ -49,12 +50,13 @@ export const loginUser = (origin, form, Token) => {
           console.log(data);
           const userData = {
             userId: data.data.id,
-            userName: data.data.email,
+            userName: data.data.userName,
+            email: data.data.email,
             name: data.data.firstName,
             lastName: data.data.lastName,
-            avatar: data.data.avatar,
+            avatar: form.avatar,
+            token: data.data.token,
             rol: data.data.role.rol,
-            token: Token,
           };
           localStorage.setItem("token", JSON.stringify(userData));
           dispatch(setIsLoading(false));
@@ -86,11 +88,13 @@ export const loginUser = (origin, form, Token) => {
               dispatch(setIsLoading(false));
               const userData = {
                 userId: data.data.id,
-                userName: form.email,
+                userName: data.data.userName,
+                email: data.data.email,
                 name: data.data.firstName,
                 lastName: data.data.lastName,
-                avatar: data.data.avatar,
-                token: data.data.newToken,
+                avatar: form.avatar,
+                token: data.data.token,
+                rol: data.data.rol,
               };
               localStorage.setItem("token", JSON.stringify(userData));
               Swal.fire({

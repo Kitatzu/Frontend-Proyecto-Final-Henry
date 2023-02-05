@@ -16,10 +16,10 @@ import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import Pdf from "react-to-pdf";
-import NavBar from "../../NavBar/NavBar";
-import { setRedir } from "../../../Redux/Slices";
+import NavBar from "../../../NavBar/NavBar";
+import { setRedir } from "../../../../Redux/Slices";
 import { Navigate, useParams } from "react-router-dom";
-import { getFacturaDetail } from "../../../Redux/Thunks/factura";
+import { getFacturaDetail } from "../../../../Redux/Thunks/factura";
 const Factura = () => {
   const { facturaId } = useParams();
   const dispatch = useDispatch();

@@ -39,6 +39,7 @@ const initialState = {
   isLog: false,
   isLoading: false,
   userDetail: null,
+  token: null,
   users: false,
 };
 
@@ -50,25 +51,32 @@ export const userSlice = createSlice({
       if (!action.payload) {
         store.userName = null;
       } else {
-        if (
-          JSON.parse(localStorage.getItem("token")) !== null &&
-          JSON.parse(localStorage.getItem("token")).userName === action.payload
-        ) {
-          store.userName = action.payload;
-          console.log(store.userName);
-        } else {
-          store.userName = null;
-        }
+        store.userName = action.payload;
+        store.isLog = true;
       }
     },
     setIsLog: (store, action) => {
-      if (
-        JSON.parse(localStorage.getItem("token")) !== null &&
-        JSON.parse(localStorage.getItem("token")).token === action.payload
-      ) {
+      store.token = action.payload;
+      if (localStorage.getItem("token")) {
         store.isLog = true;
       } else {
         store.isLog = false;
+        store = {
+          userName: null,
+          linkName: null,
+          avatar: null,
+          email: null,
+          firstName: null,
+          lastName: null,
+          country: null,
+          city: null,
+          phone: null,
+          isLog: false,
+          isLoading: false,
+          userDetail: null,
+          token: null,
+          users: false,
+        };
       }
     },
     logout: (store) => {
