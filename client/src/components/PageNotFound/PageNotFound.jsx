@@ -10,7 +10,7 @@ const PageNotFound = () => {
 
   const timeOut = () => {
     window.setTimeout(function () {
-      window.location.href = `${Global.URL}/home`;
+      window.location.href = `${Global.FRONTURL}/home`;
     }, 5000);
   };
 
