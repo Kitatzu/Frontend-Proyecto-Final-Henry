@@ -35,7 +35,6 @@ export default function NavBar() {
     handleMenuClose();
     navigate("/login");
   };
-  console.log(avatar);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -69,11 +68,10 @@ export default function NavBar() {
 
   useEffect(() => {
     if (userId) {
-      console.log("hello");
       dispatch(getUserA(userId));
     }
     //TODO: DISPATCH A THUNK GETUSERA
-  }, []);
+  }, [dispatch, userId]);
 
   //FIXME: PETICION CON USEEFFECT
 

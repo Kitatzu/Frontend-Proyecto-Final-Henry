@@ -12,7 +12,6 @@ import { createFactura, stockProucts } from "../../../Redux/Thunks/factura";
 import { Navigate } from "react-router-dom";
 import SideBar from "../../SideBar/SideBar";
 const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
-console.log(PayPalButton);
 
 const Cart = () => {
   const dispatch = useDispatch();

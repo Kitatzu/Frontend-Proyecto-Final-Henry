@@ -37,6 +37,7 @@ const initialState = {
   city: null,
   phone: null,
   isLog: false,
+  isConfirmed: false,
   isLoading: false,
   userDetail: null,
   token: null,
@@ -93,6 +94,7 @@ export const userSlice = createSlice({
       store.country = action.payload.country;
       store.city = action.payload.city;
       store.phone = action.payload.phone;
+      store.isConfirmed = action.payload.confirmed
       //store.linkName = action.payload.userName;
     },
     setUserDetail: (store, action) => {

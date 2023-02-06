@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, A11y, Navigation } from "swiper";
-import amdImage from "../../assets/amd-default-social-image-1200x628.webp";
-import intelImage from "../../assets/Intel-nuevo-logo-2-1200x900.png";
-import nvidiaImage from "../../assets/02-nvidia-logo-color-blk-500x200-4c25-p@2x.png";
 
-import { Box } from "@mui/material";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -18,6 +14,7 @@ SwiperCore.use([Autoplay]);
 function SwipperBrand() {
   const [widScreen, setWidScreen] = useState(878);
   const [numberCard, setNumberCard] = useState(3);
+  const { brands } = useSelector((store) => store.brands);
   useEffect(() => {
     (() => {
       const scale = window.screen.width;
@@ -31,7 +28,6 @@ function SwipperBrand() {
     })();
   }, [widScreen, numberCard]);
 
-  console.log(widScreen);
   // let numberCard = 3;
   // if (widScreen <= 877) {
   //   numberCard = 2;
@@ -40,7 +36,7 @@ function SwipperBrand() {
   // } else {
   //   numberCard = 3;
   // }
-  const { brands } = useSelector((store) => store.brands);
+  
   return (
     <Swiper
       pagination={{
@@ -58,7 +54,7 @@ function SwipperBrand() {
       {brands
         ? brands.map((b) => (
             <SwiperSlide>
-              <CardBrand img={b.img} />
+              <CardBrand img={b.img} key={brands.id}/>
             </SwiperSlide>
           ))
         : null}

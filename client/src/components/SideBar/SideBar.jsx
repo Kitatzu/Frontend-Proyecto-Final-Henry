@@ -14,7 +14,6 @@ export default function SideBar() {
   const { isLog } = useSelector((store) => store.users);
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log(JSON.parse(localStorage.getItem("token")));
     if (JSON.parse(localStorage.getItem("token")) !== null) {
       dispatch(setUserName(JSON.parse(localStorage.getItem("token")).userName));
       dispatch(setIsLog(JSON.parse(localStorage.getItem("token")).token));

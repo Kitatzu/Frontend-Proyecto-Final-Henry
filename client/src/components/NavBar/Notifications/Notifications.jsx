@@ -30,7 +30,6 @@ export default function Notifications() {
   useEffect(() => {
     dispatch(getNotifications());
     socket.on("notification", (data) => {
-      console.log(data);
       Toast.fire({
         icon: data.newNotification.type,
         title: data.newNotification.notify,
@@ -51,7 +50,6 @@ export default function Notifications() {
   };
   //TODO:CONTROLSNAV
   const { notifications } = useSelector((store) => store.notification);
-  console.log(notifications);
   return (
     <Box>
       <IconButton

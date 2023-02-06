@@ -172,7 +172,6 @@ export const getPopularProducts = () => {
     axios
       .get(Global.URL + "/products/other/popular")
       .then((response) => {
-        console.log(response);
         dispatch(setPopularProducts(response.data));
       })
       .catch((e) => {
