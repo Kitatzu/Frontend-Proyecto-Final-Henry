@@ -22,48 +22,61 @@ const AccountSettings = () => {
       {userLoading ? (
         <Loading />
       ) : (
-        <Box
-          display={"flex"}
-          justifyContent="center"
-          sx={{ padding: "20px" }}
-          alignItems="center"
-          flexDirection={"column"}
-        >
-          <Box>
-            <h2 style={{ color: Theme[mode].textPrimary }}>Settings</h2>
-          </Box>
+        <Box display={"flex"}>
+          <SideBar />
           <Box
-            sx={{ width: { xs: "100%", sm: "max-content" }, minWidth: "300px" }}
+            // display={"flex"}
+            // justifyContent="center"
+            // sx={{ padding: "20px" }}
+            // alignItems="center"
+            // flexDirection={"column"}
+            sx={{
+              height: "calc(100vh - 64px)",
+              width: { xs: "100%", sm: "calc(100% - 80px)" },
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              overflow: "scroll",
+              padding: "10px",
+            }}
           >
-            <ul className="Account-links">
-              <li>
-                <Button
-                  startIcon={<Icon icon="mdi:user" />}
-                  onClick={() => setSetting("Perfil")}
-                  sx={{ color: Theme[mode].textPrimary }}
-                >
-                  Perfil
-                </Button>
-              </li>
-              <li>
-                <Button
-                  startIcon={<Icon icon="mdi:account-security" />}
-                  onClick={() => setSetting("Seguridad")}
-                  sx={{ color: Theme[mode].textPrimary }}
-                >
-                  Seguridad
-                </Button>
-              </li>
-            </ul>
-            <Box marginBottom={"90px"}>
-              {setting === "Perfil" && <ProfileSettings />}
-              {setting === "Seguridad" && <Seguridad />}
+            <Box>
+              <h2 style={{ color: Theme[mode].textPrimary }}>Settings</h2>
+            </Box>
+            <Box
+              sx={{
+                width: { xs: "100%", sm: "max-content" },
+                minWidth: "300px",
+              }}
+            >
+              <ul className="Account-links">
+                <li>
+                  <Button
+                    startIcon={<Icon icon="mdi:user" />}
+                    onClick={() => setSetting("Perfil")}
+                    sx={{ color: Theme[mode].textPrimary }}
+                  >
+                    Perfil
+                  </Button>
+                </li>
+                <li>
+                  <Button
+                    startIcon={<Icon icon="mdi:account-security" />}
+                    onClick={() => setSetting("Seguridad")}
+                    sx={{ color: Theme[mode].textPrimary }}
+                  >
+                    Seguridad
+                  </Button>
+                </li>
+              </ul>
+              <Box marginBottom={"90px"}>
+                {setting === "Perfil" && <ProfileSettings />}
+                {setting === "Seguridad" && <Seguridad />}
+              </Box>
             </Box>
           </Box>
         </Box>
       )}
-
-      <SideBar />
     </div>
   );
 };
