@@ -36,9 +36,9 @@ const ProfileSettings = () => {
   const handleSave = (e) => {
     const formData = new FormData();
 
-    // formData.append("country", setUser.country);
-    // formData.append("city", setUser.city);
-    // formData.append("phone", setUser.phone);
+    // formData.append("country", user.country);
+    // formData.append("city", user.city);
+    // formData.append("phone", user.phone);
     if (image) {
       console.log(image);
       formData.append("avatar", image);
@@ -77,9 +77,9 @@ const ProfileSettings = () => {
           flexDirection={"row"}
           justifyContent={"space-between"}
         >
-          <NameInput name="name" label="Name" value={firstName} />
+          <NameInput name="name" label="Nombre" value={firstName} />
 
-          <NameInput name="lastName" label="Last Name" value={lastName} />
+          <NameInput name="lastName" label="Apellido" value={lastName} />
         </Box>
         <Box sx={{ padding: "8px" }}>
           <EmailAddress email={email} />

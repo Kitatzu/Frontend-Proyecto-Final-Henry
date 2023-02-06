@@ -35,7 +35,6 @@ export default function NavBar() {
     handleMenuClose();
     navigate("/login");
   };
-  console.log(avatar);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -69,11 +68,10 @@ export default function NavBar() {
 
   useEffect(() => {
     if (userId) {
-      console.log("hello");
       dispatch(getUserA(userId));
     }
     //TODO: DISPATCH A THUNK GETUSERA
-  }, []);
+  }, [dispatch, userId]);
 
   //FIXME: PETICION CON USEEFFECT
 
@@ -95,9 +93,17 @@ export default function NavBar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>
-        <Link to="/account"> Perfil </Link>
+        <Link to="/account" style={{ color: "black" }}>
+          {" "}
+          Perfil{" "}
+        </Link>
       </MenuItem>
-      {isLog && <MenuItem onClick={logOut}> Log out </MenuItem>}
+      {isLog && (
+        <MenuItem onClick={logOut} style={{ color: "black" }}>
+          {" "}
+          Log out{" "}
+        </MenuItem>
+      )}
     </Menu>
   );
 

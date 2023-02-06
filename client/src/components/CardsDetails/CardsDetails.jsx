@@ -34,7 +34,6 @@ const CardsDetails = () => {
   const [cantidadProducto, setCantidad] = useState(1);
   const dispatch = useDispatch();
   const { id } = useParams();
-  console.log(productDetail?.rating);
 
   useEffect(() => {
     dispatch(getProductByID(id));

@@ -37,10 +37,12 @@ const initialState = {
   city: null,
   phone: null,
   isLog: false,
+  isConfirmed: false,
   isLoading: false,
   userDetail: null,
   token: null,
   users: false,
+  pages: 0,
 };
 
 export const userSlice = createSlice({
@@ -93,6 +95,7 @@ export const userSlice = createSlice({
       store.country = action.payload.country;
       store.city = action.payload.city;
       store.phone = action.payload.phone;
+      store.isConfirmed = action.payload.confirmed
       //store.linkName = action.payload.userName;
     },
     setUserDetail: (store, action) => {
@@ -104,8 +107,14 @@ export const userSlice = createSlice({
     setUsers: (store, action) => {
       store.users = action.payload;
     },
+    setDeletedUsers: (store, action) => {
+      store.users = action.payload;
+    },
     setUsersDeleted: (store, action) => {
       store.users = action.payload;
+    },
+    setPagesUser: (state, action) => {
+      state.pages = action.payload;
     },
   },
 });
@@ -119,4 +128,6 @@ export const {
   setUsers,
   setUsersDeleted,
   setUserDetail,
+  setPagesUser,
+  setDeletedUser,
 } = userSlice.actions;
