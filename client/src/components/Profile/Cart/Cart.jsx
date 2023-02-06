@@ -101,10 +101,11 @@ const Cart = () => {
               display={"flex"}
               flexWrap="wrap"
               sx={{
-                background: "rgba(255,255,255,.3)",
+                background: "rgba(255,255,255,.1)",
                 borderRadius: "20px",
                 border: "1px solid rgba(255,255,255,.5)",
                 boxShadow: " 0px 4px 4px rgba(0, 0, 0, 0.25)",
+                backdropFilter: "blur(50px)",
               }}
             >
               <Box width={"100%"} padding="20px">
