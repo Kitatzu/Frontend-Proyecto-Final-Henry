@@ -95,9 +95,17 @@ export default function NavBar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>
-        <Link to="/account"> Perfil </Link>
+        <Link to="/account" style={{ color: "black" }}>
+          {" "}
+          Perfil{" "}
+        </Link>
       </MenuItem>
-      {isLog && <MenuItem onClick={logOut}> Log out </MenuItem>}
+      {isLog && (
+        <MenuItem onClick={logOut} style={{ color: "black" }}>
+          {" "}
+          Log out{" "}
+        </MenuItem>
+      )}
     </Menu>
   );
 
