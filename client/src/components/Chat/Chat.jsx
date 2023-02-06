@@ -85,17 +85,22 @@ export default function Chat() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const newMessage = {
-      body: message,
+      content: message,
       user: firstName,
       avatar:avatar,
     };
     socket.emit("message", newMessage);
-    setMessages([...messages, newMessage]);
+    setMessages([...messages, userName, newMessage]);
     setMessage("");
   };
+
+  socket.on('get messages', (allMessages) => {
+    setMessages(allMessages);
+  });
+
   useEffect(() => {
     const receiveMessage = (message) => {
-      setMessages([...messages, message.body]);
+      setMessages([...messages, message.content]);
       if (scrollBottomRef.current) {
         const scrollBottom = scrollBottomRef.current.scrollTop() + scrollBottomRef.current.height()
         scrollBottomRef.current.scrollIntoView({ behavior: "smooth" });
@@ -123,7 +128,7 @@ export default function Chat() {
       </ListItemAvatar>
       <Box >
         <ListItemText
-          primary={`${message.body}`}
+          primary={`${message.content}`}
           className={
             message.user === firstName
               ? classes.userMessageText
@@ -143,14 +148,7 @@ export default function Chat() {
   const handleMessageChange = (e) => {
     setMessage(e.target.value);
   };
-  let currentTime = new Date();
-  let hours = currentTime.getHours();
-let minutes = currentTime.getMinutes();
-
-hours = (hours < 10) ? `0${hours}` : hours;
-minutes = (minutes < 10) ? `0${minutes}` : minutes;
-
-let formattedTime = `${hours}:${minutes}`;
+  
   return (
     <Fragment>
       <ChatIcon onClick={handleOpen} />
