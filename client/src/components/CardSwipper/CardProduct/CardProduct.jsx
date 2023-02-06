@@ -11,30 +11,32 @@ import Stack from "@mui/material/Stack";
 import imgDefault from "../../assets/imgDefault.png";
 import { Link } from "react-router-dom";
 import { Box } from "@mui/system";
+import { useSelector } from "react-redux";
 
-const CradProduct = ({ key, id, img, name, price, rating }) => {
+const CradProduct = ({ key, id, img, name, price, rating, origin }) => {
   img = img ? img : imgDefault;
+  const mode = useSelector((store) => store.theme.mode);
+  const theme = useSelector((store) => store.theme);
   return (
-    <Link
-      to={{ pathname: `/products/${id}` }}
-      target="_parent"
-      rel="noopener noreferer"
-    >
+    <Link to={`/products/${id}`}>
       <div key={key}>
         <Card
           sx={{
-            width: 210,
-            padding: "40px",
-            background: "rgba(255,255,255,.2)",
+            width: "175px",
+            padding: "20px",
+            background:
+              origin === "banner" ? "rgba(255,255,255,.2)" : theme[mode].card,
             borderTop: "2px solid rgba(255,255,255,.4)",
             borderLeft: "2px solid rgba(255,255,255,.4)",
             borderRight: "1px solid rgba(255,255,255,.2)",
             borderBottom: "1px solid rgba(255,255,255,.2)",
             backdropFilter: "blur(20px)",
-            minHeight: "365.2px",
+            height: "245px",
+            borderRadius: "20px",
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",
+            boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
           }}
         >
           <Box
@@ -47,7 +49,7 @@ const CradProduct = ({ key, id, img, name, price, rating }) => {
           >
             <CardMedia
               component="img"
-              sx={{ width: "100%" }}
+              sx={{ width: "100%", maxHeight: "74px" }}
               image={img}
               alt="image"
             />
@@ -60,17 +62,15 @@ const CradProduct = ({ key, id, img, name, price, rating }) => {
                 gutterBottom
                 variant="h7"
                 component="div"
-                sx={{ color: "white", fontWeight: "bold" }}
+                sx={{
+                  color:
+                    origin === "banner" ? "white" : theme[mode].textPrimary,
+                  fontWeight: "bold",
+                }}
               >
                 {name.toUpperCase()}
               </Typography>
-              {/* <Typography
-                variant="body2"
-                color="text.secondary"
-                sx={{ color: theme[mode].textPrimary }}
-              >
-                {description}
-              </Typography> */}
+
               <Stack spacing={1}>
                 <Rating
                   name="half-rating-read"
@@ -82,7 +82,10 @@ const CradProduct = ({ key, id, img, name, price, rating }) => {
               <Typography
                 variant="body2"
                 color="text.secondary"
-                sx={{ color: "white" }}
+                sx={{
+                  color:
+                    origin === "banner" ? "white" : theme[mode].textPrimary,
+                }}
               >
                 ${price}
               </Typography>

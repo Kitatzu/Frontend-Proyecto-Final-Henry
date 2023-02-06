@@ -90,7 +90,7 @@ export default function Notifications() {
           open={Boolean(anchorElNav)}
           onClose={handleCloseNavMenu}
           sx={{
-            display: { xs: "none", sm: "block" },
+            display: { xs: "block", sm: "block" },
           }}
         >
           {notifications.length > 0 ? (

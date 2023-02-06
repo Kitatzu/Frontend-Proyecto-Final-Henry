@@ -23,51 +23,54 @@ const FormRegister = ({
   image,
   previewUrl,
 }) => {
-
   const mode = useSelector((store) => store.theme.mode);
   const theme = useSelector((store) => store.theme);
 
   return (
-    <Box className="Form">
+    <Box className="Form" width={"100%"}>
       <Typography
         component="h2"
         fontSize="20px"
         display={"flex"}
         justifyContent={"center"}
-        sx={{ color: theme[mode].textPrimary, padding: "30px" }}
+        sx={{ color: theme[mode].textPrimary, padding: "20px" }}
       >
-        REGISTER
+        REGISTRAR
       </Typography>
-      <Box 
-        display={"flex"} 
-        flexDirection="row-reverse" 
-        alignContent={"center"}
-        justifyContent={"center"}
-        marginLeft="180px"
-      > 
-        <input 
-          type="file" 
-          onChange={handleImage} 
-          style={{ margin:"auto auto auto 30px" }}
-        />
-        <img
-          src={image ? previewUrl : imgDefault}
-          alt="imgDefault"
-          style={{ 
-              width: "200px", 
-              height: "200px", 
-              borderRadius: "50%", 
-              marginBottom: "10px"
-            }}
-        />
-      </Box>
-      
+
       <Box
         className="Login-form-control"
         display="flex"
         flexDirection={"column"}
         alignItems={"center"}
+        width="100%"
       >
+        <Box>
+          <img
+            src={image ? previewUrl : imgDefault}
+            alt="imgDefault"
+            style={{
+              width: "200px",
+              height: "200px",
+              borderRadius: "50%",
+              marginBottom: "10px",
+              boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+            }}
+          />
+        </Box>
+        <Box>
+          <div class="input-file">
+            <input
+              type="file"
+              id="file"
+              class="input-file-input"
+              onChange={handleImage}
+            />
+            <label for="file" class="input-file__btn">
+              Seleccionar archivo
+            </label>
+          </div>
+        </Box>
         <NameInput
           handleChange={handleChange}
           handleBlur={handleBlur}
@@ -102,61 +105,61 @@ const FormRegister = ({
         flexDirection={"column"}
         alignItems={"center"}
       >
-      <AgeInput
-        handleChange={handleChange}
-        handleBlur={handleBlur}
-        handleSubmit={handleSubmit}
-        error={errors.age !== undefined}
-        form={form}
-      />
-      {errors.age !== undefined ? (
-        <Alert severity="error" sx={{ margin: "15px 0" }}>
-          {errors.age}
-        </Alert>
-      ) : null}
+        <AgeInput
+          handleChange={handleChange}
+          handleBlur={handleBlur}
+          handleSubmit={handleSubmit}
+          error={errors.age !== undefined}
+          form={form}
+        />
+        {errors.age !== undefined ? (
+          <Alert severity="error" sx={{ margin: "15px 0" }}>
+            {errors.age}
+          </Alert>
+        ) : null}
 
-      <EmailRegisterInput
-        handleChange={handleChange}
-        handleBlur={handleBlur}
-        handleSubmit={handleSubmit}
-        error={errors.registerEmail !== undefined}
-        form={form}
-      />
-      {errors.registerEmail !== undefined ? (
-        <Alert severity="error" sx={{ margin: "15px 0" }}>
-          {errors.registerEmail}
-        </Alert>
-      ) : null}
-      <CountriesInput
-        handleChange={handleChange}
-        handleBlur={handleBlur}
-        handleSubmit={handleSubmit}
-        form={form}
-      />
-      {errors.Country !== undefined ? (
-        <Alert severity="error" sx={{ margin: "15px 0" }}>
-          {errors.Country}
-        </Alert>
-      ) : null}
-      <PasswordRegisterInput
-        handleChange={handleChange}
-        handleBlur={handleBlur}
-        handleSubmit={handleSubmit}
-        error={errors.registerpassword !== undefined}
-        form={form}
-      />
-      {errors.registerpassword !== undefined ? (
-        <Alert severity="error" sx={{ margin: "15px 0" }}>
-          {errors.registerpassword}
-        </Alert>
-      ) : null}
-      <PasswordVerifyInput
-        handleChange={handleChange}
-        handleBlur={handleBlur}
-        error={errors.verifypassword !== undefined}
-        handleSubmit={handleSubmit}
-        form={form}
-      />
+        <EmailRegisterInput
+          handleChange={handleChange}
+          handleBlur={handleBlur}
+          handleSubmit={handleSubmit}
+          error={errors.registerEmail !== undefined}
+          form={form}
+        />
+        {errors.registerEmail !== undefined ? (
+          <Alert severity="error" sx={{ margin: "15px 0" }}>
+            {errors.registerEmail}
+          </Alert>
+        ) : null}
+        <CountriesInput
+          handleChange={handleChange}
+          handleBlur={handleBlur}
+          handleSubmit={handleSubmit}
+          form={form}
+        />
+        {errors.Country !== undefined ? (
+          <Alert severity="error" sx={{ margin: "15px 0" }}>
+            {errors.Country}
+          </Alert>
+        ) : null}
+        <PasswordRegisterInput
+          handleChange={handleChange}
+          handleBlur={handleBlur}
+          handleSubmit={handleSubmit}
+          error={errors.registerpassword !== undefined}
+          form={form}
+        />
+        {errors.registerpassword !== undefined ? (
+          <Alert severity="error" sx={{ margin: "15px 0" }}>
+            {errors.registerpassword}
+          </Alert>
+        ) : null}
+        <PasswordVerifyInput
+          handleChange={handleChange}
+          handleBlur={handleBlur}
+          error={errors.verifypassword !== undefined}
+          handleSubmit={handleSubmit}
+          form={form}
+        />
       </Box>
       {errors.verifypassword !== undefined ? (
         <Alert severity="error" sx={{ margin: "15px 0" }}>
@@ -164,17 +167,13 @@ const FormRegister = ({
         </Alert>
       ) : null}
 
-      <Box 
-        display="flex" 
-        justifyContent="space-around" 
-        alignItems="center"
-      >
+      <Box display="flex" justifyContent="space-around" alignItems="center">
         <Button
           variant="contained"
           color="secondary"
           startIcon={<Icon className="IconL" icon="ph:sign-in-light" />}
           className="Form-button register-button"
-          style={{ marginTop: "20px"}}
+          style={{ marginTop: "20px" }}
           onClick={handleSubmit}
         >
           Register

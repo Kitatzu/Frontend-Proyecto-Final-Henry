@@ -14,14 +14,18 @@ import { Avatar } from "@mui/material";
 import MuiSwitch from "../MuiSwitch/MuiSwitch";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
 import { logout } from "../../Redux/Slices";
-
+import { getUserA } from "../../Redux/Thunks/getUser";
+import LogoNova from "../assets/LogoDark.png";
 export default function NavBar() {
+  const url = window.location.href.split("/")[3].toLowerCase();
+  const urlRoute = window.location.href.split("/")[4];
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const { isLog } = useSelector((store) => store.users);
-  const pages = ["home", "dashboard/crud", "carrito", "configuracion"];
+  const pages = ["home", "dashboard", "cart"];
   const { avatar, firstName } = useSelector((store) => store.users);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -31,7 +35,7 @@ export default function NavBar() {
     handleMenuClose();
     navigate("/login");
   };
-
+  console.log(avatar);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -57,6 +61,21 @@ export default function NavBar() {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+  //FIXME: PETICION CON USEEFFECT
+
+  const userId = JSON.parse(localStorage.getItem("token"))
+    ? JSON.parse(localStorage.getItem("token")).userId
+    : null;
+
+  useEffect(() => {
+    if (userId) {
+      console.log("hello");
+      dispatch(getUserA(userId));
+    }
+    //TODO: DISPATCH A THUNK GETUSERA
+  }, []);
+
+  //FIXME: PETICION CON USEEFFECT
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
@@ -75,9 +94,10 @@ export default function NavBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-      {isLog && <MenuItem onClick={logOut}>Log out</MenuItem>}
+      <MenuItem onClick={handleMenuClose}>
+        <Link to="/account"> Perfil </Link>
+      </MenuItem>
+      {isLog && <MenuItem onClick={logOut}> Log out </MenuItem>}
     </Menu>
   );
 
@@ -111,7 +131,7 @@ export default function NavBar() {
         >
           <AccountCircle />
         </IconButton>
-        <p>Profile</p>
+        <p> Perfil </p>
       </MenuItem>
     </Menu>
   );
@@ -164,22 +184,22 @@ export default function NavBar() {
             </Menu>
           </Box>
 
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: "none", sm: "block" } }}
+          <IconButton
+            sx={{
+              display: { xs: "none", sm: "block" },
+              width: "40px",
+              height: "40px",
+            }}
           >
-            <Link
-              to={{ pathname: `/home` }}
-              target="_parent"
-              rel="noopener noreferer"
-            >
-              BoxTech
+            <Link to={"/home"}>
+              <img src={LogoNova} alt="nova" style={{ width: "100%" }} />
             </Link>
-          </Typography>
+          </IconButton>
+
           <Box display={{ xs: "none", sm: "flex" }}>
-            <SearchBar />
+            {url === "home" && (urlRoute === "" || urlRoute === undefined) ? (
+              <SearchBar />
+            ) : null}
           </Box>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ alignItems: "center" }}>
@@ -196,7 +216,9 @@ export default function NavBar() {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
+              {/**FIXME: src = avatar de store.users */}
               <Avatar src={avatar} alt={firstName} />
+              {/**FIXME: src = avatar de store.users */}
             </IconButton>
           </Box>
         </Toolbar>

@@ -1,51 +1,40 @@
-import React, { useState } from "react";
-import { Box, Button } from "@mui/material";
-import { Icon } from "@iconify/react";
-
-import MuiSwitch from "../../MuiSwitch/MuiSwitch";
+import { Box, Button, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-
 const Nav = () => {
-  const theme = useSelector((store) => store.theme);
-  const mode = useSelector((store) => store.theme.mode);
-  const [redir, setRedir] = useState(false);
+  const { buttonPrimary } = useSelector((store) => store.theme.dark);
   return (
-    <Box padding={"10px"} position="fixed" width={"100%"}>
-      {/* {redir ? <Redirect to={`/${redir}`} /> : null} */}
-      <Box display={"flex"} justifyContent="flex-end">
-        {/* <Box display={{ xs: "none", sm: "inline-block" }}>
-          <Button
-            startIcon={<Icon icon="mdi:marketplace-outline" />}
-            sx={{ color: theme[mode].textPrimary }}
+    <Box padding={"20px"} width={"100%"}>
+      <Box
+        display={"flex"}
+        justifyContent="space-between"
+        alignItems={"center"}
+      >
+        <Box>
+          <Typography
+            sx={{
+              fontSize: { xs: "15px", sm: "30px" },
+              fontWeight: "800",
+              color: "#308FFD",
+            }}
+            fontFamily="sans-serif"
           >
-            Market
-          </Button>
-        </Box> */}
-        <Box display={"flex"} gap="20px">
-          <MuiSwitch />
-          <Link to={"login"}>
+            NOVA
+          </Typography>
+        </Box>
+        <Link to={"/login"}>
           <Button
             variant="contained"
-            sx={{ borderRadius: "20px", fontSize: "10px" }}
+            sx={{
+              borderRadius: "20px",
+              fontSize: "10px",
+              background: buttonPrimary,
+            }}
           >
-            Login / Register
+            <Typography>ACCEDER / REGISTRAR</Typography>
           </Button>
-          </Link>
-          {/* <Link to="/register">
-            <Button
-              variant="contained"
-              sx={{ borderRadius: "20px", fontSize: "10px" }}
-              color="secondary"
-              onClick={() => {
-                setRedir("register");
-              }}
-            >
-              Register
-            </Button>
-          </Link>  */}
-        </Box>
+        </Link>
       </Box>
     </Box>
   );

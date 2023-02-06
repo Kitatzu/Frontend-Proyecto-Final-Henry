@@ -9,6 +9,8 @@ import {
   setProductID,
   setSeriesProducts,
   setPages,
+  setPopularProducts,
+  setDeletedProducts,
 } from "../Slices/Products";
 //closure
 export const getProducts = () => {
@@ -53,9 +55,16 @@ export const getProductByID = (id) => {
   return async (dispatch) => {
     try {
       dispatch(setLoadingProducts(true));
-      const response = await axios.get(`${Global.URL}/products/${id}`);
-      dispatch(setProductID(response.data));
-      dispatch(setLoadingProducts(false));
+      axios
+        .get(`${Global.URL}/products/${id}`)
+        .then((response) => {
+          dispatch(setProductID(response.data));
+          dispatch(setLoadingProducts(false));
+        })
+        .catch((e) => {
+          console.log(e);
+          dispatch(setLoadingProducts(false));
+        });
     } catch (error) {
       console.log(error);
     }
@@ -65,17 +74,15 @@ export const getProductByID = (id) => {
 export const createProduct = (form) => {
   return async (dispatch) => {
     dispatch(setLoadingProducts(true));
-   return await axios
-
-      ({
-        url :`${Global.URL}/products`,
-        method: "POST",
-        body: form,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        data: form,
-      })
+    return await axios({
+      url: `${Global.URL}/products`,
+      method: "POST",
+      body: form,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      data: form,
+    })
       .then((response) => {
         console.log(response);
         dispatch(getProducts());
@@ -157,5 +164,65 @@ export const getProductsByCategories = (name) => {
         dispatch(setLoadingProducts(false));
         console.log(response);
       });
+  };
+};
+
+export const getPopularProducts = () => {
+  return async (dispatch) => {
+    axios
+      .get(Global.URL + "/products/other/popular")
+      .then((response) => {
+        console.log(response);
+        dispatch(setPopularProducts(response.data));
+      })
+      .catch((e) => {
+        console.log(e);
+        Toast.fire({
+          icon: "warning",
+          title: "Advertencia! no existen productos populares.",
+        });
+      });
+  };
+};
+
+export const pageStatusCero = (page) => {
+  if (parseInt(page) === 0) {
+    return async (dispatch) => {
+      await axios
+        .get(`${Global.URL}/products/page0/${page}`)
+        .then((response) => {
+          dispatch(setPages(response.data.pages));
+          console.log(response.data.pages)
+        })
+        .catch((response) => {
+          Toast.fire({ icon: "error", title: response.response.data.msg });
+        });
+    };
+  } else {
+    return async (dispatch) => {
+      await axios
+        .get(`${Global.URL}/products/page0/${page}`)
+        .then((response) => {
+          dispatch(setDeletedProducts(response.data));
+        })
+        .catch((response) => {
+          console.log(response);
+          Toast.fire({ icon: "error", title: response.response.data.msg });
+        });
+    };
+  }
+};
+
+export const deletedProducts=()=>{
+  return async(dispatch)=>{
+    dispatch(setLoadingProducts(true));
+    await axios.get(`${Global.URL}/products/status`)
+    .then((response)=>{
+      dispatch(setDeletedProducts(response.data))
+      dispatch(setLoadingProducts(false))
+    })
+    .catch((response)=>{dispatch(setLoadingProducts(false))
+    console.log(response)
+  });
   };
 };

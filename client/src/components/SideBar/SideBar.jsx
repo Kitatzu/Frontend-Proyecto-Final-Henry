@@ -1,14 +1,25 @@
 import { Icon } from "@iconify/react";
 import { IconButton, Typography } from "@mui/material";
+import ChatIcon from '@mui/icons-material/Chat';
 import { Box } from "@mui/system";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
+import { setIsLog, setUserName } from "../../Redux/Slices";
+import Chat from "../Chat/Chat";
 
 export default function SideBar() {
   const mode = useSelector((store) => store.theme.mode);
   const theme = useSelector((store) => store.theme);
   const { isLog } = useSelector((store) => store.users);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    console.log(JSON.parse(localStorage.getItem("token")));
+    if (JSON.parse(localStorage.getItem("token")) !== null) {
+      dispatch(setUserName(JSON.parse(localStorage.getItem("token")).userName));
+      dispatch(setIsLog(JSON.parse(localStorage.getItem("token")).token));
+    }
+  }, []);
   return (
     <Box
       display={{ xs: "none", sm: "flex" }}
@@ -36,14 +47,6 @@ export default function SideBar() {
             </Link>
           </IconButton>
         </Box>
-        <Box>
-          <IconButton>
-            <Icon
-              icon="material-symbols:monitor-outline-rounded"
-              color={theme[mode].textPrimary}
-            />
-          </IconButton>
-        </Box>
       </Box>
       {isLog && (
         <Box>
@@ -68,6 +71,13 @@ export default function SideBar() {
               </Link>
             </IconButton>
           </Box>
+          <Box>
+          <IconButton>
+            {/* <Link to={"/chat"}> */}
+              <Chat/>
+           {/*  </Link> */}
+          </IconButton>
+        </Box>
         </Box>
       )}
     </Box>

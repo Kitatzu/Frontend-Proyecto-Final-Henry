@@ -8,13 +8,24 @@ export default function Brands({ handleChange, brands }) {
     <Autocomplete
       disablePortal
       id="combo-box-demo"
+      onKeyUp={(e) => {
+        if (e.key === "Enter") {
+          handleChange(e, "brand");
+          handleChange(e, "brand");
+        }
+      }}
       onChange={(e) => {
         handleChange(e, "brand");
       }}
       options={brands}
       getOptionLabel={(option) => option.brand}
       renderOption={(props, option) => (
-        <Box component={"li"} {...props} value={option.brand} key={option.id}>
+        <Box
+          component={"option"}
+          {...props}
+          value={option.brand}
+          key={option.id}
+        >
           {option.brand}
         </Box>
       )}

@@ -2,9 +2,9 @@ import Global from "../../Global";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-import { setFacturaDetail, setRedir } from "../Slices";
+import { setFacturaDetail, setFacturas, setRedir, startLoadingFactura } from "../Slices";
 import { getCart } from "./getCart";
-import { getPage, getProducts } from "./Products";
+import { getPage } from "./Products";
 const Toast = Swal.mixin({
   toast: true,
   position: "top-start",
@@ -56,7 +56,8 @@ export const createFactura = (factura, paymentId, userId, products) => {
           console.log(response.data);
           dispatch(
             setFacturaDetail({
-              factura: response.data.data.factura.factura,
+              id: response.data.data.factura.id,
+              numberBill: response.data.data.factura.numberBill,
               paymentId: response.data.data.factura.paymentId,
               total: response.data.data.factura.total,
               products: products,
@@ -75,3 +76,46 @@ export const createFactura = (factura, paymentId, userId, products) => {
     }
   };
 };
+
+export const getFacturaDetail = (factura) => {
+  return async (dispatch) => {
+    dispatch(startLoadingFactura());
+    axios
+      .get(Global.URL + "/factura/detail/" + factura)
+      .then((response) => {
+        console.log(response);
+        dispatch(
+          setFacturaDetail({
+            id: response.data.findFacturas.id,
+            numberBill: response.data.findFacturas.numberBill,
+            paymentId: response.data.findFacturas.paymentId,
+            total: response.data.findFacturas.total,
+            products: response.data.findProducts,
+          })
+        );
+        dispatch(setRedir(true));
+      })
+      .catch((response) => {
+        console.log(response);
+        Toast.fire({ icon: "warning", title: "La factura no existe!" });
+      });
+  };
+};
+//TODO:GETFACTURAS 
+export const getFactura=(userId)=>{
+ return  async (dispatch) =>{
+  dispatch(startLoadingFactura(true))
+  axios.get(`${Global.URL}/factura/user/${userId}`)
+  .then((response) =>{
+     console.log(response)
+     dispatch(setFacturas(response.data))
+     dispatch(startLoadingFactura(false))
+  })
+  .catch((response)=>{
+    console.log(response);
+    Toast.fire({ icon: "warning", title: "La factura no existe!" });
+  })
+ }
+ 
+}
+//TODO: GETFACTURA DETAIL
