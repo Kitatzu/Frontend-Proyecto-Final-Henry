@@ -25,6 +25,7 @@ const NameInput = ({ name, label, value }) => {
         defaultValue={value}
         required
         label={label}
+        inputProps={{ readOnly: true }}
       />
     </FormControl>
   );
