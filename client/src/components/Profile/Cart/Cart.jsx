@@ -14,7 +14,6 @@ import SideBar from "../../SideBar/SideBar";
 import CountryInput from "./input/Input";
 import Input from "./input/Input";
 const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
-console.log(PayPalButton);
 
 const Cart = () => {
   const dispatch = useDispatch();

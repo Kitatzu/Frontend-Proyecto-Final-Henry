@@ -106,7 +106,6 @@ export default function Chat() {
       socket.off("message", receiveMessage);
     };
   }, [messages]);
-  console.log(messages);
 
   const handleUserChange = (e) => {
     setUser(e.target.value);

@@ -4,13 +4,13 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductsByCategories } from "../../../Redux/Thunks/Products";
 
-function CardCategories({ value, key, id, img }) {
+function CardCategories({ value, id, img }) {
   const dispatch = useDispatch();
   const theme = useSelector((store) => store.theme);
   const mode = useSelector((store) => store.theme.mode);
   return (
     <Button
-      key={key}
+      key={id}
       sx={{
         display: "flex",
         justifyContent: "space-between",

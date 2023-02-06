@@ -27,9 +27,8 @@ export default function Home() {
   const { tempProducts, isLoading } = useSelector((state) => state.products);
   const categories = useSelector((store) => store.categories.categories);
   const [filter, setFilter] = useState("Todo");
-  const { isLog } = useSelector((store) => store.users);
+  const { isLog, isConfirmed } = useSelector((store) => store.users);
   const { pages } = useSelector((store) => store.products);
-
   const dispatch = useDispatch();
   const handleChange = (el) => {
     if (el.target.value !== "Todo") {
@@ -43,15 +42,13 @@ export default function Home() {
   function handlePrice(e) {
     dispatch(filterPrice({ name: e.target.name, value: e.target.value }));
     dispatch(filterProduct());
-    console.log(e.target.name, e.target.value);
   }
-
+  // console.log(users)
   useEffect(() => {
     dispatch(getPage(0));
     dispatch(getPage(1));
     dispatch(getCategories());
     dispatch(getBrands());
-    console.log(JSON.parse(localStorage.getItem("token")));
     if (JSON.parse(localStorage.getItem("token")) !== null) {
       dispatch(setUserName(JSON.parse(localStorage.getItem("token")).userName));
       dispatch(setIsLog(JSON.parse(localStorage.getItem("token")).token));
@@ -88,13 +85,20 @@ export default function Home() {
           }}
           className="container"
         >
-          {!isLog && (
+          {!isLog ? (
             <Box padding={"20px"}>
               <Alert variant="filled" severity="warning">
                 No olvides registrarte. <Link to="/login">Aqui</Link>
               </Alert>
             </Box>
-          )}
+          ): !isConfirmed && (
+            <Box padding={"20px"}>
+              <Alert variant="filled" severity="warning">
+                No olvides confirmar tu email. <Link to="/verification">Aqui</Link>
+              </Alert>
+            </Box>
+          )   
+          }
           <Box
             width={"100%"}
             height={{ xs: "250px", md: "500px" }}
@@ -222,12 +226,12 @@ export default function Home() {
                 </Box>
               </Button>
               {categories
-                ? categories.map((cat) => (
+                ? categories.map((cat, key) => (
                     <CardCategories
                       value={cat.name}
                       img={cat.img}
-                      key={cat.id}
                       id={cat.id}
+                      key={key}
                     />
                   ))
                 : null}
