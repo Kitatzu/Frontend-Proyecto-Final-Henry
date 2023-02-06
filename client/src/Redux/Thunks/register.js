@@ -25,7 +25,7 @@ export const RegisterUser = (form) => {
           lastName: data.data.lastName,
           avatar: form.avatar,
           token: data.data.token,
-          rol: data.data.role.rol,
+          rol: data.data.rol,
         };
         localStorage.setItem("token", JSON.stringify(userData));
         Swal.fire({

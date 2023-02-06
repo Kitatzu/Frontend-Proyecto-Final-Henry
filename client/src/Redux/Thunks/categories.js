@@ -8,7 +8,6 @@ export const getCategories = () => {
     await axios
       .get(Global.URL + "/categories")
       .then((response) => {
-        console.log(response.data);
         // Swal.fire({
         //   icon: "success",
         //   title: "Success",

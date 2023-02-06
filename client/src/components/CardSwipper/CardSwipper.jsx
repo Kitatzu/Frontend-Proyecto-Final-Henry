@@ -32,7 +32,6 @@ const CardSwipper = ({ origin }) => {
 
     dispatch(getPopularProducts());
   }, [dispatch, widScreen, numberCard]);
-  console.log(widScreen, numberCard);
 
   const { popularProducts, isLoading } = useSelector((state) => state.products);
 
