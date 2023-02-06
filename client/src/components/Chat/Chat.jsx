@@ -75,40 +75,46 @@ export default function Chat() {
   const handleClose = () => setOpen(false);
   const dispatch = useDispatch();
   const { isLog } = useSelector((store) => store.users);
-  const { avatar, firstName } = useSelector((store) => store.users);
+  const { avatar, firstName} = useSelector((store) => store.users);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [user, setUser] = useState();
   const scrollBottomRef = useRef(null);
   const ENTER_KEY_CODE = 13;
 
+  let userName = JSON.parse(localStorage.getItem("token"))
+  ? JSON.parse(localStorage.getItem("token")).userName
+  : null;
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const newMessage = {
       content: message,
-      user: firstName,
+      user:userName,
       avatar:avatar,
     };
     socket.emit("message", newMessage);
-    setMessages([...messages, userName, newMessage]);
+    setMessages([...messages,newMessage]);
     setMessage("");
   };
-
-  socket.on('get messages', (allMessages) => {
-    setMessages(allMessages);
-  });
-
+  
   useEffect(() => {
     const receiveMessage = (message) => {
       setMessages([...messages, message.content]);
       if (scrollBottomRef.current) {
-        const scrollBottom = scrollBottomRef.current.scrollTop() + scrollBottomRef.current.height()
+        /* const scrollBottom = scrollBottomRef.current.scrollTop() + scrollBottomRef.current.height() */
         scrollBottomRef.current.scrollIntoView({ behavior: "smooth" });
       }
     };
     socket.on("message", receiveMessage);
+    socket.on('get messages', (allMessages) => {
+      setMessages(allMessages);
+    });
     return () => {
       socket.off("message", receiveMessage);
+      /* socket.off('get messages', (allMessages) => {
+        setMessages(allMessages);
+      }) */
     };
   }, [messages]);
 
