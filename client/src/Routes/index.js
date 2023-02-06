@@ -27,13 +27,13 @@ const Routers = () => {
       <Route path={"products/:id"} element={<CardsDetails />} />
       <Route path={"dashboard/crud"} element={<CreateProduct />} />
       <Route path={"dashboard/users"} element={<UsersTable />} />
-      <Route path={"dashboard/facturas"} element={<FacturaTable />} />
+      <Route path={"/invoices"} element={<FacturaTable />} />
       <Route path="dashboard/inventory" element={<Inventory />} />
       <Route path="dashboard" element={<Dashboard />} />
       <Route path="account" element={<AccountSettings />} />
       <Route path={"cart"} element={<Cart />} />
       <Route path={"verification"} element={<VerifCode />} />
-      <Route path={"/factura/:facturaId"} element={<Factura />} />
+      <Route path={"/invoices/invoice/:facturaId"} element={<Factura />} />
       {/* <Route path={"/chat"} element={< Chat/>} /> */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>
