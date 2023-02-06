@@ -16,7 +16,12 @@ import {
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getPage,getProducts,deletedProducts,pageStatusCero } from "../../../../Redux/Thunks/Products";
+import {
+  getPage,
+  getProducts,
+  deletedProducts,
+  pageStatusCero,
+} from "../../../../Redux/Thunks/Products";
 import NavBar from "../../../NavBar/NavBar";
 import SideBar from "../../../SideBar/SideBar";
 
@@ -24,45 +29,48 @@ const Inventory = () => {
   const dispatch = useDispatch();
   const { products } = useSelector((store) => store.products);
   const { pages } = useSelector((store) => store.products);
- /*  console.log(products); */
+  const [page, setPage] = useState(1);
+  /*  console.log(products); */
   useEffect(() => {
     dispatch(getPage(0));
     dispatch(getPage(1));
-    return()=>{
-      dispatch(getProducts());
-      console.log("unmonted inventory")
-    }
+    setPage(1);
+    return () => {
+      setPage(1);
+      dispatch(getPage(1));
+      console.log("unmonted inventory");
+    };
   }, [dispatch]);
-  const [status,setStatus]=useState("0");
-  const [aux,setAux]=useState("0")
-  
-  function handlerSelect(event){
-    setStatus(event.target.value)
-    if(status==="0"){
+  const [status, setStatus] = useState("1");
+
+  function handlerSelect(event) {
+    setStatus(event.target.value);
+    if (status === "1") {
+      setPage(1);
       dispatch(deletedProducts());
       dispatch(pageStatusCero(0));
       dispatch(pageStatusCero(1));
-     /*  console.log(status) */
-    }else{
+      /*  console.log(status) */
+    } else {
+      setPage(1);
       dispatch(getProducts());
-      dispatch(getPage(0))
-      dispatch(getPage(1))
-     /*  console.log(status) */
+      dispatch(getPage(0));
+      dispatch(getPage(1));
+      /*  console.log(status) */
     }
-  };
-  function paginated(e){
-    setAux(e)
-   /*  console.log(e)
-    console.log(aux) */
-  if(status==="0"){
-    console.log("entra a paginated")
-    dispatch(getPage(e))
-    console.log("sale paginated")
-  }else{
-    console.log("entra a paginated0")
-    dispatch(pageStatusCero(e))
-    console.log("sale paginated 0")
   }
+  function paginated(e, value) {
+    setPage(value);
+    /*  console.log(e)
+    console.log(aux) */
+    if (status === "1") {
+      dispatch(getPage(value));
+      console.log(page);
+    } else {
+      dispatch(pageStatusCero(value));
+
+      console.log(page);
+    }
   }
   return (
     <Box>
@@ -71,10 +79,10 @@ const Inventory = () => {
         <SideBar />
         <Box width={"100%"} padding="20px">
           <TableContainer sx={{ width: { xs: "100%" } }} component={Paper}>
-          <Select value={status}  onChange={e=>handlerSelect(e)}>
-         <MenuItem value={"0"}>Producto activo</MenuItem>
-         <MenuItem value={"1"}>Producto eliminado</MenuItem>
-      </Select>
+            <Select value={status} onChange={(e) => handlerSelect(e)}>
+              <MenuItem value={"1"}>Producto activo</MenuItem>
+              <MenuItem value={"0"}>Producto eliminado</MenuItem>
+            </Select>
             <Table>
               <TableHead>
                 <TableCell>Name</TableCell>
@@ -132,9 +140,8 @@ const Inventory = () => {
               <Pagination
                 count={pages}
                 color="secondary"
-                onChange={(e) => {paginated(e.target.innerText)}
-                 /* dispatch(getPage(e.target.innerText))  */
-                }
+                page={page}
+                onChange={paginated}
               />
             ) : null}
           </Box>

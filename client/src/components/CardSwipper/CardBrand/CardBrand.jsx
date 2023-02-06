@@ -1,13 +1,14 @@
-import { Box, Button } from "@mui/material";
+import { Button } from "@mui/material";
 import React, { useState } from "react";
 import imgDefault from "../../assets/imgDefault.png";
 import "./CardBrand.css";
 
-function CardBrand({ img, brand, key }) {
+function CardBrand({ img, key }) {
   const [className, setClassName] = useState("cardBrand");
   img = img ? img : imgDefault;
   return (
     <Button
+      key={key}
       sx={{
         width: "240px",
         height: "150px",

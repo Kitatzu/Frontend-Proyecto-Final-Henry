@@ -43,13 +43,12 @@ export const satusZero = () => {
   };
 };
 //TODO:PRUEBA
-export const getUserA = (userId) => {
+export const getUserA = (userId) => { 
   return async (dispatch) => {
     dispatch(setIsLoading(true));
     axios
       .get(`${Global.URL}/users/${userId}`)
       .then((response) => {
-        console.log(response.data);
         dispatch(setData(response.data));
         dispatch(setIsLoading(false));
       })

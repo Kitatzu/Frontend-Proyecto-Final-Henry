@@ -10,10 +10,11 @@ import FormRegister from "../components/Login/FormRegister/FormRegister";
 import Dashboard from "../components/Profile/Dashboard/Dashboard";
 import AccountSettings from "../components/Profile/AccountSettings/AccountSettings";
 import Inventory from "../components/Profile/Dashboard/Inventory/Inventory";
-import Factura from "../components/Facturas/Factura/Factura";
+import Factura from "../components/Profile/Facturas/Factura/Factura";
 import UsersTable from "../components/Profile/Dashboard/tableUsers/UsersTable";
 import PageNotFound from "../components/PageNotFound/PageNotFound";
-import FacturaTable from "../components/Facturas/FacturaTable/FacturaTable";
+import FacturaTable from "../components/Profile/Facturas/FacturaTable/FacturaTable";
+import VerifCode from "../components/VerifCode/VerifCode";
 import Chat from "../components/Chat/Chat";
 
 const Routers = () => {
@@ -31,6 +32,7 @@ const Routers = () => {
       <Route path="dashboard" element={<Dashboard />} />
       <Route path="account" element={<AccountSettings />} />
       <Route path={"cart"} element={<Cart />} />
+      <Route path={"verification"} element={<VerifCode />} />
       <Route path={"/factura/:facturaId"} element={<Factura />} />
       {/* <Route path={"/chat"} element={< Chat/>} /> */}
       <Route path="*" element={<PageNotFound />} />
