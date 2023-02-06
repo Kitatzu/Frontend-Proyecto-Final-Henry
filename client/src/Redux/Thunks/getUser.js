@@ -8,6 +8,8 @@ import {
   setUsersDeleted,
   setUserDetail,
   setData,
+  setPagesUser,
+  setDeletedUser,
 } from "../Slices/users";
 
 export const getUser = () => {
@@ -120,3 +122,59 @@ export const DeleteUser=(userId)=>{
   };
 };
 
+export const getPageOne = (page) => {
+  if (parseInt(page) === 0) {
+    return async (dispatch) => {
+      await axios
+        .get(`${Global.URL}/users/page/${page}`)
+        .then((response) => {
+          dispatch(setPagesUser(response.data.pages));
+         
+        })
+        .catch((response) => {
+          Toast.fire({ icon: "error", title: response.response.data.msg });
+        });
+    };
+  } else {
+    return async (dispatch) => {
+      await axios
+        .get(`${Global.URL}/users/page/${page}`)
+        .then((response) => {
+          dispatch(setUsers(response.data));
+          console.log("respuesta"+ response.data)
+        })
+        .catch((response) => {
+          console.log(response);
+          Toast.fire({ icon: "error", title: response.response.data.msg });
+        });
+    };
+  }
+};
+
+export const getPageCero = (page) => {
+  if (parseInt(page) === 0) {
+    return async (dispatch) => {
+      await axios
+        .get(`${Global.URL}/users/page0/${page}`)
+        .then((response) => {
+          dispatch(setPagesUser(response.data.pages));
+          console.log(response.data.pages)
+        })
+        .catch((response) => {
+          Toast.fire({ icon: "error", title: response.response.data.msg });
+        });
+    };
+  } else {
+    return async (dispatch) => {
+      await axios
+        .get(`${Global.URL}/users/page0/${page}`)
+        .then((response) => {
+          dispatch(setUsersDeleted(response.data));
+        })
+        .catch((response) => {
+          console.log(response);
+          Toast.fire({ icon: "error", title: response.response.data.msg });
+        });
+    };
+  }
+};
