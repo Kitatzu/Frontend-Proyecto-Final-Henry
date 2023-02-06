@@ -8,39 +8,58 @@ import {
   TableRow,
   Paper,
   Select,
-  MenuItem
+  MenuItem,
+  Pagination,
 } from "@mui/material";
-import { getUser,satusZero } from "../../../../Redux/Thunks/getUser";
+import { getUser,satusZero,getPageOne,getPageCero } from "../../../../Redux/Thunks/getUser";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect,useState } from "react";
+import { Box } from "@mui/system";
 
 export default function UsersTable() {
   const dispatch = useDispatch();
-  const { users } = useSelector((store) => store.users);
+  const {users} = useSelector((store) => store.users);
+  const {pages} =useSelector((store) => store.users);
+  const [page,setPage]=useState(1);
 
   useEffect(() => {
     dispatch(getUser());
+    dispatch(getPageOne(0))
+    dispatch(getPageOne(1))
+    setPage(1);
     return()=>{
+      setPage(1);
       dispatch(getUser());
     }
   }, [dispatch]);
 
 const [status,setStatus]=useState("0");
-;
 
 function handlerSelect(event){
 setStatus(event.target.value)
 if(status==="0"){
+  setPage(1);
   dispatch(satusZero());
-  console.log(status)
+  dispatch(getPageCero(0));
+  dispatch(getPageCero(1));
 }else{
+  setPage(1);
   dispatch(getUser());
-  console.log(status)
+  dispatch(getPageOne(0))
+  dispatch(getPageOne(1))
 }
-/* setAux("") */
+}
+function paginated(e,value){
+  setPage(value);
+if(status==="0"){
+  dispatch(getPageOne(value))
+}else{
+ dispatch(getPageCero(value))
+}
 }
   return (
-    <TableContainer component={Paper}>
+    <Box>
+    <TableContainer sx={{ width: { xs: "100%" } }}  component={Paper}>
       <Select value={status}  onChange={e=>handlerSelect(e)}>
          <MenuItem value={"0"}>Usuario activo</MenuItem>
          <MenuItem value={"1"}>Usuario eliminado</MenuItem>
@@ -75,5 +94,21 @@ if(status==="0"){
         </TableBody>
       </Table>
     </TableContainer>
+    <Box
+            width={"100%"}
+            display="flex"
+            justifyContent={"center"}
+            padding="20px"
+          >
+    {pages ? (
+      <Pagination
+        count={pages}
+        page={page}
+        color="secondary"
+        onChange= {paginated}
+      />
+    ) : null}
+ </Box>
+  </Box>
   );
 }

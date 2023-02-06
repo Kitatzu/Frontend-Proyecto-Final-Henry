@@ -40,6 +40,7 @@ const initialState = {
   isLoading: false,
   userDetail: null,
   users: false,
+  pages: 0,
 };
 
 export const userSlice = createSlice({
@@ -96,8 +97,14 @@ export const userSlice = createSlice({
     setUsers: (store, action) => {
       store.users = action.payload;
     },
+    setDeletedUsers: (store, action) => {
+      store.users = action.payload;
+    },
     setUsersDeleted: (store, action) => {
       store.users = action.payload;
+    },
+    setPagesUser: (state, action) => {
+      state.pages = action.payload;
     },
   },
 });
@@ -111,4 +118,6 @@ export const {
   setUsers,
   setUsersDeleted,
   setUserDetail,
+  setPagesUser,
+  setDeletedUser,
 } = userSlice.actions;
