@@ -93,10 +93,21 @@ export default function NavBar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>
-        <Link to="/account" style={{ color: "black" }}>
-          {" "}
-          Perfil{" "}
-        </Link>
+        {isLog && (
+          <Link to="/account" style={{ color: "black" }}>
+            Perfil
+          </Link>
+        ) ? (
+          <Link to="/login" style={{ color: "black" }}>
+            {" "}
+            Registrarse{" "}
+          </Link>
+        ) : (
+          <Link to="/login" style={{ color: "black" }}>
+            {" "}
+            Registrarse{" "}
+          </Link>
+        )}
       </MenuItem>
       {isLog && (
         <MenuItem onClick={logOut} style={{ color: "black" }}>
