@@ -25,11 +25,6 @@ const AccountSettings = () => {
         <Box display={"flex"}>
           <SideBar />
           <Box
-            // display={"flex"}
-            // justifyContent="center"
-            // sx={{ padding: "20px" }}
-            // alignItems="center"
-            // flexDirection={"column"}
             sx={{
               height: "calc(100vh - 64px)",
               width: { xs: "100%", sm: "calc(100% - 80px)" },
