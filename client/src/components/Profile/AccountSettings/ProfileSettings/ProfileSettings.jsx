@@ -36,7 +36,7 @@ const ProfileSettings = () => {
     setImage(el.target.files["0"]);
     setPreviewUrl(URL.createObjectURL(el.target.files[0]));
     console.log(el.target.files["0"]);
-    console.log(updateUser.country);
+    
   };
 
   // const handleChange = (e) => {
@@ -99,14 +99,14 @@ const ProfileSettings = () => {
         </Box>
         <Box>
           <CountryUser
-            country={updateUser.country ? updateUser.country : country}
+            country={country}
           />
         </Box>
         <Box>
-          <CityUser city={updateUser.city ? updateUser.city : city} />
+          <CityUser city={city} />
         </Box>
         <Box>
-          <PhoneUser phone={updateUser.phone ? updateUser.phone : phone} />
+          <PhoneUser phone={phone} />
         </Box>
       </CardContent>
       <CardActions>
