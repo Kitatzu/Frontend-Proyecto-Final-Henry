@@ -20,6 +20,7 @@ import Calendar from "../components/Profile/Dashboard/components/calendar/calend
 
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import "./Transitions/styles.css";
+import Series from "../components/Profile/Dashboard/Inventory/Series/Series";
 
 const Routers = () => {
   const location = useLocation();
@@ -42,6 +43,10 @@ const Routers = () => {
           <Route path={"verification"} element={<VerifCode />} />
           <Route path={"/invoices/invoice/:facturaId"} element={<Factura />} />
           <Route path={"/calendar"} element={<Calendar />} />
+          <Route
+            path="/dashboard/inventory/series/:productId"
+            element={<Series />}
+          />
           {/* <Route path={"/chat"} element={<Chat />} /> */}
           <Route path="*" element={<PageNotFound />} />
         </Routes>

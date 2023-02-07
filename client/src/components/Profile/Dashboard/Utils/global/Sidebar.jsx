@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserA } from "../../../../../Redux/Thunks/getUser";
 import Chat from "../../../../Chat/Chat";
 import AddAlertIcon from "@mui/icons-material/AddAlert";
+import InventoryIcon from "@mui/icons-material/Inventory";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -33,8 +34,10 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
   );
 };
 
-const Sidebar = () => {
+const Sidebar = ({ collapsed }) => {
   const dispatch = useDispatch();
+  const mode = useSelector((store) => store.theme.mode);
+  const theme = useSelector((store) => store.theme);
   const userId = JSON.parse(localStorage.getItem("token"))
     ? JSON.parse(localStorage.getItem("token")).userId
     : null;
@@ -43,11 +46,9 @@ const Sidebar = () => {
     if (userId) {
       dispatch(getUserA(userId));
     }
-    //TODO: DISPATCH A THUNK GETUSERA
-  }, [dispatch, userId]);
+    collapsed !== undefined ? setIsCollapsed(collapsed) : setIsCollapsed(false);
+  }, [dispatch, userId, collapsed]);
 
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
   const { userName, firstName, lastName, avatar, email } = useSelector(
@@ -57,7 +58,7 @@ const Sidebar = () => {
     <Box
       sx={{
         "& .pro-sidebar-inner": {
-          background: `${colors.primary[400]} !important`,
+          background: `${theme[mode].sidebar} !important`,
         },
         "& .pro-icon-wrapper": {
           backgroundColor: "transparent !important",
@@ -81,7 +82,6 @@ const Sidebar = () => {
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
             style={{
               margin: "10px 0 20px 0",
-              color: colors.grey[100],
             }}
           >
             {!isCollapsed && (
@@ -91,7 +91,10 @@ const Sidebar = () => {
                 alignItems="center"
                 ml="15px"
               >
-                <Typography variant="h3" color={colors.grey[100]}>
+                <Typography
+                  variant="h3"
+                  sx={{ color: theme[mode].textPrimary }}
+                >
                   ADMINIS
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
@@ -118,13 +121,15 @@ const Sidebar = () => {
               <Box textAlign="center">
                 <Typography
                   variant="h4"
-                  color={colors.grey[100]}
                   fontWeight="bold"
-                  sx={{}}
+                  sx={{ color: theme[mode].textPrimary }}
                 >
                   {firstName?.toUpperCase()}
                 </Typography>
-                <Typography variant="h5" color={colors.greenAccent[500]}>
+                <Typography
+                  variant="h5"
+                  sx={{ color: theme[mode].textPrimary }}
+                >
                   Admin
                 </Typography>
               </Box>
@@ -134,7 +139,7 @@ const Sidebar = () => {
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <Item
               title="Dashboard"
-              to="/"
+              to="/dashboard"
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -142,16 +147,22 @@ const Sidebar = () => {
 
             <Typography
               variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
+              sx={{ m: "15px 0 5px 20px", color: theme[mode].textPrimary }}
             >
-              Data
+              Datos
             </Typography>
 
             <Item
-              title="Crear productos"
-              to="crud"
-              icon={<ContactsOutlinedIcon />}
+              title="Inventario"
+              to="/dashboard/inventory"
+              icon={<InventoryIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Usuarios"
+              to="/dashboard/users"
+              icon={<PersonOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
@@ -165,15 +176,15 @@ const Sidebar = () => {
 
             <Typography
               variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
+              sx={{ m: "15px 0 5px 20px", color: theme[mode].textPrimary }}
             >
               Pages
             </Typography>
+
             <Item
-              title="Users"
-              to="/dashboard/users"
-              icon={<PersonOutlinedIcon />}
+              title="Crear productos"
+              to="/dashboard/crud"
+              icon={<ContactsOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
@@ -187,8 +198,7 @@ const Sidebar = () => {
 
             <Typography
               variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
+              sx={{ m: "15px 0 5px 20px", color: theme[mode].textPrimary }}
             >
               Herramientas
             </Typography>

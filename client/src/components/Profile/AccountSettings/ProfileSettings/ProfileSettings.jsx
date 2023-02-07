@@ -51,8 +51,8 @@ const ProfileSettings = () => {
 
   return (
     <Card
-      variant="outlined"
-      sx={{ width: "100%", background: Theme[mode].primary }}
+      variant="elevation"
+      sx={{ width: "100%", background: Theme[mode].cardSecondary }}
     >
       <CardContent>
         <Typography
