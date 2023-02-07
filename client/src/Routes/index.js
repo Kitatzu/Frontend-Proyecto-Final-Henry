@@ -1,4 +1,5 @@
-import { Route, Router, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
+
 import Home from "../components/Home/Home";
 import LandingPage from "../components/LandingPage/LandingPage";
 import CreateProduct from "../components/Profile/Dashboard/CreateProduct/CreateProduct";
@@ -16,29 +17,36 @@ import PageNotFound from "../components/PageNotFound/PageNotFound";
 import FacturaTable from "../components/Profile/Facturas/FacturaTable/FacturaTable";
 import VerifCode from "../components/VerifCode/VerifCode";
 import Calendar from "../components/Profile/Dashboard/components/calendar/calendar";
-import Chat from "../components/Chat/Chat";
+
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+import "./Transitions/styles.css";
 
 const Routers = () => {
+  const location = useLocation();
   return (
-    <Routes>
-      <Route index element={<LandingPage />} />
-      <Route path={"login"} element={<Login />} />
-      <Route path={"login/register"} element={<FormRegister />} />
-      <Route path={"home"} element={<Home />} />
-      <Route path={"products/:id"} element={<CardsDetails />} />
-      <Route path={"dashboard/crud"} element={<CreateProduct />} />
-      <Route path={"dashboard/users"} element={<UsersTable />} />
-      <Route path={"/invoices"} element={<FacturaTable />} />
-      <Route path="dashboard/inventory" element={<Inventory />} />
-      <Route path="dashboard" element={<Dashboard />} />
-      <Route path="account" element={<AccountSettings />} />
-      <Route path={"cart"} element={<Cart />} />
-      <Route path={"verification"} element={<VerifCode />} />
-      <Route path={"/invoices/invoice/:facturaId"} element={<Factura />} />
-      <Route path={"/calendar"} element={<Calendar />} />
-      {/* <Route path={"/chat"} element={<Chat />} /> */}
-      <Route path="*" element={<PageNotFound />} />
-    </Routes>
+    <TransitionGroup>
+      <CSSTransition key={location.key} classNames="fade" timeout={800}>
+        <Routes location={location}>
+          <Route index element={<LandingPage />} />
+          <Route path={"login"} element={<Login />} />
+          <Route path={"login/register"} element={<FormRegister />} />
+          <Route path={"home"} element={<Home />} />
+          <Route path={"products/:id"} element={<CardsDetails />} />
+          <Route path={"dashboard/crud"} element={<CreateProduct />} />
+          <Route path={"dashboard/users"} element={<UsersTable />} />
+          <Route path={"/invoices"} element={<FacturaTable />} />
+          <Route path="dashboard/inventory" element={<Inventory />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="account" element={<AccountSettings />} />
+          <Route path={"cart"} element={<Cart />} />
+          <Route path={"verification"} element={<VerifCode />} />
+          <Route path={"/invoices/invoice/:facturaId"} element={<Factura />} />
+          <Route path={"/calendar"} element={<Calendar />} />
+          {/* <Route path={"/chat"} element={<Chat />} /> */}
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </CSSTransition>
+    </TransitionGroup>
   );
 };
 export default Routers;
