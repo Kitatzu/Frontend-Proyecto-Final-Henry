@@ -97,20 +97,17 @@ const ProfileSettings = () => {
           <EmailAddress email={email} />
         </Box>
         <Box>
-          <CountryUser
-            country={updateUser.country ? updateUser.country : country}
+          <CountryUser country={updateUser.country ? updateUser.country : country}
             handleChange={handleChange}
           />
         </Box>
         <Box>
-          <CityUser
-            city={updateUser.city ? updateUser.city : city}
+          <CityUser city={updateUser.city ? updateUser.city : city}
             handleChange={handleChange}
           />
         </Box>
         <Box>
-          <PhoneUser
-            phone={updateUser.phone ? updateUser.phone : phone}
+          <PhoneUser phone={updateUser.phone ? updateUser.phone : phone}
             handleChange={handleChange}
           />
         </Box>
