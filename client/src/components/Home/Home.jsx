@@ -216,7 +216,7 @@ export default function Home() {
                   display: "flex",
                   justifyContent: "space-between",
                   margin: "20px",
-                  background: "#282828",
+                  background: theme[mode].cardCategory,
                   width: "300px",
                   boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
                 }}
