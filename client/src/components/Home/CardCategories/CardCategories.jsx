@@ -1,11 +1,13 @@
 import { Button, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getProductsByCategories } from "../../../Redux/Thunks/Products";
 
 function CardCategories({ value, id, img }) {
   const dispatch = useDispatch();
+  const theme = useSelector((store) => store.theme);
+  const mode = useSelector((store) => store.theme.mode);
   return (
     <Button
       key={id}
@@ -13,7 +15,7 @@ function CardCategories({ value, id, img }) {
         display: "flex",
         justifyContent: "space-between",
         margin: "20px",
-        background: "#282828",
+        background: theme[mode].cardCategory,
         width: "300px",
         boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
       }}

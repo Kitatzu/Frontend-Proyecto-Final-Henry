@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { getPage, getProductsByCategories } from "../../Redux/Thunks/Products";
 import { getCategories } from "../../Redux/Thunks/categories";
 import SearchBar from "../SearchBar/SearchBar";
+import Footer from "../Footer/Footer";
 
 import {
   filterPrice,
@@ -216,7 +217,7 @@ export default function Home() {
                   display: "flex",
                   justifyContent: "space-between",
                   margin: "20px",
-                  background: "#282828",
+                  background: theme[mode].cardCategory,
                   width: "300px",
                   boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
                 }}
@@ -285,6 +286,7 @@ export default function Home() {
               )}
             </Box>
           </Box>
+          <Box ><Footer /></Box>
         </Box>
       </Box>
     </Box>

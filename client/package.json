@@ -30,6 +30,7 @@
     "react-google-login": "^5.2.2",
     "react-material-ui-form-validator": "^3.0.1",
     "react-plotly.js": "^2.6.0",
+    "react-pro-sidebar": "^0.7.1",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.7.0",
     "react-scripts": "5.0.1",

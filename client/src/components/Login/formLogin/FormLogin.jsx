@@ -14,11 +14,11 @@ import EmailInput from "./input/EmailInput";
 import { loginUser } from "../../../Redux/Thunks/loginUsers";
 
 function FormLogin({ handleChange, handleBlur, handleSubmits, form, errors }) {
-  
   const mode = useSelector((store) => store.theme.mode);
   const theme = useSelector((store) => store.theme);
   const dispatch = useDispatch();
-  const clientId = "797157267486-rvkpojtcmll1q3n7slbtu09fe4heo7ol.apps.googleusercontent.com";
+  const clientId =
+    "797157267486-rvkpojtcmll1q3n7slbtu09fe4heo7ol.apps.googleusercontent.com";
   useEffect(() => {
     const start = () => {
       gapi.auth2.init({
@@ -53,8 +53,8 @@ function FormLogin({ handleChange, handleBlur, handleSubmits, form, errors }) {
         fontSize="20px"
         sx={{ color: theme[mode].textPrimary, padding: "20px" }}
       >
-        Login
-      </Typography>      
+        Acceder
+      </Typography>
       <EmailInput
         handleChange={handleChange}
         handleBlur={handleBlur}
@@ -93,7 +93,7 @@ function FormLogin({ handleChange, handleBlur, handleSubmits, form, errors }) {
           startIcon={<Icon className="IconL" icon="ph:sign-in-light" />}
           onClick={handleSubmits}
         >
-          Login
+          Acceder
         </Button>
         <GoogleLogin
           clientId={clientId}

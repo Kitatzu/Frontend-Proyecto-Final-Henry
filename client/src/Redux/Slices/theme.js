@@ -7,17 +7,19 @@ const initialState = {
       "linear-gradient(243.18deg, #000000 0%, #272727 50%, #323232 100%)",
     textPrimary: "#FAFAFA",
     textSecondary: "#1976D2",
-    sidebar: "#272727",
+    sidebar: "#5F5AB3",
     buttonPrimary:
       "linear-gradient(135.13deg, #7DFFB4 10.46%, #4244FF 127.81%)",
-    card: "#565656",
+    card: "#585858",
     cardSecondary: "rgba(255,255,255,.5)",
+    cardCategory: "#C524FE",
   },
   light: {
     primary: "#FAFAFA",
     textPrimary: "#272727",
     textSecondary: "#565656",
     sidebar: "white",
+    cardCategory: "#282828",
     buttonPrimary:
       "linear-gradient(135.13deg, #7DFFB4 10.46%, #4244FF 127.81%)",
     card: "white",

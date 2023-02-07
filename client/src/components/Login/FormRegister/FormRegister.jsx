@@ -176,7 +176,7 @@ const FormRegister = ({
           style={{ marginTop: "20px" }}
           onClick={handleSubmit}
         >
-          Register
+          Registrar
         </Button>
       </Box>
     </Box>

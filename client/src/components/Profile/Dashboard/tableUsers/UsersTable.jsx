@@ -10,8 +10,10 @@ import {
   Select,
   MenuItem,
   Pagination,
+  Button,
 } from "@mui/material";
-import { getUser,satusZero,getPageOne,getPageCero } from "../../../../Redux/Thunks/getUser";
+import ChangeCircleRoundedIcon from '@mui/icons-material/ChangeCircleRounded';
+import { getUser,satusZero,getPageOne,getPageCero,DeleteUser,RestoreUser } from "../../../../Redux/Thunks/getUser";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect,useState } from "react";
 import { Box } from "@mui/system";
@@ -57,8 +59,27 @@ if(status==="0"){
  dispatch(getPageCero(value))
 }
 }
+function handlerAction(e){
+  if(status==="0"){
+    setPage(1);
+    dispatch(DeleteUser(e/* .target.value */))
+    console.log(e/* .target.value */);
+    dispatch(getUser());
+    dispatch(getPageOne(0))
+    dispatch(getPageOne(1))
+  }else{
+    setPage(1);
+    dispatch(RestoreUser(e/* .target.value */))
+    console.log(e/* .target.value */);
+    dispatch(satusZero());
+  dispatch(getPageCero(0));
+  dispatch(getPageCero(1));
+  }
+}
   return (
     <Box>
+      <Box display={"flex"}>
+      <Box width={"100%"} padding="20px">
     <TableContainer sx={{ width: { xs: "100%" } }}  component={Paper}>
       <Select value={status}  onChange={e=>handlerSelect(e)}>
          <MenuItem value={"0"}>Usuario activo</MenuItem>
@@ -71,6 +92,7 @@ if(status==="0"){
             <TableCell align="center">email</TableCell>
             <TableCell align="center">firstName</TableCell>
             <TableCell align="center">lastName</TableCell>
+            <TableCell align="center">Estado</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -87,6 +109,8 @@ if(status==="0"){
                     <TableCell align="center">{e.email}</TableCell>
                     <TableCell align="center">{e.firstName}</TableCell>
                     <TableCell align="center">{e.lastName}</TableCell>
+                    <TableCell align="center"> <Button key={e.id} value={e.id} onClick={()=>handlerAction(e.id)}><ChangeCircleRoundedIcon /></Button></TableCell>
+                    
                   </TableRow>
                 )
               )
@@ -110,5 +134,7 @@ if(status==="0"){
     ) : null}
  </Box>
   </Box>
+  </Box>
+   </Box>
   );
 }

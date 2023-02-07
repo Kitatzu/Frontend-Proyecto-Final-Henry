@@ -114,10 +114,36 @@ export const DeleteUser=(userId)=>{
     .then((response)=>{console.log(response);
     dispatch(setData(response.data));
     dispatch(setIsLoading(false));
+    Swal.fire({
+      icon: "success",
+      title: "Actualizado!",
+      text: "Usuario actualizado correctamente!",
+      confirmButtonText: "Continuar!",
+    })
   })
   .catch((response) => {
     console.log(response);
-    alert(response.response.data.msg);
+    Toast.fire({ icon: "error", title: "Internal server error!" });
+  });
+  };
+};
+export const RestoreUser=(userId)=>{
+  return async(dispatch)=>{
+    dispatch(setIsLoading(true));
+    axios.put(Global.URL+"/users/restore/"+userId)
+    .then((response)=>{console.log(response);
+    dispatch(setData(response.data));
+    dispatch(setIsLoading(false));
+    Swal.fire({
+      icon: "success",
+      title: "Actualizado!",
+      text: "Usuario actualizado correctamente!",
+      confirmButtonText: "Continuar!",
+    })
+  })
+  .catch((response) => {
+    console.log(response);
+    Toast.fire({ icon: "error", title: "Internal server error!" });
   });
   };
 };
