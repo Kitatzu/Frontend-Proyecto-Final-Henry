@@ -75,35 +75,46 @@ export default function Chat() {
   const handleClose = () => setOpen(false);
   const dispatch = useDispatch();
   const { isLog } = useSelector((store) => store.users);
-  const { avatar, firstName } = useSelector((store) => store.users);
+  const { avatar, firstName} = useSelector((store) => store.users);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [user, setUser] = useState();
   const scrollBottomRef = useRef(null);
   const ENTER_KEY_CODE = 13;
 
+  let userName = JSON.parse(localStorage.getItem("token"))
+  ? JSON.parse(localStorage.getItem("token")).userName
+  : null;
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const newMessage = {
-      body: message,
-      user: firstName,
+      content: message,
+      user:userName,
       avatar:avatar,
     };
     socket.emit("message", newMessage);
-    setMessages([...messages, newMessage]);
+    setMessages([...messages,newMessage]);
     setMessage("");
   };
+  
   useEffect(() => {
     const receiveMessage = (message) => {
-      setMessages([...messages, message.body]);
+      setMessages([...messages, message.content]);
       if (scrollBottomRef.current) {
-        const scrollBottom = scrollBottomRef.current.scrollTop() + scrollBottomRef.current.height()
+        /* const scrollBottom = scrollBottomRef.current.scrollTop() + scrollBottomRef.current.height() */
         scrollBottomRef.current.scrollIntoView({ behavior: "smooth" });
       }
     };
     socket.on("message", receiveMessage);
+    socket.on('get messages', (allMessages) => {
+      setMessages(allMessages);
+    });
     return () => {
       socket.off("message", receiveMessage);
+      /* socket.off('get messages', (allMessages) => {
+        setMessages(allMessages);
+      }) */
     };
   }, [messages]);
 
@@ -122,7 +133,7 @@ export default function Chat() {
       </ListItemAvatar>
       <Box >
         <ListItemText
-          primary={`${message.body}`}
+          primary={`${message.content}`}
           className={
             message.user === firstName
               ? classes.userMessageText
@@ -142,14 +153,7 @@ export default function Chat() {
   const handleMessageChange = (e) => {
     setMessage(e.target.value);
   };
-  let currentTime = new Date();
-  let hours = currentTime.getHours();
-let minutes = currentTime.getMinutes();
-
-hours = (hours < 10) ? `0${hours}` : hours;
-minutes = (minutes < 10) ? `0${minutes}` : minutes;
-
-let formattedTime = `${hours}:${minutes}`;
+  
   return (
     <Fragment>
       <ChatIcon onClick={handleOpen} />
