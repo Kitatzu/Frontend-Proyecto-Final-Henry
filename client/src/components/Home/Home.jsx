@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { getPage, getProductsByCategories } from "../../Redux/Thunks/Products";
 import { getCategories } from "../../Redux/Thunks/categories";
 import SearchBar from "../SearchBar/SearchBar";
+import Footer from "../Footer/Footer";
 
 import {
   filterPrice,
@@ -285,6 +286,7 @@ export default function Home() {
               )}
             </Box>
           </Box>
+          <Box ><Footer /></Box>
         </Box>
       </Box>
     </Box>
