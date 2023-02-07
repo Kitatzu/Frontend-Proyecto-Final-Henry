@@ -8,7 +8,7 @@ import {
 import { Icon } from "@iconify/react";
 import { useSelector } from "react-redux";
 
-const Input = ({ value, label, readOnly, icon }) => {
+const Input = ({ value, label, readOnly, icon, handleChange, name }) => {
   const mode = useSelector((store) => store.theme.mode);
   const Theme = useSelector((store) => store.theme);
   return (
@@ -25,10 +25,11 @@ const Input = ({ value, label, readOnly, icon }) => {
       </InputLabel>
       <OutlinedInput
         id="outlined-adornment-email"
-        name={label}
+        name={name}
         type={"text"}
         defaultValue={value}
         readOnly={readOnly}
+        onChange={handleChange}
         sx={{
           color: Theme[mode].textPrimary,
         }}

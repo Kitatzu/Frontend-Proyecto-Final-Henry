@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Router, Routes, useLocation } from "react-router-dom";
 import Home from "../components/Home/Home";
 import LandingPage from "../components/LandingPage/LandingPage";
 import CreateProduct from "../components/Profile/Dashboard/CreateProduct/CreateProduct";
@@ -15,6 +15,7 @@ import UsersTable from "../components/Profile/Dashboard/tableUsers/UsersTable";
 import PageNotFound from "../components/PageNotFound/PageNotFound";
 import FacturaTable from "../components/Profile/Facturas/FacturaTable/FacturaTable";
 import VerifCode from "../components/VerifCode/VerifCode";
+import Calendar from "../components/Profile/Dashboard/components/calendar/calendar";
 import Chat from "../components/Chat/Chat";
 
 const Routers = () => {
@@ -34,7 +35,8 @@ const Routers = () => {
       <Route path={"cart"} element={<Cart />} />
       <Route path={"verification"} element={<VerifCode />} />
       <Route path={"/invoices/invoice/:facturaId"} element={<Factura />} />
-      {/* <Route path={"/chat"} element={< Chat/>} /> */}
+      <Route path={"/calendar"} element={<Calendar />} />
+      {/* <Route path={"/chat"} element={<Chat />} /> */}
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );

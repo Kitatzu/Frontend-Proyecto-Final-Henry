@@ -55,13 +55,13 @@ const useChatStyles = makeStyles((theme) => ({
     padding: "10px",
   },
   userBox: {
-    display: 'flex',
-    justifyContent: 'flex-end',
+    display: "flex",
+    justifyContent: "flex-end",
     backgroundColor: "#FFEDD4",
   },
   otherBox: {
-    display: 'flex',
-    justifyContent: 'flex-start',
+    display: "flex",
+    justifyContent: "flex-start",
     backgroundColor: "#FFEDD4",
   },
 }));
@@ -75,7 +75,7 @@ export default function Chat() {
   const handleClose = () => setOpen(false);
   const dispatch = useDispatch();
   const { isLog } = useSelector((store) => store.users);
-  const { avatar, firstName} = useSelector((store) => store.users);
+  const { avatar, firstName } = useSelector((store) => store.users);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [user, setUser] = useState();
@@ -83,21 +83,21 @@ export default function Chat() {
   const ENTER_KEY_CODE = 13;
 
   let userName = JSON.parse(localStorage.getItem("token"))
-  ? JSON.parse(localStorage.getItem("token")).userName
-  : null;
+    ? JSON.parse(localStorage.getItem("token")).userName
+    : null;
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const newMessage = {
       content: message,
-      user:userName,
-      avatar:avatar,
+      user: userName,
+      avatar: avatar,
     };
     socket.emit("message", newMessage);
-    setMessages([...messages,newMessage]);
+    setMessages([...messages, newMessage]);
     setMessage("");
   };
-  
+
   useEffect(() => {
     const receiveMessage = (message) => {
       setMessages([...messages, message.content]);
@@ -107,7 +107,7 @@ export default function Chat() {
       }
     };
     socket.on("message", receiveMessage);
-    socket.on('get messages', (allMessages) => {
+    socket.on("get messages", (allMessages) => {
       setMessages(allMessages);
     });
     return () => {
@@ -123,15 +123,16 @@ export default function Chat() {
   };
 
   const listChatMessages = messages.map((message, index) => (
-    <ListItem key={index} className={
-      message.user === firstName
-        ? classes.userBox
-        : classes.otherBox
-    }>
+    <ListItem
+      key={index}
+      className={
+        message.user === firstName ? classes.userBox : classes.otherBox
+      }
+    >
       <ListItemAvatar>
         <Avatar src={message.avatar} alt={firstName} />
       </ListItemAvatar>
-      <Box >
+      <Box>
         <ListItemText
           primary={`${message.content}`}
           className={
@@ -153,10 +154,12 @@ export default function Chat() {
   const handleMessageChange = (e) => {
     setMessage(e.target.value);
   };
-  
+
   return (
     <Fragment>
-      <ChatIcon onClick={handleOpen} />
+      <Box component={"span"} className="pro-icon">
+        <ChatIcon onClick={handleOpen} />
+      </Box>
       <Modal
         open={open}
         onClose={handleClose}

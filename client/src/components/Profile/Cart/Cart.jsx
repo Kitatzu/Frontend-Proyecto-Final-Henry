@@ -30,6 +30,7 @@ const Cart = () => {
     address: "",
     city: "",
   });
+
   useEffect(() => {
     dispatch(getCart());
   }, [dispatch]);
@@ -72,7 +73,13 @@ const Cart = () => {
     console.log(data, actions);
     console.log(actions.order.capture());
     await dispatch(
-      createFactura(data.orderID, data.payerID, userId, productsCart)
+      createFactura(
+        data.orderID,
+        data.payerID,
+        userId,
+        productsCart,
+        dataInvoice
+      )
     );
     await dispatch(stockProucts(sendProducts));
     return actions.order.capture();
@@ -81,7 +88,7 @@ const Cart = () => {
   return (
     <Box sx={{ background: Theme[mode].primary, minHeight: "100vh" }}>
       <Box>
-        {redir ? <Navigate to={"/factura/" + facturaId} /> : null}
+        {redir ? <Navigate to={"/invoices/invoice/" + facturaId} /> : null}
         <NavBar />
         <Box display={"flex"}>
           <SideBar />
@@ -101,9 +108,8 @@ const Cart = () => {
               display={"flex"}
               flexWrap="wrap"
               sx={{
-                background: "rgba(255,255,255,.1)",
-                borderRadius: "20px",
-                border: "1px solid rgba(255,255,255,.5)",
+                background: Theme[mode].cardForm,
+                borderRadius: "4px",
                 boxShadow: " 0px 4px 4px rgba(0, 0, 0, 0.25)",
                 backdropFilter: "blur(50px)",
               }}
@@ -119,6 +125,7 @@ const Cart = () => {
               <Box width={"100%"} padding="10px" minWidth={"250px"}>
                 <Input
                   value={country}
+                  name="country"
                   label="Pais"
                   readOnly={true}
                   icon="gis:search-country"
@@ -134,16 +141,20 @@ const Cart = () => {
                   <Input
                     value={""}
                     label="Direccion"
+                    name="address"
                     readOnly={false}
                     icon="mdi:address-marker-outline"
+                    handleChange={handleDataInvoice}
                   />
                 </Box>
                 <Box padding="10px" minWidth={"250px"}>
                   <Input
                     value={""}
-                    label="City"
+                    name="city"
+                    label="Ciudad"
                     readOnly={false}
                     icon="mdi:address-marker-outline"
+                    handleChange={handleDataInvoice}
                   />
                 </Box>
               </Box>
