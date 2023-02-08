@@ -1,0 +1,51 @@
+export const developers = [
+    {
+      name: "Carlos",
+      linkedin: "https://www.linkedin.com/in/carlos-enrique-amado-8a61981b9/",
+      //whatsapp: "https://wa.me/543854083473",
+      github: "https://github.com/riquiamado",
+      //instagram: "https://www.instagram.com/carlosamado160/",
+    },
+    {
+      name: "santiago",
+      linkedin: "https://www.linkedin.com/in/carlos-enrique-amado-8a61981b9/",
+      //whatsapp: "https://wa.me/543434618019",
+      github: "https://github.com/cajadios",
+      //instagram: "https://www.instagram.com/Santiago Ventirini/",
+    },
+    {
+      name: "Jhonatan ",
+      linkedin: "https://www.linkedin.com/in/jhonatan-i%C3%B1iguez-733691211",
+      //whatsapp: "https://wa.me/598980690585",
+      github: "https://github.com/copaTech-98",
+      //instagram: "https://instagram.com/alitechcode?igshid=ZDdkNTZiNTM=",
+    },
+    {
+      name: "Javier ",
+       linkedin: "https://www.linkedin.com/in/carlos-enrique-amado-8a61981b9/",
+      // whatsapp: "https://wa.me/543854083473",
+       github: "https://github.com/riquiamado",
+      // instagram: "https://www.instagram.com/carlosamado160/",
+    },
+    {
+      name: "Vania ",
+       linkedin: "https://www.linkedin.com/in/carlos-enrique-amado-8a61981b9/",
+      // whatsapp: "https://wa.me/543854083473",
+       github: "https://github.com/riquiamado",
+      // instagram: "https://www.instagram.com/carlosamado160/",
+    },
+    {
+      name: "Exequiel",
+       linkedin: "https://www.linkedin.com/in/carlos-enrique-amado-8a61981b9/",
+      // whatsapp: "https://wa.me/543854083473",
+       github: "https://github.com/riquiamado",
+      // instagram: "https://www.instagram.com/carlosamado160/",
+    },
+    {
+      name: "marcial",
+       linkedin: "https://www.linkedin.com/in/carlos-enrique-amado-8a61981b9/",
+      // whatsapp: "https://wa.me/543854083473",
+       github: "https://github.com/riquiamado",
+      // instagram: "https://www.instagram.com/carlosamado160/",
+    },
+  ];

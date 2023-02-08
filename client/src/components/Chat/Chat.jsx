@@ -26,6 +26,7 @@ import Modal from "@mui/material/Modal";
 import ChatIcon from "@mui/icons-material/Chat";
 import "./Chat.css";
 import Bar from "../Bar/Bar";
+import { convertLength } from "@mui/material/styles/cssUtils";
 
 export const socket = io(Global.URL);
 const useChatStyles = makeStyles((theme) => ({
@@ -90,31 +91,36 @@ export default function Chat() {
     e.preventDefault();
     const newMessage = {
       content: message,
-      user: userName,
-      avatar: avatar,
+      user: { userName, avatar },
     };
     socket.emit("message", newMessage);
+    console.log(newMessage);
     setMessages([...messages, newMessage]);
+    console.log(messages);
     setMessage("");
   };
 
   useEffect(() => {
     const receiveMessage = (message) => {
-      setMessages([...messages, message.content]);
+      console.log("mensajito", message);
+      setMessages([...messages, message]);
       if (scrollBottomRef.current) {
         /* const scrollBottom = scrollBottomRef.current.scrollTop() + scrollBottomRef.current.height() */
         scrollBottomRef.current.scrollIntoView({ behavior: "smooth" });
       }
     };
-    socket.on("message", receiveMessage);
-    socket.on("get messages", (allMessages) => {
+    const getMessages = (allMessages) => {
       setMessages(allMessages);
-    });
+    };
+    socket.on("message", receiveMessage);
+    if (messages.length === 0) {
+      socket.emit("get messages");
+    }
+
+    socket.on("get messages", getMessages);
     return () => {
       socket.off("message", receiveMessage);
-      /* socket.off('get messages', (allMessages) => {
-        setMessages(allMessages);
-      }) */
+      socket.off("get messages");
     };
   }, [messages]);
 
@@ -126,17 +132,17 @@ export default function Chat() {
     <ListItem
       key={index}
       className={
-        message.user === firstName ? classes.userBox : classes.otherBox
+        message.user.userName === userName ? classes.userBox : classes.otherBox
       }
     >
       <ListItemAvatar>
-        <Avatar src={message.avatar} alt={firstName} />
+        <Avatar src={message.user.avatar} alt={firstName} />
       </ListItemAvatar>
       <Box>
         <ListItemText
           primary={`${message.content}`}
           className={
-            message.user === firstName
+            message.user.userName === userName
               ? classes.userMessageText
               : classes.otherMessageText
           }

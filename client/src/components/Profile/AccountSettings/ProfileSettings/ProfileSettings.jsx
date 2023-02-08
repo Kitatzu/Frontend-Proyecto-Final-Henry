@@ -24,6 +24,11 @@ const ProfileSettings = () => {
     useSelector((store) => store.users);
   const [image, setImage] = useState(false);
   const [previewUrl, setPreviewUrl] = useState(null);
+  // const [updateUser, setUpdateUser] = useState({
+  //   city: city,
+  //   country: country,
+  //   phone: phone,
+  // });
   const dispatch = useDispatch();
   const userId = JSON.parse(localStorage.getItem("token")).userId;
 
@@ -31,14 +36,22 @@ const ProfileSettings = () => {
     setImage(el.target.files["0"]);
     setPreviewUrl(URL.createObjectURL(el.target.files[0]));
     console.log(el.target.files["0"]);
+    
   };
+
+  // const handleChange = (e) => {
+  //   setUpdateUser({
+  //     ...updateUser,
+  //     [e.target.value]: e.target.value,
+  //   });
+  // };
 
   const handleSave = (e) => {
     const formData = new FormData();
 
-    // formData.append("country", user.country);
-    // formData.append("city", user.city);
-    // formData.append("phone", user.phone);
+    // formData.append("country", updateUser.country);
+    // formData.append("city", updateUser.city);
+    // formData.append("phone", updateUser.phone);
     if (image) {
       console.log(image);
       formData.append("avatar", image);
@@ -85,7 +98,9 @@ const ProfileSettings = () => {
           <EmailAddress email={email} />
         </Box>
         <Box>
-          <CountryUser country={country} />
+          <CountryUser
+            country={country}
+          />
         </Box>
         <Box>
           <CityUser city={city} />
