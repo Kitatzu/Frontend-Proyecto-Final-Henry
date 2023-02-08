@@ -1,6 +1,7 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import Global from "../../Global";
+import { socket } from "../../socket/socket";
 import { setIsLoading, setIsLog, setUserName } from "../Slices";
 
 export const RegisterUser = (form) => {
@@ -36,6 +37,7 @@ export const RegisterUser = (form) => {
         }).then(async (response) => {
           await dispatch(setUserName(userData.userName));
           await dispatch(setIsLog(data.data.newToken));
+          socket.emit("sendSumUsers");
         });
       })
       .catch((response) => {

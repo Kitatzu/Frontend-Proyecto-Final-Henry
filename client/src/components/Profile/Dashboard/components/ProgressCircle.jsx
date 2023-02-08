@@ -1,10 +1,28 @@
-import { Box, useTheme } from "@mui/material";
-import { tokens } from "../theme";
-
-const ProgressCircle = ({ progress = "0.75", size = "40" }) => {
+import { Box, Typography, useTheme } from "@mui/material";
+import { useEffect, useState } from "react";
+import { tokens } from "../Utils/Theme/theme";
+import io from "socket.io-client";
+import Global from "../../../../Global";
+const socket = io(Global.URL);
+const ProgressCircle = ({ realProgress = 0.1, size = "40" }) => {
+  // const [realProgress, setRealProgress] = useState(0.0);
+  // const [reward, setReward] = useState(0.0);
+  // useEffect(() => {
+  //   if (realProgress === 0.0) {
+  //     socket.emit("getDataSold");
+  //   }
+  //   socket.on("DataSold", (data) => {
+  //     setRealProgress(data.promedio);
+  //   });
+  //   return () => {
+  //     socket.off("DataSold", (data) => {
+  //       setRealProgress(data.promedio);
+  //     });
+  //   };
+  // }, [realProgress]);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const angle = progress * 360;
+  const angle = realProgress * 360;
   return (
     <Box
       sx={{
@@ -14,8 +32,15 @@ const ProgressCircle = ({ progress = "0.75", size = "40" }) => {
         borderRadius: "50%",
         width: `${size}px`,
         height: `${size}px`,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
       }}
-    />
+    >
+      <Typography variant="h9" fontWeight={800} letterSpacing={1.5}>
+        {(parseFloat(realProgress) * 100).toFixed(2)}%
+      </Typography>
+    </Box>
   );
 };
 

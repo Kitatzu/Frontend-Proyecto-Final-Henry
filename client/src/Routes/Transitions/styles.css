@@ -17,6 +17,6 @@
     opacity: 0;
     transform: translate(0, 60px);
   
-    transition: opacity 500ms ease-out, transform 600ms ease;
+    transition: opacity 250ms ease-out, transform 300ms ease;
   }
   

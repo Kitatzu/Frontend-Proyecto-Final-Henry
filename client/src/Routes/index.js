@@ -1,4 +1,5 @@
 import { Route, Routes, useLocation } from "react-router-dom";
+
 import Home from "../components/Home/Home";
 import LandingPage from "../components/LandingPage/LandingPage";
 import CreateProduct from "../components/Profile/Dashboard/CreateProduct/CreateProduct";
@@ -15,9 +16,11 @@ import UsersTable from "../components/Profile/Dashboard/tableUsers/UsersTable";
 import PageNotFound from "../components/PageNotFound/PageNotFound";
 import FacturaTable from "../components/Profile/Facturas/FacturaTable/FacturaTable";
 import VerifCode from "../components/VerifCode/VerifCode";
-import Chat from "../components/Chat/Chat";
+import Calendar from "../components/Profile/Dashboard/components/calendar/calendar";
+
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import "./Transitions/styles.css";
+import Series from "../components/Profile/Dashboard/Inventory/Series/Series";
 
 const Routers = () => {
   const location = useLocation();
@@ -32,19 +35,23 @@ const Routers = () => {
           <Route path={"products/:id"} element={<CardsDetails />} />
           <Route path={"dashboard/crud"} element={<CreateProduct />} />
           <Route path={"dashboard/users"} element={<UsersTable />} />
-          <Route path={"dashboard/facturas"} element={<FacturaTable />} />
+          <Route path={"/invoices"} element={<FacturaTable />} />
           <Route path="dashboard/inventory" element={<Inventory />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="account" element={<AccountSettings />} />
           <Route path={"cart"} element={<Cart />} />
           <Route path={"verification"} element={<VerifCode />} />
-          <Route path={"/factura/:facturaId"} element={<Factura />} />
-          {/* <Route path={"/chat"} element={< Chat/>} /> */}
+          <Route path={"/invoices/invoice/:facturaId"} element={<Factura />} />
+          <Route path={"/calendar"} element={<Calendar />} />
+          <Route
+            path="/dashboard/inventory/series/:productId"
+            element={<Series />}
+          />
+          {/* <Route path={"/chat"} element={<Chat />} /> */}
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </CSSTransition>
     </TransitionGroup>
-
   );
 };
 export default Routers;
