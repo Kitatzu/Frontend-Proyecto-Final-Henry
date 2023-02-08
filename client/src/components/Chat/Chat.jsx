@@ -65,6 +65,13 @@ const useChatStyles = makeStyles((theme) => ({
     justifyContent: "flex-start",
     backgroundColor: "#FFEDD4",
   },
+  date: {
+    display: "flex",
+    justifyContent: "center",
+    backgroundColor: "#184FF5",
+    color: "white",
+    borderRadius: "10%",
+  },
 }));
 
 export default function Chat() {
@@ -128,29 +135,77 @@ export default function Chat() {
     setUser(e.target.value);
   };
 
-  const listChatMessages = messages.map((message, index) => (
-    <ListItem
-      key={index}
-      className={
-        message.user.userName === userName ? classes.userBox : classes.otherBox
+  const formatDate = (date) => {
+    const options = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+    const formattedDate = new Date(date).toLocaleDateString("es-ES", options);
+    return formattedDate;
+  };
+  const formatTime = (date) => {
+    const options = { hour: "numeric", minute: "numeric" };
+    const formattedTime = new Date(date).toLocaleTimeString("es-ES", options);
+    return formattedTime;
+  };
+
+  const listChatMessages = messages.map((message, index) => {
+    let showDate = false;
+
+    if (index === 0) {
+      showDate = true;
+    } else {
+      const previousMessage = messages[index - 1];
+      const currentMessageDate = new Date(message.createdAt).toDateString();
+      const previousMessageDate = new Date(
+        previousMessage.createdAt
+      ).toDateString();
+
+      if (currentMessageDate !== previousMessageDate) {
+        showDate = true;
       }
-    >
-      <ListItemAvatar>
-        <Avatar src={message.user.avatar} alt={firstName} />
-      </ListItemAvatar>
-      <Box>
-        <ListItemText
-          primary={`${message.content}`}
+    }
+    return (
+      <React.Fragment key={index}>
+        {showDate && (
+          <ListItem>
+            <ListItemText
+              primary={`${formatDate(message.createdAt)}`}
+              className={classes.date}
+            />
+          </ListItem>
+        )}
+        <ListItem
+          key={index}
           className={
             message.user.userName === userName
-              ? classes.userMessageText
-              : classes.otherMessageText
+              ? classes.userBox
+              : classes.otherBox
           }
-          sx={{ padding: "8px" }}
-        />
-      </Box>
-    </ListItem>
-  ));
+        >
+          <ListItemAvatar>
+           
+            <Avatar src={message.user.avatar} secondary={firstName} />
+            
+          </ListItemAvatar>
+          <Box>
+            <ListItemText
+              primary={`${message.content}`}
+              secondary={`${formatTime(message.createdAt)}`}
+              className={
+                message.user.userName === userName
+                  ? classes.userMessageText
+                  : classes.otherMessageText
+              }
+              sx={{ padding: "8px" }}
+            />
+          </Box>
+        </ListItem>
+      </React.Fragment>
+    );
+  });
 
   const handleEnterKey = (e) => {
     if (e.keyCode === ENTER_KEY_CODE) {
@@ -182,7 +237,7 @@ export default function Chat() {
           }}
         >
           <Container>
-            <Bar />
+            {/* <Bar /> */}
             <Paper elevation={5}>
               <Box
                 p={3}
@@ -213,12 +268,13 @@ export default function Chat() {
                       <TextField
                         onChange={handleUserChange}
                         value={firstName}
-                        color="primary"
+                        /* color="primary" */
                         sx={{ width: "80px" }}
                         focused
                         InputProps={{
                           style: {
                             backgroundColor: "#184FF5",
+                            color: "white",
                           },
                         }}
                       />

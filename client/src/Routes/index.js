@@ -19,6 +19,7 @@ import Chat from "../components/Chat/Chat";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import "./Transitions/styles.css";
 
+
 const Routers = () => {
   const location = useLocation();
   return (
@@ -39,8 +40,7 @@ const Routers = () => {
           <Route path={"cart"} element={<Cart />} />
           <Route path={"verification"} element={<VerifCode />} />
           <Route path={"/factura/:facturaId"} element={<Factura />} />
-          {/* <Route path={"/chat"} element={< Chat/>} /> */}
-          <Route path="*" element={<PageNotFound />} />
+                    <Route path="*" element={<PageNotFound />} />
         </Routes>
       </CSSTransition>
     </TransitionGroup>

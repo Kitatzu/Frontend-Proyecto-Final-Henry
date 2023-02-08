@@ -96,9 +96,18 @@ export default function NavBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-      {isLog && <MenuItem onClick={logOut}>Log out</MenuItem>}
+      <MenuItem onClick={handleMenuClose}>
+        <Link to="/account" style={{ color: "black" }}>
+          {" "}
+          Perfil{" "}
+        </Link>
+      </MenuItem>
+      {isLog && (
+        <MenuItem onClick={logOut} style={{ color: "black" }}>
+          {" "}
+          Log out{" "}
+        </MenuItem>
+      )}
     </Menu>
   );
 
@@ -197,7 +206,7 @@ export default function NavBar() {
             </Link>
           </IconButton>
 
-         {/*  <Box display={{ xs: "none", sm: "flex" }}>
+          {/*  <Box display={{ xs: "none", sm: "flex" }}>
             {url === "home" && (urlRoute === "" || urlRoute === undefined) ? (
               <SearchBar />
             ) : null}
@@ -206,7 +215,7 @@ export default function NavBar() {
           <Box sx={{ alignItems: "center" }}>
             <MuiSwitch />
             <Box display={{ xs: "inline-block", md: "inline-block" }}>
-             {/*  <Notifications /> */}
+              {/*  <Notifications /> */}
             </Box>
             <IconButton
               size="large"
