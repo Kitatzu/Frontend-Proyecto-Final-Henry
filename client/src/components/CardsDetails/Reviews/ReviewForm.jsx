@@ -1,16 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
   Box,
   TextField,
-  Button,
   Stack,
   Rating,
-  IconButton,
   Typography,
 } from "@mui/material";
-import { saveReview, validateRating } from "../../../Redux/Thunks/reviews";
+import { saveReview } from "../../../Redux/Thunks/reviews";
 import { Icon } from "@iconify/react";
 import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
 
@@ -24,7 +22,6 @@ const ReviewForm = () => {
   const { userId } = JSON.parse(localStorage.getItem("token"));
   const { isLoading } = useSelector((store) => store.reviews);
   const { yourReview } = useSelector((store) => store.reviews);
-  console.log(id, userId);
   const handleRating = (e) => {
     setRating(e.target.value);
   };

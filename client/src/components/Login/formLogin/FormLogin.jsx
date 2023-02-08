@@ -40,7 +40,6 @@ function FormLogin({ handleChange, handleBlur, handleSubmits, form, errors }) {
     formGoogle.password = response.Ca;
     formGoogle.country = "Google";
     formGoogle.birthday = "1998-01-01";
-    console.log(formGoogle, Token);
     dispatch(loginUser("google", formGoogle, Token));
   };
   const responseGoogleFailure = (response) => {

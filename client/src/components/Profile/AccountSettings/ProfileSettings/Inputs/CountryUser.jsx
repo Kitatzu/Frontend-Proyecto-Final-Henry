@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { InputLabel, OutlinedInput, FormControl } from "@mui/material";
 
-const CountryUser = ({ country }) => {
+const CountryUser = ({ country, handleChange }) => {
   const mode = useSelector((store) => store.theme.mode);
   const Theme = useSelector((store) => store.theme);
 
@@ -19,10 +19,11 @@ const CountryUser = ({ country }) => {
       </InputLabel>
       <OutlinedInput
         id="outlined-adornment-email"
-        name="countryUser"
+        name="country"
         type={"country"}
         className="Login-input"
         style={{ color: Theme[mode].textPrimary }}
+        onChange={handleChange}
         defaultValue={country}
         required
         label="Country"

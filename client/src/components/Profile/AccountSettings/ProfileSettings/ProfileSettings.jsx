@@ -24,11 +24,11 @@ const ProfileSettings = () => {
     useSelector((store) => store.users);
   const [image, setImage] = useState(false);
   const [previewUrl, setPreviewUrl] = useState(null);
-  // const [updateUser, setUpdateUser] = useState({
-  //   city: city,
-  //   country: country,
-  //   phone: phone,
-  // });
+  const [updateUser, setUpdateUser] = useState({
+    city: city,
+    country: country,
+    phone: phone,
+  });
   const dispatch = useDispatch();
   const userId = JSON.parse(localStorage.getItem("token")).userId;
 
@@ -36,30 +36,29 @@ const ProfileSettings = () => {
     setImage(el.target.files["0"]);
     setPreviewUrl(URL.createObjectURL(el.target.files[0]));
     console.log(el.target.files["0"]);
-    
   };
 
-  // const handleChange = (e) => {
-  //   setUpdateUser({
-  //     ...updateUser,
-  //     [e.target.value]: e.target.value,
-  //   });
-  // };
+  const handleChange = (e) => {
+    setUpdateUser({
+      ...updateUser,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleSave = (e) => {
     const formData = new FormData();
 
-    // formData.append("country", updateUser.country);
-    // formData.append("city", updateUser.city);
-    // formData.append("phone", updateUser.phone);
+    formData.append("country", updateUser.country);
+    formData.append("city", updateUser.city);
+    formData.append("phone", updateUser.phone);
     if (image) {
       console.log(image);
       formData.append("avatar", image);
     }
     (async () => {
+      console.log(updateUser);
       dispatch(userUpdate(userId, formData));
     })();
-    console.log(formData);
   };
 
   return (
@@ -99,14 +98,21 @@ const ProfileSettings = () => {
         </Box>
         <Box>
           <CountryUser
-            country={country}
+            country={updateUser.country ? updateUser.country : country}
+            handleChange={handleChange}
           />
         </Box>
         <Box>
-          <CityUser city={city} />
+          <CityUser
+            city={updateUser.city ? updateUser.city : city}
+            handleChange={handleChange}
+          />
         </Box>
         <Box>
-          <PhoneUser phone={phone} />
+          <PhoneUser
+            phone={updateUser.phone ? updateUser.phone : phone}
+            handleChange={handleChange}
+          />
         </Box>
       </CardContent>
       <CardActions>

@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
 import { IconButton } from "@mui/material";
-
+import { useState } from "react";
 import { Box } from "@mui/system";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,11 +13,15 @@ export default function SideBar() {
   const theme = useSelector((store) => store.theme);
   const { isLog } = useSelector((store) => store.users);
   const dispatch = useDispatch();
+  const [admin,setAdmin] = useState(" ");
   useEffect(() => {
     if (JSON.parse(localStorage.getItem("token")) !== null) {
       dispatch(setUserName(JSON.parse(localStorage.getItem("token")).userName));
       dispatch(setIsLog(JSON.parse(localStorage.getItem("token")).token));
     }
+    if(JSON.parse(localStorage.getItem("token"))?.rol==="Admin"){
+      setAdmin("1");
+    }else{setAdmin("0")}
   }, []);
   return (
     <Box
@@ -59,8 +63,8 @@ export default function SideBar() {
               </Link>
             </IconButton>
           </Box>
-
           <Box>
+          {admin==="1"?(
             <IconButton>
               <Link to={"/dashboard"}>
                 <Icon
@@ -68,7 +72,7 @@ export default function SideBar() {
                   color={theme[mode].textPrimary}
                 />
               </Link>
-            </IconButton>
+            </IconButton>):null}
           </Box>
           <Box>
             <IconButton>

@@ -1,4 +1,4 @@
-import { Input, Box, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { filterPrice, filterProduct } from "../../Redux/Slices";
@@ -11,7 +11,6 @@ function FilterPrice() {
     function handlePrice(e) {
         dispatch(filterPrice({ name: e.target.name, value: e.target.value }));
         dispatch(filterProduct());
-        console.log(e.target.name, e.target.value);
     }
     return (
         <Box display={"flex"} gap="20px" flexWrap={"wrap"} >
