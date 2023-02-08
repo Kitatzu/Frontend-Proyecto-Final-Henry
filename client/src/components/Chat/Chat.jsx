@@ -1,5 +1,7 @@
 import React, { Fragment, useState, useEffect, useRef } from "react";
 import { makeStyles } from "@mui/styles";
+import io from "socket.io-client";
+import Global from "../../Global";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Avatar,
@@ -19,14 +21,14 @@ import {
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import SendIcon from "@mui/icons-material/Send";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import ChatIcon from "@mui/icons-material/Chat";
 import "./Chat.css";
 import Bar from "../Bar/Bar";
-// import { socket } from "../../socket/socket";
-import io from "socket.io-client";
-import Global from "../../Global";
-const socket = io(Global.URL);
+import { convertLength } from "@mui/material/styles/cssUtils";
+
+export const socket = io(Global.URL);
 const useChatStyles = makeStyles((theme) => ({
   userMessageText: {
     color: "black",
@@ -63,6 +65,13 @@ const useChatStyles = makeStyles((theme) => ({
     justifyContent: "flex-start",
     backgroundColor: "#FFEDD4",
   },
+  date: {
+    display: "flex",
+    justifyContent: "center",
+    backgroundColor: "#184FF5",
+    color: "white",
+    borderRadius: "10%",
+  },
 }));
 
 export default function Chat() {
@@ -89,7 +98,8 @@ export default function Chat() {
     e.preventDefault();
     const newMessage = {
       content: message,
-      user: { userName, avatar },
+      user: { userName, avatar},
+      createdAt: new Date(),
     };
     socket.emit("message", newMessage);
     setMessages([...messages, newMessage]);
@@ -98,11 +108,12 @@ export default function Chat() {
 
   useEffect(() => {
     const receiveMessage = (message) => {
+
       setMessages([...messages, message]);
-      if (scrollBottomRef.current) {
-        /* const scrollBottom = scrollBottomRef.current.scrollTop() + scrollBottomRef.current.height() */
+      /* if (scrollBottomRef.current) {
+        const scrollBottom = scrollBottomRef.current.scrollTop() + scrollBottomRef.current.height()
         scrollBottomRef.current.scrollIntoView({ behavior: "smooth" });
-      }
+      } */
     };
     const getMessages = (allMessages) => {
       setMessages(allMessages);
@@ -119,33 +130,86 @@ export default function Chat() {
     };
   }, [messages]);
 
+  useEffect(() => {
+    if (scrollBottomRef.current) {
+      scrollBottomRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
+
   const handleUserChange = (e) => {
     setUser(e.target.value);
   };
 
-  const listChatMessages = messages.map((message, index) => (
-    <ListItem
-      key={index}
-      className={
-        message.user.userName === userName ? classes.userBox : classes.otherBox
+  const formatDate = (date) => {
+    const options = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+    const formattedDate = new Date(date).toLocaleDateString("es-ES", options);
+    return formattedDate;
+  };
+  const formatTime = (date) => {
+    const options = { hour: "numeric", minute: "numeric" };
+    const formattedTime = new Date(date).toLocaleTimeString("es-ES", options);
+    return formattedTime;
+  };
+
+  const listChatMessages = messages.map((message, index) => {
+    let showDate = false;
+    if (index === 0) {
+      showDate = true;
+    } else {
+      const previousMessage = messages[index - 1];
+      const currentMessageDate = new Date(message.createdAt).toDateString();
+      const previousMessageDate = new Date(
+        previousMessage.createdAt
+      ).toDateString();
+
+      if (currentMessageDate !== previousMessageDate) {
+        showDate = true;
       }
-    >
-      <ListItemAvatar>
-        <Avatar src={message.user.avatar} alt={firstName} />
-      </ListItemAvatar>
-      <Box>
-        <ListItemText
-          primary={`${message.content}`}
+    }
+    return (
+      <React.Fragment key={index}>
+        {showDate && (
+          <ListItem>
+            <ListItemText
+              primary={`${formatDate(message.createdAt)}`}
+              className={classes.date}
+            />
+          </ListItem>
+        )}
+        <ListItem
+          key={index}
           className={
             message.user.userName === userName
-              ? classes.userMessageText
-              : classes.otherMessageText
+              ? classes.userBox
+              : classes.otherBox
           }
-          sx={{ padding: "8px" }}
-        />
-      </Box>
-    </ListItem>
-  ));
+        >
+          <ListItemAvatar>
+           
+            <Avatar src={message.user.avatar} secondary={firstName} />
+            
+          </ListItemAvatar>
+          <Box>
+            <ListItemText
+              primary={`${message.content}`}
+              secondary={`${formatTime(message.createdAt)}`}
+              className={
+                message.user.userName === userName
+                  ? classes.userMessageText
+                  : classes.otherMessageText
+              }
+              sx={{ padding: "8px" }}
+            />
+          </Box>
+        </ListItem>
+      </React.Fragment>
+    );
+  });
 
   const handleEnterKey = (e) => {
     if (e.keyCode === ENTER_KEY_CODE) {
@@ -158,9 +222,7 @@ export default function Chat() {
 
   return (
     <Fragment>
-      <Box component={"span"} className="pro-icon">
-        <ChatIcon onClick={handleOpen} />
-      </Box>
+      <ChatIcon onClick={handleOpen} />
       <Modal
         open={open}
         onClose={handleClose}
@@ -179,7 +241,7 @@ export default function Chat() {
           }}
         >
           <Container>
-            <Bar />
+            {/* <Bar /> */}
             <Paper elevation={5}>
               <Box
                 p={3}
@@ -210,12 +272,13 @@ export default function Chat() {
                       <TextField
                         onChange={handleUserChange}
                         value={firstName}
-                        color="primary"
+                        /* color="primary" */
                         sx={{ width: "80px" }}
                         focused
                         InputProps={{
                           style: {
                             backgroundColor: "#184FF5",
+                            color: "white",
                           },
                         }}
                       />
