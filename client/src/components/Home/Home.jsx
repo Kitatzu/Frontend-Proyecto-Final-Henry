@@ -271,17 +271,17 @@ export default function Home() {
               display={"flex"}
               justifyContent="center"
             >
-              {pages ? (
+              {pages>1 ? (
                 <Pagination
                   count={pages}
                   color="secondary"
                   onChange={(e) => {
                     console.log(e);
-
                     dispatch(getPage(e.target.innerText));
                   }}
                 />
-              ) : (
+              ) :null}
+              {pages ? null: (
                 <Alert severity="error">No hay stock disponible!</Alert>
               )}
             </Box>
