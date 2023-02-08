@@ -190,13 +190,29 @@ export default function Chat() {
                   background: theme[mode].primary,
                 }}
               >
-                <Typography
-                  variant="h5"
-                  gutterBottom
-                  sx={{ color: theme[mode].textPrimary, padding: "20px" }}
-                >
-                  Conversa con los especialistas...!!!
-                </Typography>
+                <Box display="flex">
+                  <Typography
+                    sx={{
+                      fontSize: { xs: "30px", sm: "40px" },
+                      fontWeight: 800,
+                      color: "#308FFD",
+                    }}
+                    component="h1"
+                  >
+                    NOVA
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontSize: { xs: "30px", sm: "40px" },
+                      fontWeight: 600,
+                      color: theme[mode].textPrimary,
+                    }}
+                    component="h1"
+                  >
+                    CHAT
+                  </Typography>
+                </Box>
+
                 <Divider />
                 <Grid container spacing={4} alignItems="center">
                   <Grid id="chat-window" xs={12} item>

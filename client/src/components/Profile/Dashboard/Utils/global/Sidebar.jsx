@@ -169,7 +169,7 @@ const Sidebar = ({ collapsed }) => {
               variant="h6"
               sx={{ m: "15px 0 5px 20px", color: theme[mode].textPrimary }}
             >
-              Pages
+              Paginas
             </Typography>
 
             <Item
