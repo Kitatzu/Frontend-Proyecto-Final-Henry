@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 import imgDefault from "../assets/imgDefault.png";
 import { Link } from "react-router-dom";
 
-const Cards = ({ key, id, description, img, name, price, rating }) => {
+const Cards = ({ key, id, img, name, price, rating }) => {
   const mode = useSelector((store) => store.theme.mode);
   const theme = useSelector((store) => store.theme);
   img = img ? img : imgDefault;
