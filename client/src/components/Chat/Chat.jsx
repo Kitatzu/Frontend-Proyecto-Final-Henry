@@ -112,10 +112,10 @@ export default function Chat() {
     const receiveMessage = (message) => {
      
       setMessages([...messages, message]);
-      if (scrollBottomRef.current) {
-        /* const scrollBottom = scrollBottomRef.current.scrollTop() + scrollBottomRef.current.height() */
+      /* if (scrollBottomRef.current) {
+        const scrollBottom = scrollBottomRef.current.scrollTop() + scrollBottomRef.current.height()
         scrollBottomRef.current.scrollIntoView({ behavior: "smooth" });
-      }
+      } */
     };
     const getMessages = (allMessages) => {
       setMessages(allMessages);
@@ -130,6 +130,12 @@ export default function Chat() {
       socket.off("message", receiveMessage);
       socket.off("get messages");
     };
+  }, [messages]);
+
+  useEffect(() => {
+    if (scrollBottomRef.current) {
+      scrollBottomRef.current.scrollIntoView({ behavior: "smooth" });
+    }
   }, [messages]);
 
   const handleUserChange = (e) => {
