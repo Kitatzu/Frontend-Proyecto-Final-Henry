@@ -48,7 +48,7 @@ export default function FacturaTable() {
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell align="center">
-                      <Link to={"/factura/" + e.id}>{e.numberBill}</Link>
+                      <Link to={"invoice/" + e.id}>{e.numberBill}</Link>
                     </TableCell>
                     <TableCell align="center">{e.total}</TableCell>
                     <TableCell align="center">{e.paymentId}</TableCell>

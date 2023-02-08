@@ -134,7 +134,11 @@ const Seguridad = () => {
   return (
     <Card
       variant="outlined"
-      sx={{ width: "100%", background: Theme[mode].primary }}
+      sx={{
+        width: "100%",
+        background: Theme[mode].cardSecondary,
+        padding: "20px",
+      }}
     >
       <CardContent>
         <Typography

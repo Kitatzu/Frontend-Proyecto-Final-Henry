@@ -1,4 +1,5 @@
 import { Route, Routes, useLocation } from "react-router-dom";
+
 import Home from "../components/Home/Home";
 import LandingPage from "../components/LandingPage/LandingPage";
 import CreateProduct from "../components/Profile/Dashboard/CreateProduct/CreateProduct";
@@ -15,9 +16,11 @@ import UsersTable from "../components/Profile/Dashboard/tableUsers/UsersTable";
 import PageNotFound from "../components/PageNotFound/PageNotFound";
 import FacturaTable from "../components/Profile/Facturas/FacturaTable/FacturaTable";
 import VerifCode from "../components/VerifCode/VerifCode";
-import Chat from "../components/Chat/Chat";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
+import Calendar from "../components/Profile/Dashboard/components/calendar/calendar";
+
+// import { TransitionGroup, CSSTransition } from "react-transition-group";
 import "./Transitions/styles.css";
+import Series from "../components/Profile/Dashboard/Inventory/Series/Series";
 
 
 const Routers = () => {
