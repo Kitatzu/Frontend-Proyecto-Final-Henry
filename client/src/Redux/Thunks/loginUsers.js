@@ -1,6 +1,7 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import Global from "../../Global";
+import { socket } from "../../socket/socket";
 import { setData, setIsLoading, setIsLog, setUserName } from "../Slices";
 export const loginUser = (origin, form, Token) => {
   return async (dispatch) => {
@@ -113,6 +114,7 @@ export const loginUser = (origin, form, Token) => {
                     email: data.data.email,
                   })
                 );
+                socket.emit("sendSumUsers");
               });
             })
             .catch((response) => {

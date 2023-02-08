@@ -51,9 +51,7 @@ const Sidebar = ({ collapsed }) => {
 
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
-  const { userName, firstName, lastName, avatar, email } = useSelector(
-    (store) => store.users
-  );
+  const { firstName, avatar } = useSelector((store) => store.users);
   return (
     <Box
       sx={{
@@ -95,7 +93,7 @@ const Sidebar = ({ collapsed }) => {
                   variant="h3"
                   sx={{ color: theme[mode].textPrimary }}
                 >
-                  ADMINIS
+                  NOVA
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />

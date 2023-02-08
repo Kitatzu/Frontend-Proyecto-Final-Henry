@@ -13,6 +13,7 @@ import { Navigate } from "react-router-dom";
 import SideBar from "../../SideBar/SideBar";
 import CountryInput from "./input/Input";
 import Input from "./input/Input";
+import { socket } from "../../../socket/socket";
 const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 
 const Cart = () => {
@@ -82,6 +83,7 @@ const Cart = () => {
       )
     );
     await dispatch(stockProucts(sendProducts));
+    socket.emit("sendDataSold");
     return actions.order.capture();
   };
 

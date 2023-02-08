@@ -17,6 +17,7 @@ function CardCategories({ value, id, img }) {
         margin: "20px",
         background: theme[mode].cardCategory,
         width: "300px",
+
         boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
       }}
       onClick={() => dispatch(getProductsByCategories(value))}
