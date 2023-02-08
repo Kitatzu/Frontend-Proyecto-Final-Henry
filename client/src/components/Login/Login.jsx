@@ -1,10 +1,9 @@
 import FormRegister from "./FormRegister/FormRegister";
 //import Nav from "./Nav/Nav";
 //import WavesLogin from "../Waves/WavesLogin/WavesLogin";
-import spin from "../assets/spin.png";
+// import spin from "../assets/spin.png";
 //import Presentation from "../Assets/img/Presentationlogin-presentation.png";
 import { useEffect, useState } from "react";
-import Grid2 from "@mui/material/Unstable_Grid2";
 //import "@fontsource/roboto/300.css";
 import { useDispatch, useSelector } from "react-redux";
 //import { useForm } from "../../Hooks/useForm";
@@ -15,8 +14,8 @@ import { useForm } from "../../hooks/useForm";
 import validationsForm from "../../utils/ValidationForm";
 import Nav from "../LandingPage/nav/Nav";
 import FormLogin from "./formLogin/FormLogin";
-import SideBar from "../SideBar/SideBar";
-import { Link, Navigate } from "react-router-dom";
+import Loading from "../Loading/Loading";
+import { Navigate } from "react-router-dom";
 
 const Login = () => {
   const initialForm = {
@@ -33,15 +32,13 @@ const Login = () => {
   };
 
   const [loginType, setLoginType] = useState("login");
-  const url = window.location.href;
+  //const url = window.location.href;
 
   const mode = useSelector((state) => state.theme.mode);
   const Theme = useSelector((state) => state.theme);
   const {
     form,
     errors,
-    loading,
-    response,
     handleChange,
     handleBlur,
     handleSubmit,
@@ -67,16 +64,16 @@ const Login = () => {
     >
       {isLog && <Navigate to="/home" />}
       {isLoading ? (
-        // <Loading />
-        <Box
-          display={{ xs: "none", sm: "none", md: "flex" }}
-          position="absolute"
-          bottom={"0"}
-          right="0"
-          padding={"20px"}
-        >
-          <img className="spin" src={spin} alt="spin" />
-        </Box>
+         <Loading />
+        // <Box
+        //   display={{ xs: "none", sm: "none", md: "flex" }}
+        //   position="absolute"
+        //   bottom={"0"}
+        //   right="0"
+        //   padding={"20px"}
+        // >
+        //   <img className="spin" src={spin} alt="spin" />
+        // </Box>
       ) : (
         <Box minHeight={"100vh"} sx={{ background: Theme[mode].primary }}>
           <Nav setLoginType={setLoginType} />

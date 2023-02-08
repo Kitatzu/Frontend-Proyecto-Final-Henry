@@ -5,7 +5,7 @@ import Graphs from "./components/Graphs/Graphs";
 import Sidebar from "./Utils/global/Sidebar";
 import ProgressCircle from "./components/ProgressCircle";
 import { IconButton, Typography } from "@mui/material";
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { socket } from "../../../socket/socket";
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";

@@ -9,7 +9,7 @@ import { getPage, getProductsByCategories } from "../../Redux/Thunks/Products";
 import { getCategories } from "../../Redux/Thunks/categories";
 import SearchBar from "../SearchBar/SearchBar";
 import Footer from "../Footer/Footer";
-
+import Loading from "../Loading/Loading";
 import {
   filterPrice,
   filterProduct,
@@ -247,7 +247,7 @@ export default function Home() {
                 alignItems: "center",
               }}
             >
-              {isLoading && <div></div>}
+              {isLoading && <Loading/>}
               {tempProducts
                 ? tempProducts?.map((el, key) => {
                     return (
