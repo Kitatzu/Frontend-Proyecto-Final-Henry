@@ -11,7 +11,6 @@ import React from "react";
 import { createFactura, stockProucts } from "../../../Redux/Thunks/factura";
 import { Navigate } from "react-router-dom";
 import SideBar from "../../SideBar/SideBar";
-import CountryInput from "./input/Input";
 import Input from "./input/Input";
 import { socket } from "../../../socket/socket";
 const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });

@@ -5,8 +5,6 @@ import {
   Typography,
   Chip,
   IconButton,
-  Input,
-  TextField,
 } from "@mui/material";
 import bgDefault from "../../../assets/imgDefault.png";
 import { Icon } from "@iconify/react";
