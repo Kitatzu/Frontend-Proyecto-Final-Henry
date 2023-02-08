@@ -12,10 +12,16 @@ import {
   TableRow,
   Select,
   MenuItem,
+  Modal,
+  List,
+  ListItem,
+  ListItemButton,
+  Button,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import {
   getPage,
   getProducts,
@@ -23,13 +29,17 @@ import {
   pageStatusCero,
 } from "../../../../Redux/Thunks/Products";
 import NavBar from "../../../NavBar/NavBar";
-import SideBar from "../../../SideBar/SideBar";
+import Sidebar from "../Utils/global/Sidebar";
+import Series from "./Series/Series.jsx";
 
 const Inventory = () => {
+  const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const { products } = useSelector((store) => store.products);
   const { pages } = useSelector((store) => store.products);
   const [page, setPage] = useState(1);
+  const theme = useSelector((store) => store.theme);
+  const mode = useSelector((store) => store.theme.mode);
   /*  console.log(products); */
   useEffect(() => {
     dispatch(getPage(0));
@@ -72,17 +82,33 @@ const Inventory = () => {
       console.log(page);
     }
   }
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   return (
     <Box>
       <NavBar />
       <Box display={"flex"}>
-        <SideBar />
-        <Box width={"100%"} padding="20px">
-          <TableContainer sx={{ width: { xs: "100%" } }} component={Paper}>
-            <Select value={status} onChange={(e) => handlerSelect(e)}>
+        <Sidebar />
+        <Box
+          padding="20px"
+          flexGrow={1}
+          minHeight="1000px"
+          sx={{ background: theme[mode].primary }}
+        >
+          <Box padding="20px 0">
+            <Select
+              value={status}
+              onChange={(e) => handlerSelect(e)}
+              sx={{
+                color: theme[mode].textPrimary,
+                background: "rgba(255,255,255,.2)",
+              }}
+            >
               <MenuItem value={"1"}>Producto activo</MenuItem>
               <MenuItem value={"0"}>Producto eliminado</MenuItem>
             </Select>
+          </Box>
+          <TableContainer sx={{ width: { xs: "100%" } }} component={Paper}>
             <Table>
               <TableHead>
                 <TableCell>Name</TableCell>
@@ -97,7 +123,13 @@ const Inventory = () => {
                 {products?.length > 0 ? (
                   products.map((prods) => (
                     <TableRow key={prods.id}>
-                      <TableCell>{prods.name}</TableCell>
+                      <TableCell>
+                        <Button>
+                          <Link to={"/dashboard/inventory/series/" + prods.id}>
+                            {prods.name}
+                          </Link>
+                        </Button>
+                      </TableCell>
                       <TableCell>{prods.price}</TableCell>
                       <TableCell>{prods.stock}</TableCell>
                       <TableCell>{prods.rating}</TableCell>
@@ -106,11 +138,7 @@ const Inventory = () => {
                           ? prods.categories[0].name
                           : null}
                       </TableCell>
-                      <TableCell>
-                        <IconButton>
-                          <Icon icon="carbon:db2-buffer-pool" />
-                        </IconButton>
-                      </TableCell>
+                      <TableCell></TableCell>
                     </TableRow>
                   ))
                 ) : (

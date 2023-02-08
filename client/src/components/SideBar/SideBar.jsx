@@ -1,10 +1,10 @@
 import { Icon } from "@iconify/react";
-import { IconButton, Typography } from "@mui/material";
-import ChatIcon from '@mui/icons-material/Chat';
+import { IconButton } from "@mui/material";
+
 import { Box } from "@mui/system";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { setIsLog, setUserName } from "../../Redux/Slices";
 import Chat from "../Chat/Chat";
 
@@ -71,12 +71,19 @@ export default function SideBar() {
             </IconButton>
           </Box>
           <Box>
-          <IconButton>
-            {/* <Link to={"/chat"}> */}
-              <Chat/>
-           {/*  </Link> */}
-          </IconButton>
-        </Box>
+            <IconButton>
+              <Link to={"/invoices"}>
+                <Icon icon="uil:invoice" color={theme[mode].textPrimary} />
+              </Link>
+            </IconButton>
+          </Box>
+          <Box>
+            <IconButton>
+              {/* <Link to={"/chat"}> */}
+              <Chat />
+              {/*  </Link> */}
+            </IconButton>
+          </Box>
         </Box>
       )}
     </Box>

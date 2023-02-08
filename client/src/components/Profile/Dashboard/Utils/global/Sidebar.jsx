@@ -5,19 +5,16 @@ import { Link } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../Theme/theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
 import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
-import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
-import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
-import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
-import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserA } from "../../../../../Redux/Thunks/getUser";
+import Chat from "../../../../Chat/Chat";
+import AddAlertIcon from "@mui/icons-material/AddAlert";
+import InventoryIcon from "@mui/icons-material/Inventory";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -37,8 +34,10 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
   );
 };
 
-const Sidebar = () => {
+const Sidebar = ({ collapsed }) => {
   const dispatch = useDispatch();
+  const mode = useSelector((store) => store.theme.mode);
+  const theme = useSelector((store) => store.theme);
   const userId = JSON.parse(localStorage.getItem("token"))
     ? JSON.parse(localStorage.getItem("token")).userId
     : null;
@@ -47,21 +46,17 @@ const Sidebar = () => {
     if (userId) {
       dispatch(getUserA(userId));
     }
-    //TODO: DISPATCH A THUNK GETUSERA
-  }, [dispatch, userId]);
+    collapsed !== undefined ? setIsCollapsed(collapsed) : setIsCollapsed(false);
+  }, [dispatch, userId, collapsed]);
 
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
-  const { userName, firstName, lastName, avatar, email } = useSelector(
-    (store) => store.users
-  );
+  const { firstName, avatar } = useSelector((store) => store.users);
   return (
     <Box
       sx={{
         "& .pro-sidebar-inner": {
-          background: `${colors.primary[400]} !important`,
+          background: `${theme[mode].sidebar} !important`,
         },
         "& .pro-icon-wrapper": {
           backgroundColor: "transparent !important",
@@ -85,7 +80,6 @@ const Sidebar = () => {
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
             style={{
               margin: "10px 0 20px 0",
-              color: colors.grey[100],
             }}
           >
             {!isCollapsed && (
@@ -95,8 +89,11 @@ const Sidebar = () => {
                 alignItems="center"
                 ml="15px"
               >
-                <Typography variant="h3" color={colors.grey[100]}>
-                  ADMINIS
+                <Typography
+                  variant="h3"
+                  sx={{ color: theme[mode].textPrimary }}
+                >
+                  NOVA
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
@@ -122,13 +119,15 @@ const Sidebar = () => {
               <Box textAlign="center">
                 <Typography
                   variant="h4"
-                  color={colors.grey[100]}
                   fontWeight="bold"
-                  sx={{}}
+                  sx={{ color: theme[mode].textPrimary }}
                 >
                   {firstName?.toUpperCase()}
                 </Typography>
-                <Typography variant="h5" color={colors.greenAccent[500]}>
+                <Typography
+                  variant="h5"
+                  sx={{ color: theme[mode].textPrimary }}
+                >
                   Admin
                 </Typography>
               </Box>
@@ -138,7 +137,7 @@ const Sidebar = () => {
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <Item
               title="Dashboard"
-              to="/"
+              to="/dashboard"
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -146,27 +145,27 @@ const Sidebar = () => {
 
             <Typography
               variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
+              sx={{ m: "15px 0 5px 20px", color: theme[mode].textPrimary }}
             >
-              Data
+              Datos
             </Typography>
+
             <Item
-              title="Manage Team"
-              to="/team"
-              icon={<PeopleOutlinedIcon />}
+              title="Inventario"
+              to="/dashboard/inventory"
+              icon={<InventoryIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Contacts Information"
-              to="/contacts"
-              icon={<ContactsOutlinedIcon />}
+              title="Usuarios"
+              to="/dashboard/users"
+              icon={<PersonOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Invoices Balances"
+              title="Facturas"
               to="/invoices"
               icon={<ReceiptOutlinedIcon />}
               selected={selected}
@@ -175,65 +174,51 @@ const Sidebar = () => {
 
             <Typography
               variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
+              sx={{ m: "15px 0 5px 20px", color: theme[mode].textPrimary }}
             >
               Pages
             </Typography>
+
             <Item
-              title="Profile Form"
-              to="/form"
-              icon={<PersonOutlinedIcon />}
+              title="Crear productos"
+              to="/dashboard/crud"
+              icon={<ContactsOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Calendar"
+              title="Calendario"
               to="/calendar"
               icon={<CalendarTodayOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="FAQ Page"
-              to="/faq"
-              icon={<HelpOutlineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
 
             <Typography
               variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
+              sx={{ m: "15px 0 5px 20px", color: theme[mode].textPrimary }}
             >
-              Charts
+              Herramientas
             </Typography>
+
+            <Box component={"li"} className="pro-menu-item">
+              <Box className="pro-inner-item" component={"div"} role="button">
+                <Box component={"span"} className="pro-icon-wrapper">
+                  <IconButton>
+                    {/* <Link to={"/chat"}> */}
+                    <Chat />
+                    {/*  </Link> */}
+                  </IconButton>
+                </Box>
+                <Box component={"span"} className="pro-item-content">
+                  <Typography>Chat</Typography>
+                </Box>
+              </Box>
+            </Box>
             <Item
-              title="Bar Chart"
-              to="/bar"
-              icon={<BarChartOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Pie Chart"
-              to="/pie"
-              icon={<PieChartOutlineOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Line Chart"
-              to="/line"
-              icon={<TimelineOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Geography Chart"
-              to="/geography"
-              icon={<MapOutlinedIcon />}
+              title="Agregar alerta"
+              to="/notify"
+              icon={<AddAlertIcon />}
               selected={selected}
               setSelected={setSelected}
             />

@@ -113,7 +113,7 @@ export const addProduct = (serie, productId) => {
       .then((response) => {
         console.log(response);
         dispatch(setSeriesProducts(response.data.newSerie.serie));
-        dispatch(getProducts());
+        dispatch(getPage(1));
         dispatch(setLoadingProducts(false));
       })
       .catch((response) => {
@@ -141,6 +141,7 @@ export const getPage = (page) => {
       await axios
         .get(`${Global.URL}/products/page/${page}`)
         .then((response) => {
+          console.log(response.data);
           dispatch(setProducts(response.data));
         })
         .catch((response) => {
@@ -191,7 +192,7 @@ export const pageStatusCero = (page) => {
         .get(`${Global.URL}/products/page0/${page}`)
         .then((response) => {
           dispatch(setPages(response.data.pages));
-          console.log(response.data.pages)
+          console.log(response.data.pages);
         })
         .catch((response) => {
           Toast.fire({ icon: "error", title: response.response.data.msg });
@@ -212,16 +213,18 @@ export const pageStatusCero = (page) => {
   }
 };
 
-export const deletedProducts=()=>{
-  return async(dispatch)=>{
+export const deletedProducts = () => {
+  return async (dispatch) => {
     dispatch(setLoadingProducts(true));
-    await axios.get(`${Global.URL}/products/status`)
-    .then((response)=>{
-      dispatch(setDeletedProducts(response.data))
-      dispatch(setLoadingProducts(false))
-    })
-    .catch((response)=>{dispatch(setLoadingProducts(false))
-    console.log(response)
-  });
+    await axios
+      .get(`${Global.URL}/products/status`)
+      .then((response) => {
+        dispatch(setDeletedProducts(response.data));
+        dispatch(setLoadingProducts(false));
+      })
+      .catch((response) => {
+        dispatch(setLoadingProducts(false));
+        console.log(response);
+      });
   };
 };

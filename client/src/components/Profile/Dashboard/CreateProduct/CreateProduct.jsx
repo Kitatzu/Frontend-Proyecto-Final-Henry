@@ -25,6 +25,7 @@ import Toast from "../../../Toast/Toast";
 import { getBrands } from "../../../../Redux/Thunks/brand";
 import Brands from "./inputs/Brands";
 import SideBar from "../../../SideBar/SideBar";
+import Sidebar from "../Utils/global/Sidebar";
 export default function CreateProduct() {
   const dispatch = useDispatch();
 
@@ -113,15 +114,15 @@ export default function CreateProduct() {
   };
 
   return (
-    <Box sx={{ width: "100%", height: "100vh", overflow: "hidden" }}>
+    <Box sx={{ width: "100%" }}>
       <NavBar />
-      <Box display={"flex"}>
-        <SideBar />
+      <Box display={"flex"} height="max-content" position="relative">
+        <Sidebar />
         <Box
           sx={{
-            width: { xs: "100%", sm: "calc(100% - 80px)" },
-            height: "calc(100vh - 64px)",
-            overflow: "scroll",
+            flexGrow: 1,
+            height: "100%",
+            minHeight: "950.2px",
             background: theme[mode].primary,
           }}
         >
@@ -140,6 +141,12 @@ export default function CreateProduct() {
               alignContent="center"
               alignItems={"center"}
               width={{ xs: "100%", sm: "420px" }}
+              sx={{
+                background: "rgba(255,255,255,.3)",
+                backdropFilter: "blur(20px)",
+                padding: "20px",
+                borderTop: theme.mode === "dark" ? "8px solid #4EEB0D" : "none",
+              }}
             >
               <Box
                 width={{ xs: "100%", sm: "45%" }}

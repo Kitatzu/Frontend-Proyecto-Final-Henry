@@ -11,8 +11,9 @@ const initialState = {
     buttonPrimary:
       "linear-gradient(135.13deg, #7DFFB4 10.46%, #4244FF 127.81%)",
     card: "#585858",
-    cardSecondary: "rgba(255,255,255,.5)",
+    cardSecondary: "#FF23FF",
     cardCategory: "#C524FE",
+    cardForm: "#CD2C8B",
   },
   light: {
     primary: "#FAFAFA",
@@ -20,6 +21,7 @@ const initialState = {
     textSecondary: "#565656",
     sidebar: "white",
     cardCategory: "#282828",
+    cardForm: "rgba(255,255,255,.1)",
     buttonPrimary:
       "linear-gradient(135.13deg, #7DFFB4 10.46%, #4244FF 127.81%)",
     card: "white",

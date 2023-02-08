@@ -20,12 +20,17 @@ import NavBar from "../../../NavBar/NavBar";
 import { setRedir } from "../../../../Redux/Slices";
 import { Navigate, useParams } from "react-router-dom";
 import { getFacturaDetail } from "../../../../Redux/Thunks/factura";
+import io from "socket.io-client";
+import Global from "../../../../Global";
+const socket = io(Global.URL);
 const Factura = () => {
   const { facturaId } = useParams();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getFacturaDetail(facturaId));
-  }, []);
+    socket.emit("sendDataSold");
+    socket.emit("sendProductSold");
+  }, [facturaId, dispatch]);
   const theme = useSelector((store) => store.theme);
   const mode = useSelector((store) => store.theme.mode);
   const products = useSelector(
@@ -55,8 +60,23 @@ const Factura = () => {
           <Box sx={{ padding: "20px" }}>
             <Card variant={"outlined"}>
               <CardContent>
-                <Box>
-                  <Typography>BoxTech</Typography>
+                <Box
+                  display={"flex"}
+                  justifyContent="flex-start"
+                  alignItems={"center"}
+                >
+                  <Typography
+                    sx={{
+                      fontSize: { xs: "30px", sm: "60px" },
+                      fontWeight: 800,
+                      color: "#308FFD",
+                    }}
+                  >
+                    NOVA
+                  </Typography>
+                  <Typography sx={{ fontSize: { xs: "30px", sm: "60px" } }}>
+                    Tech Power
+                  </Typography>
                 </Box>
                 <Box padding={"0 10px"}>
                   <Typography sx={{ color: theme[mode].textSecond }}>
