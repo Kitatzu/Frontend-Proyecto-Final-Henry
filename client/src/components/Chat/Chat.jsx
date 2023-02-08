@@ -98,7 +98,8 @@ export default function Chat() {
     e.preventDefault();
     const newMessage = {
       content: message,
-      user: { userName, avatar },
+      user: { userName, avatar},
+      createdAt: new Date(),
     };
     socket.emit("message", newMessage);
     console.log(newMessage);
