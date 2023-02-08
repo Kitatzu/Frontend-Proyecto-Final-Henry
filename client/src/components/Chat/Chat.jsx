@@ -92,15 +92,12 @@ export default function Chat() {
       user: { userName, avatar },
     };
     socket.emit("message", newMessage);
-    console.log(newMessage);
     setMessages([...messages, newMessage]);
-    console.log(messages);
     setMessage("");
   };
 
   useEffect(() => {
     const receiveMessage = (message) => {
-      console.log("mensajito", message);
       setMessages([...messages, message]);
       if (scrollBottomRef.current) {
         /* const scrollBottom = scrollBottomRef.current.scrollTop() + scrollBottomRef.current.height() */

@@ -10,7 +10,6 @@ import CradProduct from "./CardProduct/CardProduct";
 import SwiperCore, { Autoplay } from "swiper";
 import { useEffect, useState } from "react";
 import { getPopularProducts } from "../../Redux/Thunks/Products";
-import Cards from "../Cards/Cards";
 SwiperCore.use([Autoplay]);
 
 const CardSwipper = ({ origin }) => {

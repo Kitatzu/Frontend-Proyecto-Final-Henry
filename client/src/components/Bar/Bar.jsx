@@ -19,8 +19,8 @@ import { logout } from "../../Redux/Slices";
 import { getUserA } from "../../Redux/Thunks/getUser";
 import LogoNova from "../assets/LogoDark.png";
 export default function NavBar() {
-  const url = window.location.href.split("/")[3].toLowerCase();
-  const urlRoute = window.location.href.split("/")[4];
+  // const url = window.location.href.split("/")[3].toLowerCase();
+  // const urlRoute = window.location.href.split("/")[4];
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -35,7 +35,6 @@ export default function NavBar() {
     handleMenuClose();
     navigate("/login");
   };
-  console.log(avatar);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -58,20 +57,18 @@ export default function NavBar() {
     setAnchorElNav(event.currentTarget);
   };
 
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
+  // const handleMobileMenuOpen = (event) => {
+  //   setMobileMoreAnchorEl(event.currentTarget);
+  // };
   //FIXME: PETICION CON USEEFFECT
 
   const userId = JSON.parse(localStorage.getItem("token"))
     ? JSON.parse(localStorage.getItem("token")).userId
     : null;
 
-  console.log(userId);
 
   useEffect(() => {
     if (userId) {
-      console.log("hello");
       dispatch(getUserA(userId));
     }
     //TODO: DISPATCH A THUNK GETUSERA

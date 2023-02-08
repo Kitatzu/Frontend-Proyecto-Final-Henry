@@ -1,5 +1,4 @@
 import {
-  Button,
   IconButton,
   List,
   ListItem,
@@ -24,7 +23,6 @@ import { Icon } from "@iconify/react";
 import Toast from "../../../Toast/Toast";
 import { getBrands } from "../../../../Redux/Thunks/brand";
 import Brands from "./inputs/Brands";
-import SideBar from "../../../SideBar/SideBar";
 import Sidebar from "../Utils/global/Sidebar";
 export default function CreateProduct() {
   const dispatch = useDispatch();
