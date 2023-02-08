@@ -24,8 +24,9 @@ const EmailAddress = ({ email }) => {
         className="Login-input"
         style={{ color: Theme[mode].textPrimary }}
         defaultValue={email}
-        required
+        disabled
         label="E-mail"
+        inputProps={{ readOnly: true }}
       />
     </FormControl>
   );

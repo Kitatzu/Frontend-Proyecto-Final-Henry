@@ -23,7 +23,7 @@ const NameInput = ({ name, label, value }) => {
         className="Login-input"
         style={{ color: Theme[mode].textPrimary }}
         defaultValue={value}
-        required
+        disabled
         label={label}
         inputProps={{ readOnly: true }}
       />
