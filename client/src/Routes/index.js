@@ -22,32 +22,34 @@ import Calendar from "../components/Profile/Dashboard/components/calendar/calend
 import "./Transitions/styles.css";
 import Series from "../components/Profile/Dashboard/Inventory/Series/Series";
 
-
 const Routers = () => {
   const location = useLocation();
   return (
-    <TransitionGroup>
-      <CSSTransition key={location.key} classNames="fade" timeout={800}>
-        <Routes location={location}>
-          <Route index element={<LandingPage />} />
-          <Route path={"login"} element={<Login />} />
-          <Route path={"login/register"} element={<FormRegister />} />
-          <Route path={"home"} element={<Home />} />
-          <Route path={"products/:id"} element={<CardsDetails />} />
-          <Route path={"dashboard/crud"} element={<CreateProduct />} />
-          <Route path={"dashboard/users"} element={<UsersTable />} />
-          <Route path={"dashboard/facturas"} element={<FacturaTable />} />
-          <Route path="dashboard/inventory" element={<Inventory />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="account" element={<AccountSettings />} />
-          <Route path={"cart"} element={<Cart />} />
-          <Route path={"verification"} element={<VerifCode />} />
-          <Route path={"/factura/:facturaId"} element={<Factura />} />
-                    <Route path="*" element={<PageNotFound />} />
-        </Routes>
-      </CSSTransition>
-    </TransitionGroup>
-
+    // <TransitionGroup>
+    //   <CSSTransition key={location.key} classNames="fade" timeout={800}>
+    <Routes location={location}>
+      <Route index element={<LandingPage />} />
+      <Route path={"login"} element={<Login />} />
+      <Route path={"login/register"} element={<FormRegister />} />
+      <Route path={"home"} element={<Home />} />
+      <Route path={"products/:id"} element={<CardsDetails />} />
+      <Route path={"dashboard/crud"} element={<CreateProduct />} />
+      <Route path={"dashboard/users"} element={<UsersTable />} />
+      <Route path={"/invoices"} element={<FacturaTable />} />
+      <Route path="dashboard/inventory" element={<Inventory />} />
+      <Route path="dashboard" element={<Dashboard />} />
+      <Route path="account" element={<AccountSettings />} />
+      <Route path={"cart"} element={<Cart />} />
+      <Route path={"verification"} element={<VerifCode />} />
+      <Route path={"/invoices/invoice/:facturaId"} element={<Factura />} />
+      <Route path={"/calendar"} element={<Calendar />} />
+      <Route
+        path="/dashboard/inventory/series/:productId"
+        element={<Series />}
+      />
+      {/* <Route path={"/chat"} element={<Chat />} /> */}
+      <Route path="*" element={<PageNotFound />} />
+    </Routes>
   );
 };
 export default Routers;
