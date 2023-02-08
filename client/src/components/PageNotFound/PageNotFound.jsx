@@ -10,7 +10,7 @@ const PageNotFound = () => {
 
   const timeOut = () => {
     window.setTimeout(function () {
-      window.location.href = "https://henrytech.vercel.app/home";
+      window.location.href = `${Global.FRONTURL}/home`;
     }, 3000);
   };
 

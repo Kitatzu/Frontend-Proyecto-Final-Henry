@@ -24,6 +24,7 @@ const ProfileSettings = () => {
     useSelector((store) => store.users);
   const [image, setImage] = useState(false);
   const [previewUrl, setPreviewUrl] = useState(null);
+  const [errors, setErrors] = useState({});
   const [updateUser, setUpdateUser] = useState({
     city: city,
     country: country,
@@ -45,20 +46,59 @@ const ProfileSettings = () => {
     });
   };
 
-  const handleSave = (e) => {
-    const formData = new FormData();
+  const validate = (name, value) => {
+    const errors = {};
+    let regexNum = /^[0-9]*$/;
+    let regexEsp = /^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/;
+    if (name === "phone" && value && !regexNum.test(value.trim())) {
+      errors.phone = "Solo se permiten números";
+    } else if (name === "phone" && value) errors.phone = undefined;
 
-    formData.append("country", updateUser.country);
-    formData.append("city", updateUser.city);
-    formData.append("phone", updateUser.phone);
-    if (image) {
-      console.log(image);
-      formData.append("avatar", image);
+    if (name === "city" && value && !regexEsp.test(value.trim())) {
+      errors.city = "No se permiten caracteres especiales ni números";
+    } else if (name === "city" && value) errors.city = undefined;
+
+    if (name === "country" && value && !regexEsp.test(value.trim())) {
+      errors.country = "No se permiten caractere especiales ni números";
+    } else if (name === "country" && value) errors.country = undefined;
+
+    return errors;
+  };
+
+  const handleBlur = (e) => {
+    handleChange(e);
+    setErrors({
+      ...errors,
+      ...validate(e.target.name, updateUser[e.target.name]),
+    });
+  };
+
+  const handleSave = (e) => {
+    if (
+      errors.phone === undefined &&
+      errors.country === undefined &&
+      errors.city === undefined &&
+      updateUser.phone !== undefined &&
+      updateUser.country !== undefined &&
+      updateUser.city !== undefined &&
+      updateUser.phone !== "" &&
+      updateUser.country !== "" &&
+      updateUser.city !== ""
+    ) {
+      const formData = new FormData();
+
+      formData.append("country", updateUser.country);
+      formData.append("city", updateUser.city);
+      formData.append("phone", updateUser.phone);
+      if (image) {
+        console.log(image);
+        formData.append("avatar", image);
+      }
+      (async () => {
+        console.log(updateUser);
+        dispatch(userUpdate(userId, formData));
+      })();
     }
-    (async () => {
-      console.log(updateUser);
-      dispatch(userUpdate(userId, formData));
-    })();
   };
 
   return (
@@ -100,19 +140,40 @@ const ProfileSettings = () => {
           <CountryUser
             country={updateUser.country ? updateUser.country : country}
             handleChange={handleChange}
+            handleBlur={handleBlur}
+            error={errors.country !== undefined}
           />
+          {errors.country !== undefined ? (
+            <Alert severity="error" sx={{ margin: "15px 0" }}>
+              {errors.country}
+            </Alert>
+          ) : null}
         </Box>
         <Box>
           <CityUser
             city={updateUser.city ? updateUser.city : city}
             handleChange={handleChange}
+            handleBlur={handleBlur}
+            error={errors.city !== undefined}
           />
+          {errors.city !== undefined ? (
+            <Alert severity="error" sx={{ margin: "15px 0" }}>
+              {errors.city}
+            </Alert>
+          ) : null}
         </Box>
         <Box>
           <PhoneUser
             phone={updateUser.phone ? updateUser.phone : phone}
             handleChange={handleChange}
+            handleBlur={handleBlur}
+            error={errors.phone !== undefined}
           />
+          {errors.phone !== undefined ? (
+            <Alert severity="error" sx={{ margin: "15px 0" }}>
+              {errors.phone}
+            </Alert>
+          ) : null}
         </Box>
       </CardContent>
       <CardActions>
