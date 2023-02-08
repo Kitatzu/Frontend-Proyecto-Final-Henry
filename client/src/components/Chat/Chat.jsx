@@ -1,5 +1,7 @@
 import React, { Fragment, useState, useEffect, useRef } from "react";
 import { makeStyles } from "@mui/styles";
+import io from "socket.io-client";
+import Global from "../../Global";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Avatar,
@@ -19,14 +21,14 @@ import {
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import SendIcon from "@mui/icons-material/Send";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import ChatIcon from "@mui/icons-material/Chat";
 import "./Chat.css";
 import Bar from "../Bar/Bar";
-// import { socket } from "../../socket/socket";
-import io from "socket.io-client";
-import Global from "../../Global";
-const socket = io(Global.URL);
+import { convertLength } from "@mui/material/styles/cssUtils";
+
+export const socket = io(Global.URL);
 const useChatStyles = makeStyles((theme) => ({
   userMessageText: {
     color: "black",
@@ -107,7 +109,7 @@ export default function Chat() {
 
   useEffect(() => {
     const receiveMessage = (message) => {
-      console.log("mensajito", message);
+     
       setMessages([...messages, message]);
       if (scrollBottomRef.current) {
         /* const scrollBottom = scrollBottomRef.current.scrollTop() + scrollBottomRef.current.height() */
@@ -151,7 +153,6 @@ export default function Chat() {
 
   const listChatMessages = messages.map((message, index) => {
     let showDate = false;
-
     if (index === 0) {
       showDate = true;
     } else {
@@ -216,9 +217,7 @@ export default function Chat() {
 
   return (
     <Fragment>
-      <Box component={"span"} className="pro-icon">
-        <ChatIcon onClick={handleOpen} />
-      </Box>
+      <ChatIcon onClick={handleOpen} />
       <Modal
         open={open}
         onClose={handleClose}
