@@ -15,6 +15,7 @@ import {
   Grid,
   TextField,
   IconButton,
+  Alert,
 } from "@mui/material";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import SendIcon from "@mui/icons-material/Send";
@@ -26,6 +27,7 @@ import UsersConnected from "./UsersConnected";
 import NavBar from "../NavBar/NavBar";
 import SideBar from "../SideBar/SideBar";
 import AppBar from "../AppBar/AppBar";
+import StyledBadge from "../../utils/StyledBadge/StyledBadge";
 
 export const socket = io(Global.URL);
 const useChatStyles = makeStyles((theme) => ({
@@ -34,14 +36,14 @@ const useChatStyles = makeStyles((theme) => ({
     backgroundColor: "white",
     textAlign: "left",
     borderRadius: "10px",
-    width: "fit-content",
+    width: "100%",
   },
   userMessageText: {
     color: "black",
     backgroundColor: "#CDFAB9",
     textAlign: "right",
     borderRadius: "10px",
-    width: "fit-content",
+    width: "100%",
   },
   userBox: {
     display: "flex",
@@ -149,7 +151,7 @@ export default function Chat() {
       }
     }
     return (
-      <React.Fragment key={index}>
+      <Box key={index} sx={{ background: "black" }}>
         {showDate && (
           <ListItem>
             <ListItemText
@@ -167,9 +169,24 @@ export default function Chat() {
           }
         >
           <ListItemAvatar>
-            <Avatar alt={firstName} src={message.user.avatar} />
+            <StyledBadge
+              overlap="circular"
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+              variant="dot"
+            >
+              <Avatar alt={message.user.userName} src={message.user.avatar} />
+            </StyledBadge>
           </ListItemAvatar>
           <Box>
+            <Box>
+              <Typography
+                width={"100px"}
+                sx={{ overflow: "hidden", color: "#565656" }}
+                height="20px"
+              >
+                {message.user.userName}
+              </Typography>
+            </Box>
             <ListItemText
               primary={`${message.content}`}
               secondary={`${formatTime(message.createdAt)}`}
@@ -178,11 +195,11 @@ export default function Chat() {
                   ? classes.userMessageText
                   : classes.otherMessageText
               }
-              sx={{ padding: "8px" }}
+              sx={{ padding: "8px", width: "100%", minWidth: "100px" }}
             />
           </Box>
         </ListItem>
-      </React.Fragment>
+      </Box>
     );
   });
 
@@ -196,107 +213,129 @@ export default function Chat() {
   };
 
   return (
-    <Box width="100%">
+    <Box width="100%" sx={{ background: theme[mode].primary }}>
       <NavBar />
 
-      <Box display="flex">
+      <Box display="flex" sx={{ background: theme[mode].primary }}>
         <SideBar />
-        <Box
-          sx={{
-            flexGrow: 1,
-            minWidth: "max-content",
-            height: "calc(100vh - 64px)",
-            overflow: "scroll",
-            background: theme[mode].primary,
-          }}
-          className="container"
-        >
+        {!isLog ? (
           <Box width="100%">
-            <Box display="flex" width={"100%"} padding="20px">
-              <Typography
-                sx={{
-                  fontSize: { xs: "30px", sm: "40px" },
-                  fontWeight: 800,
-                  color: "#308FFD",
-                }}
-                component="h1"
-              >
-                NOVA
-              </Typography>
-              <Typography
-                sx={{
-                  fontSize: { xs: "30px", sm: "40px" },
-                  fontWeight: 600,
-                  color: theme[mode].textPrimary,
-                }}
-                component="h1"
-              >
-                CHAT
-              </Typography>
-              <Typography
-                sx={{
-                  fontSize: { xs: "20px", sm: "30px" },
-                  fontWeight: 600,
-                  color: theme[mode].textPrimary,
-                }}
-                component="h1"
-              >
-                @{firstName}
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                background: theme[mode].primary,
-              }}
-              display="flex"
-              flexDirection="row"
-              justifyContent="space-between"
-              alignItems="center"
-              gap="20px"
-              padding="20px"
-            >
-              <Box>
-                <UsersConnected />
-              </Box>
-              <Box flexGrow={1}>
-                <Box minWidth={"300px"}>
-                  <List
-                    id="chat-window-messages"
-                    sx={{ color: theme[mode].textPrimary }}
-                  >
-                    {listChatMessages}
-                    <ListItem ref={scrollBottomRef}></ListItem>
-                  </List>
-                </Box>
+            <Alert severity="warning">No estas registrado!</Alert>
+          </Box>
+        ) : (
+          <Box
+            sx={{
+              flexGrow: 1,
 
+              height: "calc(100vh - 64px)",
+              overflow: "scroll",
+              background: theme[mode].primary,
+            }}
+            marginBottom={{ xs: "80px", md: "0px" }}
+            className="container"
+          >
+            <Box width="100%">
+              <Box
+                display="flex"
+                width={"100%"}
+                padding={{ xs: "10px", md: "20px" }}
+                justifyContent={"space-between"}
+              >
                 <Box
-                  width={"100%"}
                   display="flex"
                   justifyContent={"center"}
                   alignItems="center"
-                  gap={"20px"}
                 >
-                  <TextField
-                    onChange={handleMessageChange}
-                    onKeyDown={handleEnterKey}
-                    value={message}
-                    label="Escribe tu mensaje"
-                    variant="outlined"
-                    sx={{ width: "325px" }}
-                  />
-
-                  <IconButton
-                    onClick={handleSubmit}
-                    aria-label="send"
-                    color="primary"
+                  <Typography
+                    sx={{
+                      fontSize: { xs: "30px", sm: "40px" },
+                      fontWeight: 800,
+                      color: "#308FFD",
+                    }}
+                    component="h1"
                   >
-                    <SendIcon />
-                  </IconButton>
+                    NOVA
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontSize: { xs: "30px", sm: "40px" },
+                      fontWeight: 600,
+                      color: theme[mode].textPrimary,
+                    }}
+                    component="h1"
+                  >
+                    CHAT
+                  </Typography>
+                </Box>
+
+                <Typography
+                  sx={{
+                    fontSize: { xs: "20px", sm: "30px" },
+                    fontWeight: 600,
+                    color: theme[mode].textPrimary,
+                  }}
+                  component="h1"
+                >
+                  @{firstName}
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  background: theme[mode].primary,
+                }}
+                display="flex"
+                flexDirection="row"
+                justifyContent="space-between"
+                alignItems="center"
+                gap="20px"
+                padding={{ xs: "none", md: "20px" }}
+                minWidth="100px !important"
+              >
+                <Box flexGrow={1}>
+                  <Box>
+                    <List
+                      id="chat-window-messages"
+                      sx={{ color: theme[mode].textPrimary }}
+                    >
+                      {listChatMessages}
+                      <ListItem ref={scrollBottomRef}></ListItem>
+                    </List>
+                  </Box>
+
+                  <Box
+                    width={"100%"}
+                    display="flex"
+                    justifyContent={"center"}
+                    alignItems="center"
+                    gap={"20px"}
+                    padding="10px"
+                    sx={{
+                      background: mode === "dark" ? "#FFEDD4" : "none",
+                      backdropFilter: "blur(20px)",
+                    }}
+                  >
+                    <TextField
+                      onChange={handleMessageChange}
+                      onKeyDown={handleEnterKey}
+                      value={message}
+                      label="Escribe tu mensaje"
+                      variant="outlined"
+                      sx={{ flexGrow: 1 }}
+                    />
+
+                    <IconButton
+                      onClick={handleSubmit}
+                      aria-label="send"
+                      color="primary"
+                    >
+                      <SendIcon />
+                    </IconButton>
+                  </Box>
                 </Box>
               </Box>
             </Box>
           </Box>
-        </Box>
+        )}
       </Box>
       <AppBar />
     </Box>

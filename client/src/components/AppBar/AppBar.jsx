@@ -5,6 +5,7 @@ import { IconButton } from "@mui/material";
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
 import bgAppBar from "../assets/img/appbar.png";
+import Item from "../Item/Item";
 const AppBar = () => {
   const Theme = useSelector((store) => store.theme);
   const mode = useSelector((store) => store.theme.mode);
@@ -44,12 +45,12 @@ const AppBar = () => {
         <Box display="flex" padding={"0px 10px"}>
           <IconButton size="large">
             <Link to="/cart">
-              <Icon icon="ic:round-shopping-cart" />
+              <Icon icon="ic:round-shopping-cart" color="white" />
             </Link>
           </IconButton>
           <IconButton size="large">
             <Link to="/invoices">
-              <Icon icon="uil:invoice" />
+              <Icon icon="uil:invoice" color="white" />
             </Link>
           </IconButton>
         </Box>
@@ -84,7 +85,7 @@ const AppBar = () => {
         </button>
         <IconButton size="large" sx={{ margin: "0 30px" }}>
           <Link to="/chat">
-            <Icon icon="material-symbols:chat" />
+            <Icon icon="material-symbols:chat" color="white" />
           </Link>
         </IconButton>
       </Box>
