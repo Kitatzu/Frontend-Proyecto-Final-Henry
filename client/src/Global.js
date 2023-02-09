@@ -1,6 +1,6 @@
 const Global = {
-  URL1: "https://boxtech-production.up.railway.app",
-  URL: "http://localhost:3001",
+  URL: "https://boxtech-production.up.railway.app",
+  URL1: "http://localhost:3001",
   FRONTURL: "http://localhost",
 };
 export default Global;
