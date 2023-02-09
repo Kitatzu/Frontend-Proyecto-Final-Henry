@@ -9,7 +9,8 @@ import {
   ListItemAvatar,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-
+import StyledBadge from "../../utils/StyledBadge/StyledBadge";
+import { Box } from "@mui/system";
 const useStyles = makeStyles({
   root: {
     width: "250px",
@@ -33,10 +34,9 @@ const UsersConnected = () => {
     "Carlos",
     "José María",
     "PO",
-   
   ];
   return (
-    <Grid container spacing={4} alignItems="center">
+    <Box height={"100%"} display={{ sm: "none", md: "inline-block" }}>
       <List
         className={classes.root}
         id="chat-window-messages"
@@ -45,13 +45,19 @@ const UsersConnected = () => {
         {connectedUsers.map((username) => (
           <ListItem key={username}>
             <ListItemAvatar>
-              <Avatar />
+              <StyledBadge
+                overlap="circular"
+                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                variant="dot"
+              >
+                <Avatar />
+              </StyledBadge>
             </ListItemAvatar>
             <ListItemText primary={username} />
           </ListItem>
         ))}
       </List>
-    </Grid>
+    </Box>
   );
 };
 

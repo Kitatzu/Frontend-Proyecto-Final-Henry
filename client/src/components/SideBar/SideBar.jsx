@@ -13,15 +13,17 @@ export default function SideBar() {
   const theme = useSelector((store) => store.theme);
   const { isLog } = useSelector((store) => store.users);
   const dispatch = useDispatch();
-  const [admin,setAdmin] = useState(" ");
+  const [admin, setAdmin] = useState(" ");
   useEffect(() => {
     if (JSON.parse(localStorage.getItem("token")) !== null) {
       dispatch(setUserName(JSON.parse(localStorage.getItem("token")).userName));
       dispatch(setIsLog(JSON.parse(localStorage.getItem("token")).token));
     }
-    if(JSON.parse(localStorage.getItem("token"))?.rol==="Admin"){
+    if (JSON.parse(localStorage.getItem("token"))?.rol === "Admin") {
       setAdmin("1");
-    }else{setAdmin("0")}
+    } else {
+      setAdmin("0");
+    }
   }, []);
   return (
     <Box
@@ -36,6 +38,7 @@ export default function SideBar() {
         left: "0",
         background: theme[mode].sidebar,
         color: theme[mode].textPrimary,
+        boxShadow: "4px 0px 4px rgba(0, 0, 0, 0.25)",
       }}
       gap="20px"
     >
@@ -64,28 +67,22 @@ export default function SideBar() {
             </IconButton>
           </Box>
           <Box>
-          {admin==="1"?(
-            <IconButton>
-              <Link to={"/dashboard"}>
-                <Icon
-                  icon="vscode-icons:file-type-light-config"
-                  color={theme[mode].textPrimary}
-                />
-              </Link>
-            </IconButton>):null}
+            {admin === "1" ? (
+              <IconButton>
+                <Link to={"/dashboard"}>
+                  <Icon
+                    icon="vscode-icons:file-type-light-config"
+                    color={theme[mode].textPrimary}
+                  />
+                </Link>
+              </IconButton>
+            ) : null}
           </Box>
           <Box>
             <IconButton>
               <Link to={"/invoices"}>
                 <Icon icon="uil:invoice" color={theme[mode].textPrimary} />
               </Link>
-            </IconButton>
-          </Box>
-          <Box>
-            <IconButton>
-              {/* <Link to={"/chat"}> */}
-              <Chat />
-              {/*  </Link> */}
             </IconButton>
           </Box>
         </Box>

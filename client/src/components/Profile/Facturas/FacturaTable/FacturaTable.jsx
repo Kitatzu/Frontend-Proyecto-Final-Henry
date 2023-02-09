@@ -13,6 +13,9 @@ import { useEffect, useState } from "react";
 // import { getFactura } from "../../../Redux/Thunks/factura";
 import { getFactura } from "../../../../Redux/Thunks/factura";
 import { Link } from "react-router-dom";
+import { Box } from "@mui/system";
+import NavBar from "../../../NavBar/NavBar";
+import SideBar from "../../../SideBar/SideBar";
 
 export default function FacturaTable() {
   const { userId } = JSON.parse(localStorage.getItem("token"));
@@ -23,41 +26,49 @@ export default function FacturaTable() {
     return () => {
       dispatch(getFactura(userId));
     };
-  }, [dispatch]);
-
-  const [status, setStatus] = useState("0");
+  }, [dispatch, userId]);
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ width: "100%" }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell align="center">N° de Factura</TableCell>
-            <TableCell align="center">Total</TableCell>
-            <TableCell align="center">N° de Pago</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {facturas
-            ? facturas.map(
-                (
-                  e //si no hay datos ignora el map y manda vacio
-                ) => (
-                  <TableRow
-                    key={e.id}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell align="center">
-                      <Link to={"invoice/" + e.id}>{e.numberBill}</Link>
-                    </TableCell>
-                    <TableCell align="center">{e.total}</TableCell>
-                    <TableCell align="center">{e.paymentId}</TableCell>
-                  </TableRow>
-                )
-              )
-            : null}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <Box>
+      <NavBar />
+      <Box display={"flex"}>
+        <SideBar />
+        <Box width={"100%"} padding="20px">
+          <TableContainer component={Paper}>
+            <Table sx={{ width: "100%" }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell align="center">N° de Factura</TableCell>
+                  <TableCell align="center">Total</TableCell>
+                  <TableCell align="center">N° de Pago</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {facturas
+                  ? facturas.map(
+                      (
+                        e //si no hay datos ignora el map y manda vacio
+                      ) => (
+                        <TableRow
+                          key={e.id}
+                          sx={{
+                            "&:last-child td, &:last-child th": { border: 0 },
+                          }}
+                        >
+                          <TableCell align="center">
+                            <Link to={"invoice/" + e.id}>{e.numberBill}</Link>
+                          </TableCell>
+                          <TableCell align="center">{e.total}</TableCell>
+                          <TableCell align="center">{e.paymentId}</TableCell>
+                        </TableRow>
+                      )
+                    )
+                  : null}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Box>
+      </Box>
+    </Box>
   );
 }

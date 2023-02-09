@@ -1,16 +1,11 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import {
-  Box,
-  TextField,
-  Stack,
-  Rating,
-  Typography,
-} from "@mui/material";
+import { Box, TextField, Stack, Rating, Typography } from "@mui/material";
 import { saveReview } from "../../../Redux/Thunks/reviews";
 import { Icon } from "@iconify/react";
 import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
+import Toast from "../../Toast/Toast";
 
 const ReviewForm = () => {
   const [rating, setRating] = useState(0);
@@ -19,7 +14,10 @@ const ReviewForm = () => {
   const theme = useSelector((store) => store.theme);
   const dispatch = useDispatch();
   const { id } = useParams(); //Product Id
-  const { userId } = JSON.parse(localStorage.getItem("token"));
+  const userId = JSON.parse(localStorage.getItem("token"))
+    ? JSON.parse(localStorage.getItem("token")).userId
+    : null;
+  const { isLog = false } = useSelector((store) => store.users);
   const { isLoading } = useSelector((store) => store.reviews);
   const { yourReview } = useSelector((store) => store.reviews);
   const handleRating = (e) => {
@@ -88,7 +86,13 @@ const ReviewForm = () => {
             variant="contained"
             color="secondary"
             disabled={yourReview !== null}
-            onClick={() => handleForm()}
+            onClick={() => {
+              if (isLog) {
+                handleForm();
+              } else {
+                Toast.fire({ icon: "warning", title: "No estas registrado!" });
+              }
+            }}
           >
             Postear
           </LoadingButton>

@@ -90,7 +90,9 @@ export default function UsersTable() {
   }
   return (
     <Box>
+      <NavBar />
       <Box display={"flex"}>
+        <Sidebar />
         <Box width={"100%"} padding="20px">
           <TableContainer sx={{ width: { xs: "100%" } }} component={Paper}>
             <Select value={status} onChange={(e) => handlerSelect(e)}>

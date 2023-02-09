@@ -95,18 +95,20 @@ export default function Home() {
                 No olvides registrarte. <Link to="/login">Aqui</Link>
               </Alert>
             </Box>
-          ): !isConfirmed && (
-            <Box padding={"20px"}>
-              <Alert variant="filled" severity="warning">
-                No olvides confirmar tu email. <Link to="/verification">Aqui</Link>
-              </Alert>
-            </Box>
-          )   
-          }
+          ) : (
+            !isConfirmed && (
+              <Box padding={"20px"}>
+                <Alert variant="filled" severity="warning">
+                  No olvides confirmar tu email.{" "}
+                  <Link to="/verification">Aqui</Link>
+                </Alert>
+              </Box>
+            )
+          )}
           <Box
             width={"100%"}
-            height={{ xs: "250px", md: "500px" }}
-            minHeight={{ xs: "250px", md: "500px" }}
+            height={{ xs: "250px", md: "400px" }}
+            minHeight={{ xs: "250px", md: "400px" }}
             position="relative"
             id="particles-js"
             sx={{
@@ -239,7 +241,7 @@ export default function Home() {
                     />
                   ))
                 : null} */}
-                <CardFilter />
+              <CardFilter />
             </Box>
             <Box
               sx={{
@@ -251,7 +253,7 @@ export default function Home() {
                 alignItems: "center",
               }}
             >
-              {isLoading && <Loading/>}
+              {isLoading && <Loading />}
               {tempProducts
                 ? tempProducts?.map((el, key) => {
                     return (
@@ -275,7 +277,7 @@ export default function Home() {
               display={"flex"}
               justifyContent="center"
             >
-              {pages>1 ? (
+              {pages > 1 ? (
                 <Pagination
                   count={pages}
                   color="secondary"
@@ -284,13 +286,15 @@ export default function Home() {
                     dispatch(getPage(e.target.innerText));
                   }}
                 />
-              ) :null}
-              {pages ? null: (
+              ) : null}
+              {pages ? null : (
                 <Alert severity="error">No hay stock disponible!</Alert>
               )}
             </Box>
           </Box>
-          <Box ><Footer /></Box>
+          <Box>
+            <Footer />
+          </Box>
         </Box>
       </Box>
     </Box>
