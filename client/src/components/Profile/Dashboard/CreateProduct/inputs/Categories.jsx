@@ -32,7 +32,7 @@ export default function Categories({ handleChange, categories }) {
       renderInput={(params) => (
         <TextField
           {...params}
-          label="Categories"
+          label="Categorias"
           //   style={{ color: Theme[mode].textPrimary }}
           inputProps={{
             ...params.inputProps,

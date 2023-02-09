@@ -8,12 +8,13 @@ import { IconButton, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { socket } from "../../../socket/socket";
 import { Icon } from "@iconify/react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 const Dashboard = () => {
   const [realProgress, setRealProgress] = useState(0.0);
   const [reward, setReward] = useState(0.0);
   const [users, setUsers] = useState(0);
   const [sold, setSold] = useState(false);
+  const { islog } = useSelector((store) => store.users)
   useEffect(() => {
     if (realProgress === 0.0) {
       socket.emit("getDataSold");
@@ -53,6 +54,7 @@ const Dashboard = () => {
 
   return (
     <Box minHeight={"100vh"} sx={{ background: Theme[mode].primary }}>
+      {!islog && <Navigate to="/home" />}
       <NavBar />
       <Box display={"flex"} minHeight="1000px">
         <Sidebar />
