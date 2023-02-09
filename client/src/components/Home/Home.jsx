@@ -17,6 +17,7 @@ import {
   setUserName,
 } from "../../Redux/Slices";
 import { Link } from "react-router-dom";
+import CardFilter from "../CardSwipper/CardFilter/CardFilter";
 import CardSwipper from "../CardSwipper/CardSwipper";
 import SwipperBrand from "../CardSwipper/CardBrand/SwipperBrand";
 import CardCategories from "./CardCategories/CardCategories";
@@ -31,6 +32,7 @@ export default function Home() {
   const { isLog, isConfirmed } = useSelector((store) => store.users);
   const { pages } = useSelector((store) => store.products);
   const dispatch = useDispatch();
+
   const handleChange = (el) => {
     if (el.target.value !== "Todo") {
       setFilter({ ...filter, [el.target.name]: el.target.value });
@@ -40,11 +42,12 @@ export default function Home() {
       dispatch(getPage(1));
     }
   };
+
   function handlePrice(e) {
     dispatch(filterPrice({ name: e.target.name, value: e.target.value }));
     dispatch(filterProduct());
   }
-  // console.log(users)
+
   useEffect(() => {
     dispatch(getPage(0));
     dispatch(getPage(1));
@@ -226,7 +229,7 @@ export default function Home() {
                   <Typography sx={{ color: "white" }}>TODO</Typography>
                 </Box>
               </Button>
-              {categories
+              {/* {categories
                 ? categories.map((cat, key) => (
                     <CardCategories
                       value={cat.name}
@@ -235,7 +238,8 @@ export default function Home() {
                       key={key}
                     />
                   ))
-                : null}
+                : null} */}
+                <CardFilter />
             </Box>
             <Box
               sx={{
