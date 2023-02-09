@@ -114,6 +114,7 @@ export default function UsersTable() {
               <TableBody>
                 {users !== false
                   ? users.map(
+
                       (
                         e //si no hay datos ignora el map y manda vacio
                       ) => (
@@ -145,7 +146,9 @@ export default function UsersTable() {
                           </TableCell>
                         </TableRow>
                       )
+
                     )
+                  
                   : null}
               </TableBody>
             </Table>
