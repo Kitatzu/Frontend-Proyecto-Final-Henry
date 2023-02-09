@@ -23,7 +23,7 @@ const Cart = () => {
   const mode = useSelector((store) => store.theme.mode);
   const { redir } = useSelector((store) => store.factura);
   const { country } = useSelector((store) => store.users);
-  const { isLoading } = useSelector((store) => store.cart)
+  const { isLoading } = useSelector((store) => store.cart);
   const facturaId = useSelector((store) => store.factura.facturaDetail?.id);
   let userId = JSON.parse(localStorage.getItem("token"))
     ? JSON.parse(localStorage.getItem("token")).userId
@@ -48,14 +48,14 @@ const Cart = () => {
   const sendProducts =
     productsCart.length > 0
       ? productsCart.map((p) => {
-        return {
-          productId: p.product.id,
-          stock:
-            p.product.stock - p.quantity >= 0
-              ? p.product.stock - p.quantity
-              : 0,
-        };
-      })
+          return {
+            productId: p.product.id,
+            stock:
+              p.product.stock - p.quantity >= 0
+                ? p.product.stock - p.quantity
+                : 0,
+          };
+        })
       : null;
 
   console.log(sendProducts);
@@ -92,8 +92,8 @@ const Cart = () => {
   return (
     <Box sx={{ background: Theme[mode].primary, minHeight: "100vh" }}>
       <Box>
-        {!isLog && <Navigate to="/home" />}
         {redir ? <Navigate to={"/invoices/invoice/" + facturaId} /> : null}
+        {!isLog && <Navigate to="/home" />}
         <NavBar />
         <Box display={"flex"}>
           <SideBar />
@@ -173,16 +173,16 @@ const Cart = () => {
               <Box>
                 {productsCart
                   ? productsCart.map((product) => (
-                    <Cards
-                      price={product.product.price}
-                      quantity={product.quantity}
-                      name={product.product.name}
-                      image={product.product.imageProduct}
-                      stock={product.product.stock}
-                      productId={product.product.id}
-                      cartId={product.cartId}
-                    />
-                  ))
+                      <Cards
+                        price={product.product.price}
+                        quantity={product.quantity}
+                        name={product.product.name}
+                        image={product.product.imageProduct}
+                        stock={product.product.stock}
+                        productId={product.product.id}
+                        cartId={product.cartId}
+                      />
+                    ))
                   : null}
               </Box>
               <Box
