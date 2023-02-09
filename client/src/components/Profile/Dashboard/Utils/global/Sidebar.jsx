@@ -6,13 +6,13 @@ import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../Theme/theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
-import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
+
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserA } from "../../../../../Redux/Thunks/getUser";
-import Chat from "../../../../Chat/Chat";
+
 import AddAlertIcon from "@mui/icons-material/AddAlert";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import { setIsLog, setUserName } from "../../../../../Redux/Slices";
@@ -138,7 +138,6 @@ const Sidebar = ({ collapsed }) => {
               </Box>
             </Box>
           )}
-
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <Item
               title="Dashboard"
@@ -201,7 +200,7 @@ const Sidebar = ({ collapsed }) => {
 
             <Item
               title="Agregar alerta"
-              to="/notify"
+              to="/dashboard/notify"
               icon={<AddAlertIcon />}
               selected={selected}
               setSelected={setSelected}

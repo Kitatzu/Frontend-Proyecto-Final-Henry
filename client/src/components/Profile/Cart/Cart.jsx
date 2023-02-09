@@ -14,8 +14,9 @@ import SideBar from "../../SideBar/SideBar";
 import Input from "./input/Input";
 import { socket } from "../../../socket/socket";
 import Loading from "../../Loading/Loading";
-const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
+import AppBar from "../../AppBar/AppBar";
 
+const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 const Cart = () => {
   const dispatch = useDispatch();
   const Theme = useSelector((store) => store.theme);
@@ -218,6 +219,7 @@ const Cart = () => {
           </Box>
         </Box>
       </Box>
+      <AppBar />
     </Box>
   );
 };
