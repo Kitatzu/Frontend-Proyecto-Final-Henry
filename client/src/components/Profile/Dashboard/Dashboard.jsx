@@ -14,7 +14,7 @@ const Dashboard = () => {
   const [reward, setReward] = useState(0.0);
   const [users, setUsers] = useState(0);
   const [sold, setSold] = useState(false);
-  const { islog } = useSelector((store) => store.users)
+  const { isLog } = useSelector((store) => store.users);
   useEffect(() => {
     if (realProgress === 0.0) {
       socket.emit("getDataSold");
@@ -54,7 +54,7 @@ const Dashboard = () => {
 
   return (
     <Box minHeight={"100vh"} sx={{ background: Theme[mode].primary }}>
-      {!islog && <Navigate to="/home" />}
+      {!isLog && <Navigate to="/home" />}
       <NavBar />
       <Box display={"flex"} minHeight="1000px">
         <Sidebar />
