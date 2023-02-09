@@ -298,7 +298,7 @@ export default function CreateProduct() {
                 </Box>
                 <Box>
                   <Typography sx={{ color: theme[mode].textPrimary }}>
-                    {"STOCK: " + series.length}
+                    {"Stock: " + series.length}
                   </Typography>
                 </Box>
 
@@ -310,7 +310,7 @@ export default function CreateProduct() {
 
                 <Box>
                   <Typography sx={{ color: theme[mode].textPrimary }}>
-                    {"MARCA: " + newProduct.brand}
+                    {"Marca: " + newProduct.brand}
                   </Typography>
                 </Box>
 
@@ -335,24 +335,24 @@ export default function CreateProduct() {
                   <List>
                     {series
                       ? series.map((serie) => (
-                          <ListItem color="primary">
-                            <ListItemButton color="primary">
-                              <ListItemText
-                                primary={serie}
-                                primaryTypographyProps={{
-                                  color: "primary",
-                                  fontWeight: "medium",
-                                  variant: "body2",
-                                }}
-                                sx={{
-                                  background: "#ffff",
-                                  padding: "5px 20px",
-                                  color: "white !important",
-                                }}
-                              />
-                            </ListItemButton>
-                          </ListItem>
-                        ))
+                        <ListItem color="primary">
+                          <ListItemButton color="primary">
+                            <ListItemText
+                              primary={serie}
+                              primaryTypographyProps={{
+                                color: "primary",
+                                fontWeight: "medium",
+                                variant: "body2",
+                              }}
+                              sx={{
+                                background: "#ffff",
+                                padding: "5px 20px",
+                                color: "white !important",
+                              }}
+                            />
+                          </ListItemButton>
+                        </ListItem>
+                      ))
                       : null}
                   </List>
                   <Box>

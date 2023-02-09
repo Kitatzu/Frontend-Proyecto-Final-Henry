@@ -90,7 +90,9 @@ export default function UsersTable() {
   }
   return (
     <Box>
+      <NavBar />
       <Box display={"flex"}>
+        <Sidebar />
         <Box width={"100%"} padding="20px">
           <TableContainer sx={{ width: { xs: "100%" } }} component={Paper}>
             <Select value={status} onChange={(e) => handlerSelect(e)}>
@@ -102,8 +104,8 @@ export default function UsersTable() {
                 <TableRow>
                   {/*  <TableCell align="center">UserName</TableCell> */}
                   <TableCell align="center">email</TableCell>
-                  <TableCell align="center">firstName</TableCell>
-                  <TableCell align="center">lastName</TableCell>
+                  <TableCell align="center">Nombre</TableCell>
+                  <TableCell align="center">Apellido</TableCell>
                   <TableCell align="center">rol</TableCell>
                   <TableCell align="center">Estado</TableCell>
                 </TableRow>
@@ -111,36 +113,36 @@ export default function UsersTable() {
               <TableBody>
                 {users !== false
                   ? users.map(
-                      (
-                        e //si no hay datos ignora el map y manda vacio
-                      ) => (
-                        <TableRow
-                          key={e.id}
-                          sx={{
-                            "&:last-child td, &:last-child th": { border: 0 },
-                          }}
-                        >
-                          {/*   <TableCell align="center">{e.userName}</TableCell> */}
-                          <TableCell align="center">{e.email}</TableCell>
-                          <TableCell align="center">{e.firstName}</TableCell>
-                          <TableCell align="center">{e.lastName}</TableCell>
-                          <TableCell align="center">{e.role.rol}</TableCell>
-                          <TableCell align="center">
-                            {" "}
-                            <Button
-                              key={e.id}
-                              value={e.id}
-                              onClick={() => handlerAction(e.id)}
-                            >
-                              <ChangeCircleRoundedIcon />
-                            </Button>
-                            <IconButton>
-                              <Icon icon="dashicons:admin-network" />
-                            </IconButton>
-                          </TableCell>
-                        </TableRow>
-                      )
+                    (
+                      e //si no hay datos ignora el map y manda vacio
+                    ) => (
+                      <TableRow
+                        key={e.id}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
+                      >
+                        {/*   <TableCell align="center">{e.userName}</TableCell> */}
+                        <TableCell align="center">{e.email}</TableCell>
+                        <TableCell align="center">{e.firstName}</TableCell>
+                        <TableCell align="center">{e.lastName}</TableCell>
+                        <TableCell align="center">{e.role.rol}</TableCell>
+                        <TableCell align="center">
+                          {" "}
+                          <Button
+                            key={e.id}
+                            value={e.id}
+                            onClick={() => handlerAction(e.id)}
+                          >
+                            <ChangeCircleRoundedIcon />
+                          </Button>
+                          <IconButton>
+                            <Icon icon="dashicons:admin-network" />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
                     )
+                  )
                   : null}
               </TableBody>
             </Table>

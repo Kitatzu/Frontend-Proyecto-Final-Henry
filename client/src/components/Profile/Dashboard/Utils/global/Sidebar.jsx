@@ -6,15 +6,16 @@ import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../Theme/theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
-import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
+
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserA } from "../../../../../Redux/Thunks/getUser";
-import Chat from "../../../../Chat/Chat";
+
 import AddAlertIcon from "@mui/icons-material/AddAlert";
 import InventoryIcon from "@mui/icons-material/Inventory";
+import { setIsLog, setUserName } from "../../../../../Redux/Slices";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -43,6 +44,10 @@ const Sidebar = ({ collapsed }) => {
     : null;
 
   useEffect(() => {
+    if (JSON.parse(localStorage.getItem("token")) !== null) {
+      dispatch(setUserName(JSON.parse(localStorage.getItem("token")).userName));
+      dispatch(setIsLog(JSON.parse(localStorage.getItem("token")).token));
+    }
     if (userId) {
       dispatch(getUserA(userId));
     }
@@ -133,7 +138,6 @@ const Sidebar = ({ collapsed }) => {
               </Box>
             </Box>
           )}
-
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <Item
               title="Dashboard"
@@ -194,23 +198,9 @@ const Sidebar = ({ collapsed }) => {
               Herramientas
             </Typography>
 
-            <Box component={"li"} className="pro-menu-item">
-              <Box className="pro-inner-item" component={"div"} role="button">
-                <Box component={"span"} className="pro-icon-wrapper">
-                  <IconButton>
-                    {/* <Link to={"/chat"}> */}
-                    <Chat />
-                    {/*  </Link> */}
-                  </IconButton>
-                </Box>
-                <Box component={"span"} className="pro-item-content">
-                  <Typography>Chat</Typography>
-                </Box>
-              </Box>
-            </Box>
             <Item
               title="Agregar alerta"
-              to="/notify"
+              to="/dashboard/notify"
               icon={<AddAlertIcon />}
               selected={selected}
               setSelected={setSelected}

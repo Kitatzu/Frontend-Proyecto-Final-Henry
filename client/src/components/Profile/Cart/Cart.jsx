@@ -13,14 +13,17 @@ import { Navigate } from "react-router-dom";
 import SideBar from "../../SideBar/SideBar";
 import Input from "./input/Input";
 import { socket } from "../../../socket/socket";
-const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
+import Loading from "../../Loading/Loading";
+import AppBar from "../../AppBar/AppBar";
 
+const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 const Cart = () => {
   const dispatch = useDispatch();
   const Theme = useSelector((store) => store.theme);
   const mode = useSelector((store) => store.theme.mode);
   const { redir } = useSelector((store) => store.factura);
   const { country } = useSelector((store) => store.users);
+  const { isLoading } = useSelector((store) => store.cart)
   const facturaId = useSelector((store) => store.factura.facturaDetail?.id);
   let userId = JSON.parse(localStorage.getItem("token"))
     ? JSON.parse(localStorage.getItem("token")).userId
@@ -30,7 +33,7 @@ const Cart = () => {
     address: "",
     city: "",
   });
-
+  const { isLog } = useSelector((store) => store.users);
   useEffect(() => {
     dispatch(getCart());
   }, [dispatch]);
@@ -45,14 +48,14 @@ const Cart = () => {
   const sendProducts =
     productsCart.length > 0
       ? productsCart.map((p) => {
-          return {
-            productId: p.product.id,
-            stock:
-              p.product.stock - p.quantity >= 0
-                ? p.product.stock - p.quantity
-                : 0,
-          };
-        })
+        return {
+          productId: p.product.id,
+          stock:
+            p.product.stock - p.quantity >= 0
+              ? p.product.stock - p.quantity
+              : 0,
+        };
+      })
       : null;
 
   console.log(sendProducts);
@@ -89,6 +92,7 @@ const Cart = () => {
   return (
     <Box sx={{ background: Theme[mode].primary, minHeight: "100vh" }}>
       <Box>
+        {!isLog && <Navigate to="/home" />}
         {redir ? <Navigate to={"/invoices/invoice/" + facturaId} /> : null}
         <NavBar />
         <Box display={"flex"}>
@@ -169,16 +173,16 @@ const Cart = () => {
               <Box>
                 {productsCart
                   ? productsCart.map((product) => (
-                      <Cards
-                        price={product.product.price}
-                        quantity={product.quantity}
-                        name={product.product.name}
-                        image={product.product.imageProduct}
-                        stock={product.product.stock}
-                        productId={product.product.id}
-                        cartId={product.cartId}
-                      />
-                    ))
+                    <Cards
+                      price={product.product.price}
+                      quantity={product.quantity}
+                      name={product.product.name}
+                      image={product.product.imageProduct}
+                      stock={product.product.stock}
+                      productId={product.product.id}
+                      cartId={product.cartId}
+                    />
+                  ))
                   : null}
               </Box>
               <Box
@@ -215,6 +219,7 @@ const Cart = () => {
           </Box>
         </Box>
       </Box>
+      <AppBar />
     </Box>
   );
 };
