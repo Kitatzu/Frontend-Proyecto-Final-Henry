@@ -41,12 +41,14 @@ const Factura = () => {
   //   (store) => store.factura.facturaDetail
   // );
   const { facturaDetail } = useSelector((store) => store.factura);
+  const { islog } = useSelector((store) => store.users)
   console.log(facturaDetail);
   const ref = React.createRef();
 
   return (
     <>
       <NavBar />
+      {!islog && <Navigate to="/home" />}
       {!redir ? <Navigate to="/cart" /> : null}
       <Box
         sx={{
@@ -103,14 +105,14 @@ const Factura = () => {
               <TableBody>
                 {products
                   ? products.map((product) => (
-                      <TableRow>
-                        <TableCell>{product.product.name}</TableCell>
-                        <TableCell>{product.quantity}</TableCell>
-                        <TableCell>
-                          {product.product.price * product.quantity}
-                        </TableCell>
-                      </TableRow>
-                    ))
+                    <TableRow>
+                      <TableCell>{product.product.name}</TableCell>
+                      <TableCell>{product.quantity}</TableCell>
+                      <TableCell>
+                        {product.product.price * product.quantity}
+                      </TableCell>
+                    </TableRow>
+                  ))
                   : "No hay productos!"}
                 <TableRow>
                   <TableCell></TableCell>

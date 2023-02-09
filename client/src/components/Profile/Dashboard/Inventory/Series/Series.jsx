@@ -74,39 +74,39 @@ const Series = () => {
               <Table>
                 <TableHead>
                   <TableCell>SERIE</TableCell>
-                  <TableCell>STATUS</TableCell>
-                  <TableCell>ACTIONS</TableCell>
+                  <TableCell>ESTADO</TableCell>
+                  <TableCell>ACCIONES</TableCell>
                 </TableHead>
                 <TableBody>
                   {series
                     ? series.map((s) => (
-                        <TableRow key={s.id}>
-                          <TableCell>{s.serie}</TableCell>
-                          <TableCell>{s.status}</TableCell>
-                          <TableCell>
-                            <Box display="flex" justifyContent={"space-around"}>
-                              <IconButton
-                                onClick={async () => {
-                                  deleteSerie(s.id);
-                                  await getSeries(productId, setSeries);
-                                  await getSeries(productId, setSeries);
-                                }}
-                              >
-                                <Icon icon="mdi:trash-can" />
-                              </IconButton>
-                              <IconButton
-                                onClick={async () => {
-                                  restoreSerie(s.id);
-                                  await getSeries(productId, setSeries);
-                                  await getSeries(productId, setSeries);
-                                }}
-                              >
-                                <Icon icon="material-symbols:restart-alt-rounded" />
-                              </IconButton>
-                            </Box>
-                          </TableCell>
-                        </TableRow>
-                      ))
+                      <TableRow key={s.id}>
+                        <TableCell>{s.serie}</TableCell>
+                        <TableCell>{s.status}</TableCell>
+                        <TableCell>
+                          <Box display="flex" justifyContent={"space-around"}>
+                            <IconButton
+                              onClick={async () => {
+                                deleteSerie(s.id);
+                                await getSeries(productId, setSeries);
+                                await getSeries(productId, setSeries);
+                              }}
+                            >
+                              <Icon icon="mdi:trash-can" />
+                            </IconButton>
+                            <IconButton
+                              onClick={async () => {
+                                restoreSerie(s.id);
+                                await getSeries(productId, setSeries);
+                                await getSeries(productId, setSeries);
+                              }}
+                            >
+                              <Icon icon="material-symbols:restart-alt-rounded" />
+                            </IconButton>
+                          </Box>
+                        </TableCell>
+                      </TableRow>
+                    ))
                     : null}
                   {create ? (
                     <TableRow>
