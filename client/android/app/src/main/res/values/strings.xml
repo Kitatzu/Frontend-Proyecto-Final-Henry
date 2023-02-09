@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">novaTech</string>
+    <string name="title_activity_main">novaTech</string>
+    <string name="package_name">com.novatech</string>
+    <string name="custom_url_scheme">com.novatech</string>
+</resources>

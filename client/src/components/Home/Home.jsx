@@ -23,6 +23,7 @@ import SwipperBrand from "../CardSwipper/CardBrand/SwipperBrand";
 import CardCategories from "./CardCategories/CardCategories";
 import { getBrands } from "../../Redux/Thunks/brand";
 import banner from "../assets/banner.png";
+import AppBar from "../AppBar/AppBar";
 export default function Home() {
   const mode = useSelector((store) => store.theme.mode);
   const theme = useSelector((store) => store.theme);
@@ -297,6 +298,7 @@ export default function Home() {
           </Box>
         </Box>
       </Box>
+      <AppBar />
     </Box>
   );
 }

@@ -36,7 +36,7 @@ const UsersConnected = () => {
     "PO",
   ];
   return (
-    <Box height={"100%"} display={{ sm: "none", md: "inline-block" }}>
+    <Box height={"100%"} display={{ xs: "none", md: "inline-block" }}>
       <List
         className={classes.root}
         id="chat-window-messages"

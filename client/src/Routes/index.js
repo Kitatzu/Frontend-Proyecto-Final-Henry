@@ -21,6 +21,8 @@ import Calendar from "../components/Profile/Dashboard/components/calendar/calend
 // import { TransitionGroup, CSSTransition } from "react-transition-group";
 import "./Transitions/styles.css";
 import Series from "../components/Profile/Dashboard/Inventory/Series/Series";
+import Notify from "../components/Profile/Dashboard/components/Notify/Notify";
+import Chat from "../components/Chat/Chat";
 /* import UsersConnected from "../components/Chat/UsersConnected" */
 
 const Routers = () => {
@@ -44,11 +46,13 @@ const Routers = () => {
       <Route path={"verification"} element={<VerifCode />} />
       <Route path={"/invoices/invoice/:facturaId"} element={<Factura />} />
       <Route path={"/calendar"} element={<Calendar />} />
+      <Route path={"/dashboard/notify"} element={<Notify />} />
       <Route
         path="/dashboard/inventory/series/:productId"
         element={<Series />}
       />
-     {/*  <Route path={"/chat"} element={<UsersConnected />} /> */}
+
+      <Route path={"/chat"} element={<Chat />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
