@@ -1,33 +1,58 @@
-/* import React, { useState, useEffect } from 'react';
-import { List, ListItem, ListItemText } from '@mui/material';
-import io from "socket.io-client";
-import Global from "../../Global";
+import React, { useState, useEffect } from "react";
+import { makeStyles } from "@mui/styles";
+import {
+  List,
+  ListItem,
+  ListItemText,
+  Grid,
+  Avatar,
+  ListItemAvatar,
+} from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
 
-
-
+const useStyles = makeStyles({
+  root: {
+    width: "250px",
+    height: "100%",
+    backgroundColor: "#eee",
+    overflowY: "auto",
+  },
+});
 
 const UsersConnected = () => {
-  const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    const socket =  io(Global.URL);;
-    socket.on('connection', (socket) => {
-      socket.on('user connected', (user) => {
-        setUsers([...users, user]);
-      });
-    });
-  }, [users]);
-
+  const classes = useStyles();
+  const mode = useSelector((store) => store.theme.mode);
+  const theme = useSelector((store) => store.theme);
+  const connectedUsers = [
+    "Exequiel",
+    "Jhonatan",
+    "Javier",
+    "Marcial",
+    "Santiago",
+    "Vania",
+    "Carlos",
+    "José María",
+    "PO",
+   
+  ];
   return (
-    <List>
-      {users.map((user, index) => (
-        <ListItem key={index}>
-          <ListItemText primary={user} />
-        </ListItem>
-      ))}
-    </List>
+    <Grid container spacing={4} alignItems="center">
+      <List
+        className={classes.root}
+        id="chat-window-messages"
+        sx={{ color: theme[mode].textPrimary }}
+      >
+        {connectedUsers.map((username) => (
+          <ListItem key={username}>
+            <ListItemAvatar>
+              <Avatar />
+            </ListItemAvatar>
+            <ListItemText primary={username} />
+          </ListItem>
+        ))}
+      </List>
+    </Grid>
   );
 };
 
 export default UsersConnected;
- */
