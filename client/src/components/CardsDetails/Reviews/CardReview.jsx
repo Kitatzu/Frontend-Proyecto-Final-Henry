@@ -1,23 +1,14 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import {
   Box,
-  TextField,
-  Button,
-  Stack,
   Rating,
-  IconButton,
   Typography,
   Avatar,
 } from "@mui/material";
-import { saveReview } from "../../../Redux/Thunks/reviews";
-import { Icon } from "@iconify/react";
 
 const CardReview = ({ rating, review, user, avatar }) => {
   const mode = useSelector((store) => store.theme.mode);
   const theme = useSelector((store) => store.theme);
-  const dispatch = useDispatch();
 
   return (
     <Box

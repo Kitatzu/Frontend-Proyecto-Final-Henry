@@ -1,5 +1,7 @@
 import React, { Fragment, useState, useEffect, useRef } from "react";
 import { makeStyles } from "@mui/styles";
+import io from "socket.io-client";
+import Global from "../../Global";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Avatar,
@@ -19,24 +21,16 @@ import {
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import SendIcon from "@mui/icons-material/Send";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import ChatIcon from "@mui/icons-material/Chat";
 import "./Chat.css";
 import Bar from "../Bar/Bar";
-// import { socket } from "../../socket/socket";
-import io from "socket.io-client";
-import Global from "../../Global";
-const socket = io(Global.URL);
-const useChatStyles = makeStyles((theme) => ({
-  userMessageText: {
-    color: "black",
-    backgroundColor: "#CDFAB9",
-    textAlign: "right",
-    borderRadius: "10px",
-    width: "fit-content",
+import { convertLength } from "@mui/material/styles/cssUtils";
+import UsersConnected from "./UsersConnected";
 
-    padding: "10px",
-  },
+export const socket = io(Global.URL);
+const useChatStyles = makeStyles((theme) => ({
   otherMessageText: {
     color: "black",
     backgroundColor: "white",
@@ -50,8 +44,6 @@ const useChatStyles = makeStyles((theme) => ({
     textAlign: "right",
     borderRadius: "10px",
     width: "fit-content",
-
-    padding: "10px",
   },
   userBox: {
     display: "flex",
@@ -62,6 +54,13 @@ const useChatStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "flex-start",
     backgroundColor: "#FFEDD4",
+  },
+  date: {
+    display: "flex",
+    justifyContent: "center",
+    backgroundColor: "#184FF5",
+    color: "white",
+    borderRadius: "10%",
   },
 }));
 
@@ -90,6 +89,7 @@ export default function Chat() {
     const newMessage = {
       content: message,
       user: { userName, avatar },
+      createdAt: new Date(),
     };
     socket.emit("message", newMessage);
     console.log(newMessage);
@@ -100,12 +100,7 @@ export default function Chat() {
 
   useEffect(() => {
     const receiveMessage = (message) => {
-      console.log("mensajito", message);
       setMessages([...messages, message]);
-      if (scrollBottomRef.current) {
-        /* const scrollBottom = scrollBottomRef.current.scrollTop() + scrollBottomRef.current.height() */
-        scrollBottomRef.current.scrollIntoView({ behavior: "smooth" });
-      }
     };
     const getMessages = (allMessages) => {
       setMessages(allMessages);
@@ -122,33 +117,84 @@ export default function Chat() {
     };
   }, [messages]);
 
+  useEffect(() => {
+    if (scrollBottomRef.current) {
+      scrollBottomRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
+
   const handleUserChange = (e) => {
     setUser(e.target.value);
   };
 
-  const listChatMessages = messages.map((message, index) => (
-    <ListItem
-      key={index}
-      className={
-        message.user.userName === userName ? classes.userBox : classes.otherBox
+  const formatDate = (date) => {
+    const options = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+    const formattedDate = new Date(date).toLocaleDateString("es-ES", options);
+    return formattedDate;
+  };
+  const formatTime = (date) => {
+    const options = { hour: "numeric", minute: "numeric" };
+    const formattedTime = new Date(date).toLocaleTimeString("es-ES", options);
+    return formattedTime;
+  };
+
+  const listChatMessages = messages.map((message, index) => {
+    let showDate = false;
+    if (index === 0) {
+      showDate = true;
+    } else {
+      const previousMessage = messages[index - 1];
+      const currentMessageDate = new Date(message.createdAt).toDateString();
+      const previousMessageDate = new Date(
+        previousMessage.createdAt
+      ).toDateString();
+
+      if (currentMessageDate !== previousMessageDate) {
+        showDate = true;
       }
-    >
-      <ListItemAvatar>
-        <Avatar src={message.user.avatar} alt={firstName} />
-      </ListItemAvatar>
-      <Box>
-        <ListItemText
-          primary={`${message.content}`}
+    }
+    return (
+      <React.Fragment key={index}>
+        {showDate && (
+          <ListItem>
+            <ListItemText
+              primary={`${formatDate(message.createdAt)}`}
+              className={classes.date}
+            />
+          </ListItem>
+        )}
+        <ListItem
+          key={index}
           className={
             message.user.userName === userName
-              ? classes.userMessageText
-              : classes.otherMessageText
+              ? classes.userBox
+              : classes.otherBox
           }
-          sx={{ padding: "8px" }}
-        />
-      </Box>
-    </ListItem>
-  ));
+        >
+          <ListItemAvatar>
+            <Avatar src={message.user.avatar} secondary={firstName} />
+          </ListItemAvatar>
+          <Box>
+            <ListItemText
+              primary={`${message.content}`}
+              secondary={`${formatTime(message.createdAt)}`}
+              className={
+                message.user.userName === userName
+                  ? classes.userMessageText
+                  : classes.otherMessageText
+              }
+              sx={{ padding: "8px" }}
+            />
+          </Box>
+        </ListItem>
+      </React.Fragment>
+    );
+  });
 
   const handleEnterKey = (e) => {
     if (e.keyCode === ENTER_KEY_CODE) {
@@ -161,9 +207,7 @@ export default function Chat() {
 
   return (
     <Fragment>
-      <Box component={"span"} className="pro-icon">
-        <ChatIcon onClick={handleOpen} />
-      </Box>
+      <ChatIcon onClick={handleOpen} />
       <Modal
         open={open}
         onClose={handleClose}
@@ -177,27 +221,53 @@ export default function Chat() {
       >
         <div
           style={{
-            width: "43%",
+            width: "63%",
             height: "100%",
           }}
         >
-          <Container>
+          <Container >
             <Bar />
-            <Paper elevation={5}>
-              <Box
+            <Paper id="chat-window" elevation={22} sx={{
+                  background: theme[mode].primary,
+                }}>
+               <Box display="flex">
+                  <Typography
+                    sx={{
+                      fontSize: { xs: "30px", sm: "40px" },
+                      fontWeight: 800,
+                      color: "#308FFD",
+                    }}
+                    component="h1"
+                  >
+                    NOVA
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontSize: { xs: "30px", sm: "40px" },
+                      fontWeight: 600,
+                      color: theme[mode].textPrimary,
+                    }}
+                    component="h1"
+                  >
+                    CHAT
+                  </Typography>
+                </Box>
+              <Box 
                 p={3}
                 sx={{
                   background: theme[mode].primary,
                 }}
+                display="flex"
+                flexDirection="row"
+                justifyContent="space-between"
+                alignItems="center"
+                gap="20px"
               >
-                <Typography
-                  variant="h5"
-                  gutterBottom
-                  sx={{ color: theme[mode].textPrimary, padding: "20px" }}
-                >
-                  Conversa con los especialistas...!!!
-                </Typography>
+
                 <Divider />
+                <List id="chat-window">
+                  <UsersConnected />
+                </List>
                 <Grid container spacing={4} alignItems="center">
                   <Grid id="chat-window" xs={12} item>
                     <List
@@ -213,12 +283,13 @@ export default function Chat() {
                       <TextField
                         onChange={handleUserChange}
                         value={firstName}
-                        color="primary"
+                        /* color="primary" */
                         sx={{ width: "80px" }}
                         focused
                         InputProps={{
                           style: {
                             backgroundColor: "#184FF5",
+                            color: "white",
                           },
                         }}
                       />

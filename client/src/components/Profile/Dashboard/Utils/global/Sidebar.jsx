@@ -164,19 +164,12 @@ const Sidebar = ({ collapsed }) => {
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
-              title="Facturas"
-              to="/invoices"
-              icon={<ReceiptOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
 
             <Typography
               variant="h6"
               sx={{ m: "15px 0 5px 20px", color: theme[mode].textPrimary }}
             >
-              Pages
+              Paginas
             </Typography>
 
             <Item

@@ -11,7 +11,7 @@ const PageNotFound = () => {
   const timeOut = () => {
     window.setTimeout(function () {
       window.location.href = `${Global.FRONTURL}/home`;
-    }, 5000);
+    }, 3000);
   };
 
   return (

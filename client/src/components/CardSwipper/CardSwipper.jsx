@@ -7,10 +7,10 @@ import "swiper/css/navigation";
 import "swiper/css/bundle";
 import "./swiper.css";
 import CradProduct from "./CardProduct/CardProduct";
+import Loading from "../Loading/Loading";
 import SwiperCore, { Autoplay } from "swiper";
 import { useEffect, useState } from "react";
 import { getPopularProducts } from "../../Redux/Thunks/Products";
-import Cards from "../Cards/Cards";
 SwiperCore.use([Autoplay]);
 
 const CardSwipper = ({ origin }) => {
@@ -50,7 +50,7 @@ const CardSwipper = ({ origin }) => {
         style={{ height: "max-content", padding: "20px" }}
         className="mySwiper"
       >
-        {isLoading && <div></div>}
+        {isLoading && <Loading />}
         {popularProducts
           ? popularProducts.map((el, key) => {
               return (

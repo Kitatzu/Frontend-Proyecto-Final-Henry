@@ -11,6 +11,7 @@ import {
   MenuItem,
   Pagination,
   Button,
+  IconButton,
 } from "@mui/material";
 import ChangeCircleRoundedIcon from "@mui/icons-material/ChangeCircleRounded";
 import {
@@ -26,6 +27,7 @@ import { useEffect, useState } from "react";
 import { Box } from "@mui/system";
 import NavBar from "../../../NavBar/NavBar";
 import Sidebar from "../Utils/global/Sidebar";
+import { Icon } from "@iconify/react";
 
 export default function UsersTable() {
   const dispatch = useDispatch();
@@ -102,6 +104,7 @@ export default function UsersTable() {
                   <TableCell align="center">email</TableCell>
                   <TableCell align="center">firstName</TableCell>
                   <TableCell align="center">lastName</TableCell>
+                  <TableCell align="center">rol</TableCell>
                   <TableCell align="center">Estado</TableCell>
                 </TableRow>
               </TableHead>
@@ -121,6 +124,7 @@ export default function UsersTable() {
                           <TableCell align="center">{e.email}</TableCell>
                           <TableCell align="center">{e.firstName}</TableCell>
                           <TableCell align="center">{e.lastName}</TableCell>
+                          <TableCell align="center">{e.role.rol}</TableCell>
                           <TableCell align="center">
                             {" "}
                             <Button
@@ -130,6 +134,9 @@ export default function UsersTable() {
                             >
                               <ChangeCircleRoundedIcon />
                             </Button>
+                            <IconButton>
+                              <Icon icon="dashicons:admin-network" />
+                            </IconButton>
                           </TableCell>
                         </TableRow>
                       )
