@@ -45,7 +45,7 @@ export const satusZero = () => {
   };
 };
 //TODO:PRUEBA
-export const getUserA = (userId) => { 
+export const getUserA = (userId) => {
   return async (dispatch) => {
     dispatch(setIsLoading(true));
     axios
@@ -60,7 +60,6 @@ export const getUserA = (userId) => {
       });
   };
 };
-
 
 export const userUpdate = (userId, form) => {
   return async (dispatch) => {
@@ -107,44 +106,48 @@ export const userUpdate = (userId, form) => {
   };
 };
 
-export const DeleteUser=(userId)=>{
-  return async(dispatch)=>{
+export const DeleteUser = (userId) => {
+  return async (dispatch) => {
     dispatch(setIsLoading(true));
-    axios.delete(Global.URL+"/users/"+userId)
-    .then((response)=>{console.log(response);
-    dispatch(setData(response.data));
-    dispatch(setIsLoading(false));
-    Swal.fire({
-      icon: "success",
-      title: "Actualizado!",
-      text: "Usuario actualizado correctamente!",
-      confirmButtonText: "Continuar!",
-    })
-  })
-  .catch((response) => {
-    console.log(response);
-    Toast.fire({ icon: "error", title: "Internal server error!" });
-  });
+    axios
+      .delete(Global.URL + "/users/" + userId)
+      .then((response) => {
+        console.log(response);
+        dispatch(setData(response.data));
+        dispatch(setIsLoading(false));
+        Swal.fire({
+          icon: "success",
+          title: "Actualizado!",
+          text: "Usuario actualizado correctamente!",
+          confirmButtonText: "Continuar!",
+        });
+      })
+      .catch((response) => {
+        console.log(response);
+        Toast.fire({ icon: "error", title: "Internal server error!" });
+      });
   };
 };
-export const RestoreUser=(userId)=>{
-  return async(dispatch)=>{
+export const RestoreUser = (userId) => {
+  return async (dispatch) => {
     dispatch(setIsLoading(true));
-    axios.put(Global.URL+"/users/restore/"+userId)
-    .then((response)=>{console.log(response);
-    dispatch(setData(response.data));
-    dispatch(setIsLoading(false));
-    Swal.fire({
-      icon: "success",
-      title: "Actualizado!",
-      text: "Usuario actualizado correctamente!",
-      confirmButtonText: "Continuar!",
-    })
-  })
-  .catch((response) => {
-    console.log(response);
-    Toast.fire({ icon: "error", title: "Internal server error!" });
-  });
+    axios
+      .put(Global.URL + "/users/restore/" + userId)
+      .then((response) => {
+        console.log(response);
+        dispatch(setData(response.data));
+        dispatch(setIsLoading(false));
+        Swal.fire({
+          icon: "success",
+          title: "Actualizado!",
+          text: "Usuario actualizado correctamente!",
+          confirmButtonText: "Continuar!",
+        });
+      })
+      .catch((response) => {
+        console.log(response);
+        Toast.fire({ icon: "error", title: "Internal server error!" });
+      });
   };
 };
 
@@ -155,7 +158,6 @@ export const getPageOne = (page) => {
         .get(`${Global.URL}/users/page/${page}`)
         .then((response) => {
           dispatch(setPagesUser(response.data.pages));
-         
         })
         .catch((response) => {
           Toast.fire({ icon: "error", title: response.response.data.msg });
@@ -167,7 +169,7 @@ export const getPageOne = (page) => {
         .get(`${Global.URL}/users/page/${page}`)
         .then((response) => {
           dispatch(setUsers(response.data));
-          console.log("respuesta"+ response.data)
+          console.log("respuesta" + response.data);
         })
         .catch((response) => {
           console.log(response);
@@ -184,7 +186,7 @@ export const getPageCero = (page) => {
         .get(`${Global.URL}/users/page0/${page}`)
         .then((response) => {
           dispatch(setPagesUser(response.data.pages));
-          console.log(response.data.pages)
+          console.log(response.data.pages);
         })
         .catch((response) => {
           Toast.fire({ icon: "error", title: response.response.data.msg });
@@ -203,4 +205,23 @@ export const getPageCero = (page) => {
         });
     };
   }
+};
+export const rootUser = (userId) => async (dispatch) => {
+  return axios
+    .put(Global.URL + "/users/root/user", { userId, rol: "Admin" })
+    .then(
+      (response) =>
+        Toast.fire({
+          icon: "success",
+          title: "Se actualizo el rol correctamente!",
+        }),
+      dispatch(getUser())
+    )
+    .catch((e) => {
+      console.log(e);
+      Toast.fire({
+        icon: "error",
+        title: "No se actualizo el rol, se recomienda llamar al tecnico!",
+      });
+    });
 };

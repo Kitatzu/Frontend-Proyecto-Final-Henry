@@ -21,6 +21,7 @@ import {
   getPageCero,
   DeleteUser,
   RestoreUser,
+  rootUser,
 } from "../../../../Redux/Thunks/getUser";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -113,36 +114,41 @@ export default function UsersTable() {
               <TableBody>
                 {users !== false
                   ? users.map(
-                    (
-                      e //si no hay datos ignora el map y manda vacio
-                    ) => (
-                      <TableRow
-                        key={e.id}
-                        sx={{
-                          "&:last-child td, &:last-child th": { border: 0 },
-                        }}
-                      >
-                        {/*   <TableCell align="center">{e.userName}</TableCell> */}
-                        <TableCell align="center">{e.email}</TableCell>
-                        <TableCell align="center">{e.firstName}</TableCell>
-                        <TableCell align="center">{e.lastName}</TableCell>
-                        <TableCell align="center">{e.role.rol}</TableCell>
-                        <TableCell align="center">
-                          {" "}
-                          <Button
-                            key={e.id}
-                            value={e.id}
-                            onClick={() => handlerAction(e.id)}
-                          >
-                            <ChangeCircleRoundedIcon />
-                          </Button>
-                          <IconButton>
-                            <Icon icon="dashicons:admin-network" />
-                          </IconButton>
-                        </TableCell>
-                      </TableRow>
+
+                      (
+                        e //si no hay datos ignora el map y manda vacio
+                      ) => (
+                        <TableRow
+                          key={e.id}
+                          sx={{
+                            "&:last-child td, &:last-child th": { border: 0 },
+                          }}
+                        >
+                          {/*   <TableCell align="center">{e.userName}</TableCell> */}
+                          <TableCell align="center">{e.email}</TableCell>
+                          <TableCell align="center">{e.firstName}</TableCell>
+                          <TableCell align="center">{e.lastName}</TableCell>
+                          <TableCell align="center">{e.role.rol}</TableCell>
+                          <TableCell align="center">
+                            {" "}
+                            <Button
+                              key={e.id}
+                              value={e.id}
+                              onClick={() => handlerAction(e.id)}
+                            >
+                              <ChangeCircleRoundedIcon />
+                            </Button>
+                            <IconButton
+                              onClick={() => dispatch(rootUser(e.id))}
+                            >
+                              <Icon icon="dashicons:admin-network" />
+                            </IconButton>
+                          </TableCell>
+                        </TableRow>
+                      )
+
                     )
-                  )
+                  
                   : null}
               </TableBody>
             </Table>
