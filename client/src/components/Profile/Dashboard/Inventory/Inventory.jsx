@@ -111,11 +111,11 @@ const Inventory = () => {
           <TableContainer sx={{ width: { xs: "100%" } }} component={Paper}>
             <Table>
               <TableHead>
-                <TableCell>Name</TableCell>
-                <TableCell>Price</TableCell>
+                <TableCell>Nombre</TableCell>
+                <TableCell>Precio</TableCell>
                 <TableCell>Stock</TableCell>
                 <TableCell>Rating</TableCell>
-                <TableCell>Categories</TableCell>
+                <TableCell>Categorias</TableCell>
                 <TableCell>Acciones</TableCell>
               </TableHead>
 

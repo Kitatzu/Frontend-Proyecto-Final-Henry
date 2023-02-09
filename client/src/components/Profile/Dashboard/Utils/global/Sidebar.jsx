@@ -15,6 +15,7 @@ import { getUserA } from "../../../../../Redux/Thunks/getUser";
 import Chat from "../../../../Chat/Chat";
 import AddAlertIcon from "@mui/icons-material/AddAlert";
 import InventoryIcon from "@mui/icons-material/Inventory";
+import { setIsLog, setUserName } from "../../../../../Redux/Slices";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -43,6 +44,10 @@ const Sidebar = ({ collapsed }) => {
     : null;
 
   useEffect(() => {
+    if (JSON.parse(localStorage.getItem("token")) !== null) {
+      dispatch(setUserName(JSON.parse(localStorage.getItem("token")).userName));
+      dispatch(setIsLog(JSON.parse(localStorage.getItem("token")).token));
+    }
     if (userId) {
       dispatch(getUserA(userId));
     }
