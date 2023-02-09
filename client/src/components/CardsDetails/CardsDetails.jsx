@@ -28,7 +28,7 @@ const CardsDetails = () => {
   const loadingCart = useSelector((store) => store.cart.isLoading);
   const mode = useSelector((store) => store.theme.mode);
   const Theme = useSelector((store) => store.theme);
-
+  const { isLog = false } = useSelector((store) => store.users);
   const [cantidadProducto, setCantidad] = useState(1);
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -190,13 +190,15 @@ const CardsDetails = () => {
                 <LoadingButton
                   loading={loadingCart}
                   loadingPosition="end"
+                  disabled={isLog}
                   endIcon={<Icon icon="material-symbols:shopping-cart" />}
                   variant="contained"
                   color="secondary"
                   onClick={(e) => {
                     if (
                       cantidadProducto > 0 &&
-                      cantidadProducto <= productDetail.stock
+                      cantidadProducto <= productDetail.stock &&
+                      isLog
                     ) {
                       dispatch(
                         setCart({
@@ -205,10 +207,17 @@ const CardsDetails = () => {
                         })
                       );
                     } else {
-                      Toast.fire({
-                        icon: "error",
-                        title: "Error al elegir cantidad de producto!",
-                      });
+                      if (isLog) {
+                        Toast.fire({
+                          icon: "error",
+                          title: "Error al elegir cantidad de producto!",
+                        });
+                      } else {
+                        Toast.fire({
+                          icon: "warning",
+                          title: "Recuerda registrarte para realizar compras!",
+                        });
+                      }
                     }
                   }}
                 >

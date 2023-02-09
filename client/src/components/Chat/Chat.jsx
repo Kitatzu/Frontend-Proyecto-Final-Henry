@@ -13,20 +13,16 @@ import {
   ListItem,
   ListItemText,
   Grid,
-  FormControl,
   TextField,
   IconButton,
 } from "@mui/material";
-
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import SendIcon from "@mui/icons-material/Send";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import ChatIcon from "@mui/icons-material/Chat";
 import "./Chat.css";
 import Bar from "../Bar/Bar";
-import { convertLength } from "@mui/material/styles/cssUtils";
 import UsersConnected from "./UsersConnected";
 
 export const socket = io(Global.URL);
@@ -58,9 +54,9 @@ const useChatStyles = makeStyles((theme) => ({
   date: {
     display: "flex",
     justifyContent: "center",
-    backgroundColor: "#184FF5",
+    backgroundColor: "#1976D2",
     color: "white",
-    borderRadius: "10%",
+    borderRadius: "4px",
   },
 }));
 
@@ -177,7 +173,7 @@ export default function Chat() {
           }
         >
           <ListItemAvatar>
-            <Avatar src={message.user.avatar} secondary={firstName} />
+            <Avatar alt={firstName} src={message.user.avatar} />
           </ListItemAvatar>
           <Box>
             <ListItemText
@@ -207,121 +203,101 @@ export default function Chat() {
 
   return (
     <Fragment>
-      <ChatIcon onClick={handleOpen} />
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+      {/* <ChatIcon onClick={handleOpen} /> */}
+
+      <Box
         style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          width: "63%",
+          minWidth: "max-content",
+          height: "100%",
         }}
       >
-        <div
-          style={{
-            width: "63%",
-            height: "100%",
-          }}
-        >
-          <Container >
-            <Bar />
-            <Paper id="chat-window" elevation={22} sx={{
-                  background: theme[mode].primary,
-                }}>
-               <Box display="flex">
-                  <Typography
-                    sx={{
-                      fontSize: { xs: "30px", sm: "40px" },
-                      fontWeight: 800,
-                      color: "#308FFD",
-                    }}
-                    component="h1"
-                  >
-                    NOVA
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: { xs: "30px", sm: "40px" },
-                      fontWeight: 600,
-                      color: theme[mode].textPrimary,
-                    }}
-                    component="h1"
-                  >
-                    CHAT
-                  </Typography>
-                </Box>
-              <Box 
-                p={3}
+        <Container>
+          <Bar />
+          <Paper
+            id="chat-window"
+            elevation={22}
+            sx={{
+              background: theme[mode].primary,
+            }}
+          >
+            <Box display="flex" width={"100%"} padding="20px">
+              <Typography
                 sx={{
-                  background: theme[mode].primary,
+                  fontSize: { xs: "30px", sm: "40px" },
+                  fontWeight: 800,
+                  color: "#308FFD",
                 }}
-                display="flex"
-                flexDirection="row"
-                justifyContent="space-between"
-                alignItems="center"
-                gap="20px"
+                component="h1"
               >
-
-                <Divider />
-                <List id="chat-window">
-                  <UsersConnected />
-                </List>
-                <Grid container spacing={4} alignItems="center">
-                  <Grid id="chat-window" xs={12} item>
-                    <List
-                      id="chat-window-messages"
-                      sx={{ color: theme[mode].textPrimary }}
-                    >
-                      {listChatMessages}
-                      <ListItem ref={scrollBottomRef}></ListItem>
-                    </List>
-                  </Grid>
-                  <Grid xs={2} item>
-                    <FormControl fullWidth>
-                      <TextField
-                        onChange={handleUserChange}
-                        value={firstName}
-                        /* color="primary" */
-                        sx={{ width: "80px" }}
-                        focused
-                        InputProps={{
-                          style: {
-                            backgroundColor: "#184FF5",
-                            color: "white",
-                          },
-                        }}
-                      />
-                    </FormControl>
-                  </Grid>
-                  <Grid xs={9} item>
-                    <FormControl fullWidth>
-                      <TextField
-                        onChange={handleMessageChange}
-                        onKeyDown={handleEnterKey}
-                        value={message}
-                        label="Escribe tu mensaje"
-                        variant="outlined"
-                        sx={{ width: "325px" }}
-                      />
-                    </FormControl>
-                  </Grid>
-                  <Grid xs={1} item>
-                    <IconButton
-                      onClick={handleSubmit}
-                      aria-label="send"
-                      color="primary"
-                    >
-                      <SendIcon />
-                    </IconButton>
-                  </Grid>
-                </Grid>
+                NOVA
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: { xs: "30px", sm: "40px" },
+                  fontWeight: 600,
+                  color: theme[mode].textPrimary,
+                }}
+                component="h1"
+              >
+                CHAT
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                background: theme[mode].primary,
+              }}
+              display="flex"
+              flexDirection="row"
+              justifyContent="center"
+              alignItems="flex-start"
+              gap="20px"
+              padding="20px"
+            >
+              <Divider />
+              <Box>
+                <UsersConnected />
               </Box>
-            </Paper>
-          </Container>
-        </div>
-      </Modal>
+              <Box>
+                <Grid id="chat-window" xs={12} item>
+                  <List
+                    id="chat-window-messages"
+                    sx={{ color: theme[mode].textPrimary }}
+                  >
+                    {listChatMessages}
+                    <ListItem ref={scrollBottomRef}></ListItem>
+                  </List>
+                </Grid>
+
+                <Box
+                  width={"100%"}
+                  display="flex"
+                  justifyContent={"center"}
+                  alignItems="center"
+                  gap={"20px"}
+                >
+                  <TextField
+                    onChange={handleMessageChange}
+                    onKeyDown={handleEnterKey}
+                    value={message}
+                    label="Escribe tu mensaje"
+                    variant="outlined"
+                    sx={{ width: "325px" }}
+                  />
+
+                  <IconButton
+                    onClick={handleSubmit}
+                    aria-label="send"
+                    color="primary"
+                  >
+                    <SendIcon />
+                  </IconButton>
+                </Box>
+              </Box>
+            </Box>
+          </Paper>
+        </Container>
+      </Box>
     </Fragment>
   );
 }

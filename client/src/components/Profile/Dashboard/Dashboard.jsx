@@ -90,7 +90,7 @@ const Dashboard = () => {
                 fontWeight={800}
                 sx={{ color: "#1976D2" }}
               >
-                GANANCIAS: {reward}$
+                TOTAL FACTURADO: {reward}$
               </Typography>
             </Box>
           </Box>

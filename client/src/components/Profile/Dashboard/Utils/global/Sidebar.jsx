@@ -194,20 +194,6 @@ const Sidebar = ({ collapsed }) => {
               Herramientas
             </Typography>
 
-            <Box component={"li"} className="pro-menu-item">
-              <Box className="pro-inner-item" component={"div"} role="button">
-                <Box component={"span"} className="pro-icon-wrapper">
-                  <IconButton>
-                    {/* <Link to={"/chat"}> */}
-                    <Chat />
-                    {/*  </Link> */}
-                  </IconButton>
-                </Box>
-                <Box component={"span"} className="pro-item-content">
-                  <Typography>Chat</Typography>
-                </Box>
-              </Box>
-            </Box>
             <Item
               title="Agregar alerta"
               to="/notify"
