@@ -190,7 +190,6 @@ const CardsDetails = () => {
                 <LoadingButton
                   loading={loadingCart}
                   loadingPosition="end"
-                  disabled={isLog}
                   endIcon={<Icon icon="material-symbols:shopping-cart" />}
                   variant="contained"
                   color="secondary"
