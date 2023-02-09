@@ -230,13 +230,28 @@ export default function Chat() {
             <Paper id="chat-window" elevation={22} sx={{
                   background: theme[mode].primary,
                 }}>
-              <Typography
-                variant="h5"
-                gutterBottom
-                sx={{ color: theme[mode].textPrimary, padding: "20px" }}
-              >
-                Conversa con los especialistas...!!!
-              </Typography>
+               <Box display="flex">
+                  <Typography
+                    sx={{
+                      fontSize: { xs: "30px", sm: "40px" },
+                      fontWeight: 800,
+                      color: "#308FFD",
+                    }}
+                    component="h1"
+                  >
+                    NOVA
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontSize: { xs: "30px", sm: "40px" },
+                      fontWeight: 600,
+                      color: theme[mode].textPrimary,
+                    }}
+                    component="h1"
+                  >
+                    CHAT
+                  </Typography>
+                </Box>
               <Box 
                 p={3}
                 sx={{
@@ -248,6 +263,7 @@ export default function Chat() {
                 alignItems="center"
                 gap="20px"
               >
+
                 <Divider />
                 <List id="chat-window">
                   <UsersConnected />
