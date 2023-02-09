@@ -27,18 +27,10 @@ import ChatIcon from "@mui/icons-material/Chat";
 import "./Chat.css";
 import Bar from "../Bar/Bar";
 import { convertLength } from "@mui/material/styles/cssUtils";
+import UsersConnected from "./UsersConnected";
 
 export const socket = io(Global.URL);
 const useChatStyles = makeStyles((theme) => ({
-  userMessageText: {
-    color: "black",
-    backgroundColor: "#CDFAB9",
-    textAlign: "right",
-    borderRadius: "10px",
-    width: "fit-content",
-
-    padding: "10px",
-  },
   otherMessageText: {
     color: "black",
     backgroundColor: "white",
@@ -52,8 +44,6 @@ const useChatStyles = makeStyles((theme) => ({
     textAlign: "right",
     borderRadius: "10px",
     width: "fit-content",
-
-    padding: "10px",
   },
   userBox: {
     display: "flex",
@@ -98,22 +88,19 @@ export default function Chat() {
     e.preventDefault();
     const newMessage = {
       content: message,
-      user: { userName, avatar},
+      user: { userName, avatar },
       createdAt: new Date(),
     };
     socket.emit("message", newMessage);
+    console.log(newMessage);
     setMessages([...messages, newMessage]);
+    console.log(messages);
     setMessage("");
   };
 
   useEffect(() => {
     const receiveMessage = (message) => {
-
       setMessages([...messages, message]);
-      /* if (scrollBottomRef.current) {
-        const scrollBottom = scrollBottomRef.current.scrollTop() + scrollBottomRef.current.height()
-        scrollBottomRef.current.scrollIntoView({ behavior: "smooth" });
-      } */
     };
     const getMessages = (allMessages) => {
       setMessages(allMessages);
@@ -190,9 +177,7 @@ export default function Chat() {
           }
         >
           <ListItemAvatar>
-           
             <Avatar src={message.user.avatar} secondary={firstName} />
-            
           </ListItemAvatar>
           <Box>
             <ListItemText
@@ -236,27 +221,37 @@ export default function Chat() {
       >
         <div
           style={{
-            width: "43%",
+            width: "63%",
             height: "100%",
           }}
         >
-          <Container>
-            {/* <Bar /> */}
-            <Paper elevation={5}>
-              <Box
+          <Container >
+            <Bar />
+            <Paper id="chat-window" elevation={22} sx={{
+                  background: theme[mode].primary,
+                }}>
+              <Typography
+                variant="h5"
+                gutterBottom
+                sx={{ color: theme[mode].textPrimary, padding: "20px" }}
+              >
+                Conversa con los especialistas...!!!
+              </Typography>
+              <Box 
                 p={3}
                 sx={{
                   background: theme[mode].primary,
                 }}
+                display="flex"
+                flexDirection="row"
+                justifyContent="space-between"
+                alignItems="center"
+                gap="20px"
               >
-                <Typography
-                  variant="h5"
-                  gutterBottom
-                  sx={{ color: theme[mode].textPrimary, padding: "20px" }}
-                >
-                  Conversa con los especialistas...!!!
-                </Typography>
                 <Divider />
+                <List id="chat-window">
+                  <UsersConnected />
+                </List>
                 <Grid container spacing={4} alignItems="center">
                   <Grid id="chat-window" xs={12} item>
                     <List
