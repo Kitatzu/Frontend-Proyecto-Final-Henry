@@ -21,6 +21,7 @@ import {
   getPageCero,
   DeleteUser,
   RestoreUser,
+  rootUser,
 } from "../../../../Redux/Thunks/getUser";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -136,7 +137,9 @@ export default function UsersTable() {
                             >
                               <ChangeCircleRoundedIcon />
                             </Button>
-                            <IconButton>
+                            <IconButton
+                              onClick={() => dispatch(rootUser(e.id))}
+                            >
                               <Icon icon="dashicons:admin-network" />
                             </IconButton>
                           </TableCell>

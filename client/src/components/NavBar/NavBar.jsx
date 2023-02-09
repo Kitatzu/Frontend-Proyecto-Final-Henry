@@ -70,8 +70,9 @@ export default function NavBar() {
     if (userId) {
       dispatch(getUserA(userId));
     }
+
     //TODO: DISPATCH A THUNK GETUSERA
-  }, [dispatch, userId]);
+  }, [dispatch, userId, url]);
 
   //FIXME: PETICION CON USEEFFECT
 
