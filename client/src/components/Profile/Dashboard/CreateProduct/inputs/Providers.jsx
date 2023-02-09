@@ -33,7 +33,7 @@ export default function Providers({ handleChange, providers }) {
       renderInput={(params) => (
         <TextField
           {...params}
-          label="provider"
+          label="Provedor"
           //   style={{ color: Theme[mode].textPrimary }}
           inputProps={{
             ...params.inputProps,

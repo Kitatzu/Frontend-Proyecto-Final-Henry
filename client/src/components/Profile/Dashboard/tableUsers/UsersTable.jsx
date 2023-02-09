@@ -105,8 +105,8 @@ export default function UsersTable() {
                 <TableRow>
                   {/*  <TableCell align="center">UserName</TableCell> */}
                   <TableCell align="center">email</TableCell>
-                  <TableCell align="center">firstName</TableCell>
-                  <TableCell align="center">lastName</TableCell>
+                  <TableCell align="center">Nombre</TableCell>
+                  <TableCell align="center">Apellido</TableCell>
                   <TableCell align="center">rol</TableCell>
                   <TableCell align="center">Estado</TableCell>
                 </TableRow>
@@ -114,6 +114,7 @@ export default function UsersTable() {
               <TableBody>
                 {users !== false
                   ? users.map(
+
                       (
                         e //si no hay datos ignora el map y manda vacio
                       ) => (
@@ -145,7 +146,9 @@ export default function UsersTable() {
                           </TableCell>
                         </TableRow>
                       )
+
                     )
+                  )
                   : null}
               </TableBody>
             </Table>
