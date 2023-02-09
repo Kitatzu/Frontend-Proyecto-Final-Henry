@@ -5,8 +5,12 @@
     font-family: sans-serif;
 }
 .container::-webkit-scrollbar {
-    -webkit-appearance: none;
+  display: none;
 }
+.container{
+  overflow-x: hidden;
+}
+
 a{
   text-decoration: none;
 }

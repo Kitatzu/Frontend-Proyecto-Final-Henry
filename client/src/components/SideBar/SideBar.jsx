@@ -6,7 +6,6 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { setIsLog, setUserName } from "../../Redux/Slices";
-import Chat from "../Chat/Chat";
 
 export default function SideBar() {
   const mode = useSelector((store) => store.theme.mode);
@@ -24,7 +23,7 @@ export default function SideBar() {
     } else {
       setAdmin("0");
     }
-  }, []);
+  }, [dispatch]);
   return (
     <Box
       display={{ xs: "none", sm: "flex" }}
@@ -82,6 +81,13 @@ export default function SideBar() {
             <IconButton>
               <Link to={"/invoices"}>
                 <Icon icon="uil:invoice" color={theme[mode].textPrimary} />
+              </Link>
+            </IconButton>
+          </Box>
+          <Box>
+            <IconButton>
+              <Link to={"/chat"}>
+                <Icon icon="material-symbols:chat" />
               </Link>
             </IconButton>
           </Box>

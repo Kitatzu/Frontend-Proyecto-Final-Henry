@@ -19,11 +19,13 @@ import {
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import SendIcon from "@mui/icons-material/Send";
 import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
-import ChatIcon from "@mui/icons-material/Chat";
+
 import "./Chat.css";
-import Bar from "../Bar/Bar";
+
 import UsersConnected from "./UsersConnected";
+import NavBar from "../NavBar/NavBar";
+import SideBar from "../SideBar/SideBar";
+import AppBar from "../AppBar/AppBar";
 
 export const socket = io(Global.URL);
 const useChatStyles = makeStyles((theme) => ({
@@ -64,15 +66,11 @@ export default function Chat() {
   const classes = useChatStyles();
   const mode = useSelector((store) => store.theme.mode);
   const theme = useSelector((store) => store.theme);
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const dispatch = useDispatch();
   const { isLog } = useSelector((store) => store.users);
   const { avatar, firstName } = useSelector((store) => store.users);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  const [user, setUser] = useState();
+
   const scrollBottomRef = useRef(null);
   const ENTER_KEY_CODE = 13;
 
@@ -118,10 +116,6 @@ export default function Chat() {
       scrollBottomRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages]);
-
-  const handleUserChange = (e) => {
-    setUser(e.target.value);
-  };
 
   const formatDate = (date) => {
     const options = {
@@ -202,25 +196,22 @@ export default function Chat() {
   };
 
   return (
-    <Fragment>
-      {/* <ChatIcon onClick={handleOpen} /> */}
+    <Box width="100%">
+      <NavBar />
 
-      <Box
-        style={{
-          width: "63%",
-          minWidth: "max-content",
-          height: "100%",
-        }}
-      >
-        <Container>
-          <Bar />
-          <Paper
-            id="chat-window"
-            elevation={22}
-            sx={{
-              background: theme[mode].primary,
-            }}
-          >
+      <Box display="flex">
+        <SideBar />
+        <Box
+          sx={{
+            flexGrow: 1,
+            minWidth: "max-content",
+            height: "calc(100vh - 64px)",
+            overflow: "scroll",
+            background: theme[mode].primary,
+          }}
+          className="container"
+        >
+          <Box width="100%">
             <Box display="flex" width={"100%"} padding="20px">
               <Typography
                 sx={{
@@ -242,6 +233,16 @@ export default function Chat() {
               >
                 CHAT
               </Typography>
+              <Typography
+                sx={{
+                  fontSize: { xs: "20px", sm: "30px" },
+                  fontWeight: 600,
+                  color: theme[mode].textPrimary,
+                }}
+                component="h1"
+              >
+                @{firstName}
+              </Typography>
             </Box>
             <Box
               sx={{
@@ -249,17 +250,16 @@ export default function Chat() {
               }}
               display="flex"
               flexDirection="row"
-              justifyContent="center"
-              alignItems="flex-start"
+              justifyContent="space-between"
+              alignItems="center"
               gap="20px"
               padding="20px"
             >
-              <Divider />
               <Box>
                 <UsersConnected />
               </Box>
-              <Box>
-                <Grid id="chat-window" xs={12} item>
+              <Box flexGrow={1}>
+                <Box minWidth={"300px"}>
                   <List
                     id="chat-window-messages"
                     sx={{ color: theme[mode].textPrimary }}
@@ -267,7 +267,7 @@ export default function Chat() {
                     {listChatMessages}
                     <ListItem ref={scrollBottomRef}></ListItem>
                   </List>
-                </Grid>
+                </Box>
 
                 <Box
                   width={"100%"}
@@ -295,9 +295,10 @@ export default function Chat() {
                 </Box>
               </Box>
             </Box>
-          </Paper>
-        </Container>
+          </Box>
+        </Box>
       </Box>
-    </Fragment>
+      <AppBar />
+    </Box>
   );
 }

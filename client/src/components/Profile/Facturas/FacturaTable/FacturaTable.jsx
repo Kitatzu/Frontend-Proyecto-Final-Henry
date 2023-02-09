@@ -16,11 +16,14 @@ import { Link } from "react-router-dom";
 import { Box } from "@mui/system";
 import NavBar from "../../../NavBar/NavBar";
 import SideBar from "../../../SideBar/SideBar";
+import AppBar from "../../../AppBar/AppBar";
 
 export default function FacturaTable() {
   const { userId } = JSON.parse(localStorage.getItem("token"));
   const dispatch = useDispatch();
   const { facturas } = useSelector((state) => state.factura);
+  const theme = useSelector((store) => store.theme);
+  const mode = useSelector((store) => store.theme.mode);
   useEffect(() => {
     dispatch(getFactura(userId));
     return () => {
@@ -33,7 +36,12 @@ export default function FacturaTable() {
       <NavBar />
       <Box display={"flex"}>
         <SideBar />
-        <Box width={"100%"} padding="20px">
+        <Box
+          flexGrow={1}
+          padding="20px"
+          height="calc(100vh - 64px)"
+          sx={{ background: theme[mode].primary }}
+        >
           <TableContainer component={Paper}>
             <Table sx={{ width: "100%" }} aria-label="simple table">
               <TableHead>
@@ -69,6 +77,7 @@ export default function FacturaTable() {
           </TableContainer>
         </Box>
       </Box>
+      <AppBar />
     </Box>
   );
 }
