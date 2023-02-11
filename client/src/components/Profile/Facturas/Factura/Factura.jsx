@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect } from "react";
-import ReactDOM from "react-dom";
+
 import Pdf from "react-to-pdf";
 import NavBar from "../../../NavBar/NavBar";
 import { setRedir } from "../../../../Redux/Slices";
@@ -22,6 +22,7 @@ import { Navigate, useParams } from "react-router-dom";
 import { getFacturaDetail } from "../../../../Redux/Thunks/factura";
 import io from "socket.io-client";
 import Global from "../../../../Global";
+import { Icon } from "@iconify/react";
 const socket = io(Global.URL);
 const Factura = () => {
   const { facturaId } = useParams();
@@ -74,7 +75,7 @@ const Factura = () => {
                       color: "#308FFD",
                     }}
                   >
-                    NOVA
+                    <Icon icon="uil:invoice" color={"#565656"} /> NOVA
                   </Typography>
                   <Typography sx={{ fontSize: { xs: "30px", sm: "60px" } }}>
                     Tech Power
