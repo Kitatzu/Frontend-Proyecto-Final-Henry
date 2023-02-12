@@ -52,7 +52,10 @@ const Footer = () => {
               <Icon icon="ri:android-fill" color="white" />
             </IconButton>
             <Typography sx={{ color: "white", fontSize: "24px" }}>
-              Descarga nuestra app para android.<Link to="">aqui</Link>
+              Descarga nuestra app para android.
+              <Link to="https://download937.mediafire.com/s01mruv80glg/vb2rq5z8cdye6ez/com.novatech.apk">
+                aqui
+              </Link>
             </Typography>
           </Box>
         </Box>
