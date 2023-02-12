@@ -287,7 +287,7 @@ export default function Chat() {
                 flexDirection="row"
                 justifyContent="space-between"
                 alignItems="center"
-                gap="20px"
+                gap="0px"
                 padding={{ xs: "none", md: "20px" }}
                 minWidth="100px !important"
               >
