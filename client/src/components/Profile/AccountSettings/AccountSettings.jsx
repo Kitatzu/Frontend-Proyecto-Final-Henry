@@ -44,7 +44,10 @@ const AccountSettings = () => {
                 minWidth: "300px",
               }}
             >
-              <ul className="Account-links">
+              <ul
+                className="Account-links"
+                style={{ display: "flex", gap: "20px" }}
+              >
                 <li>
                   <Button
                     startIcon={<Icon icon="mdi:user" />}

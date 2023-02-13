@@ -20,10 +20,22 @@ import NavBar from "../../../NavBar/NavBar";
 import { setRedir } from "../../../../Redux/Slices";
 import { Navigate, useParams } from "react-router-dom";
 import { getFacturaDetail } from "../../../../Redux/Thunks/factura";
-import io from "socket.io-client";
-import Global from "../../../../Global";
+import { socket } from "../../../../socket/socket";
 import { Icon } from "@iconify/react";
-const socket = io(Global.URL);
+import { Capacitor } from "@capacitor/core";
+import { HTTP } from "@ionic-native/http";
+import { File } from "@ionic-native/file";
+import { FileOpener } from "@ionic-native/file-opener";
+import Toast from "../../../Toast/Toast";
+import html2canvas from "html2canvas";
+import axios from "axios";
+import Global from "../../../../Global";
+import Swal from "sweetalert2";
+import { Buffer } from "buffer";
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+import footer from "../../../assets/footer.png";
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 const Factura = () => {
   const { facturaId } = useParams();
   const dispatch = useDispatch();
@@ -136,13 +148,94 @@ const Factura = () => {
         </Button>
         <Pdf
           targetRef={ref}
-          filename={"factura" + facturaDetail?.numberBill + ".pdf"}
+          filename={
+            "factura" +
+            facturaDetail?.numberBill +
+            facturaDetail?.paymentId +
+            ".pdf"
+          }
         >
-          {({ toPdf }) => (
-            <Button variant="contained" color="secondary" onClick={toPdf}>
-              PDF
-            </Button>
-          )}
+          {({ toPdf, render }) => {
+            console.log(render);
+            console.log(toPdf);
+            return (
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={async () => {
+                  const platform = Capacitor.getPlatform();
+                  if (platform === "web") {
+                    toPdf();
+                  } else {
+                    const filePath = `${File.dataDirectory}Factura-${facturaDetail?.paymentId}-${facturaDetail?.numberBill}.pdf`;
+                    const A4_WIDTH = 595.28;
+                    const A4_HEIGHT = 841.89;
+
+                    html2canvas(ref.current, {
+                      logging: false,
+                      useCORS: true,
+                      width: A4_WIDTH,
+                      height: A4_HEIGHT,
+                    }).then(async (canvas) => {
+                      const img = canvas.toDataURL("image/png");
+                      const base64Data = img.replace(
+                        /^data:image\/(png|jpg);base64,/,
+                        ""
+                      );
+                      const doc = {
+                        content: [
+                          {
+                            image: "data:image/png;base64," + base64Data,
+                            width: 750,
+                            height: 900,
+                          },
+                        ],
+                        pageSize: "A4",
+                      };
+
+                      const pdf = await pdfMake.createPdf(doc);
+                      pdf.getBase64(async (encoded) => {
+                        await pdf.getBlob((blob) => {
+                          File.writeFile(
+                            File.dataDirectory,
+                            `Factura-${facturaDetail?.paymentId}-${facturaDetail?.numberBill}.pdf`,
+                            blob,
+                            { replace: true }
+                          ).then(async (response) => {
+                            console.log(response);
+
+                            localStorage.setItem(
+                              `${facturaDetail?.paymentId}-${facturaDetail?.numberBill}`,
+                              filePath
+                            );
+                            Swal.fire({
+                              icon: "success",
+                              title: "Se guardo el archivo correctamente",
+                            });
+                            const openArch = localStorage.getItem(
+                              `${facturaDetail?.paymentId}-${facturaDetail?.numberBill}`
+                            );
+                            if (!openArch) {
+                              Toast.fire({
+                                icon: "error",
+                                title: "No se ha descargado el archivo!",
+                              });
+                            } else {
+                              const mimeType = "application/pdf";
+                              // Abrir archivo
+                              await FileOpener.open(openArch, mimeType);
+                            }
+                          });
+                        });
+                      });
+                    });
+                  }
+                }}
+              >
+                PDF
+              </Button>
+            );
+          }}
         </Pdf>
       </Box>
     </>

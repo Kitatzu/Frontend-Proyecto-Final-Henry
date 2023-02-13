@@ -226,7 +226,6 @@ export default function Chat() {
           <Box
             sx={{
               flexGrow: 1,
-
               height: "calc(100vh - 64px)",
               overflow: "scroll",
               background: theme[mode].primary,
@@ -235,6 +234,9 @@ export default function Chat() {
             className="container"
           >
             <Box width="100%">
+              <Typography variant="h3" sx={{ padding: "20px" }}>
+                Chat Grupal
+              </Typography>
               <Box
                 display="flex"
                 width={"100%"}
