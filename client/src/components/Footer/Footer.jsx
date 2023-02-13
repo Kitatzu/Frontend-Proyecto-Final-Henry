@@ -11,7 +11,7 @@ const Footer = () => {
   return (
     <footer className="footer">
       <Box display={"flex"} flexWrap="wrap" justifyContent={"center"}>
-        <Box width={"100%"}>
+        <Box width={"100%"} padding="20px">
           <img src={footer} alt="hello" width={"100%"} />
         </Box>
         <div className="container">
@@ -53,7 +53,7 @@ const Footer = () => {
             </IconButton>
             <Typography sx={{ color: "white", fontSize: "24px" }}>
               Descarga nuestra app para android.
-              <Link to="https://download937.mediafire.com/s01mruv80glg/vb2rq5z8cdye6ez/com.novatech.apk">
+              <Link to="https://download940.mediafire.com/oruof2gc9ybg/vwkucwrbkain9f0/com.novatech.apk">
                 aqui
               </Link>
             </Typography>
