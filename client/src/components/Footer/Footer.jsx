@@ -53,7 +53,7 @@ const Footer = () => {
             </IconButton>
             <Typography sx={{ color: "white", fontSize: "24px" }}>
               Descarga nuestra app para android.
-              <Link to="https://download940.mediafire.com/oruof2gc9ybg/vwkucwrbkain9f0/com.novatech.apk">
+              <Link to="https://www.mediafire.com/file/vwkucwrbkain9f0/com.novatech.apk/file">
                 aqui
               </Link>
             </Typography>
